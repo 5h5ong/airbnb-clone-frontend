@@ -3,9 +3,10 @@ import styled from 'styled-components';
 
 interface IRowsProp {
   center?: boolean;
+  margin?: boolean;
 }
 
-type FlexRowsProp = Pick<IRowsProp, 'center'>;
+type FlexRowsProp = Pick<IRowsProp, 'center' | 'margin'>;
 
 const FlexRows = styled.div<FlexRowsProp>`
   display: flex;
@@ -16,10 +17,18 @@ const FlexRows = styled.div<FlexRowsProp>`
       ? `justify-content: center;
   align-items: center;`
       : ''}
+  /* margin  적용 */
+  & > *:not(:last-child) {
+    margin-right: ${(props): string => (props.margin ? `5px` : `0px`)};
+  }
 `;
 
-const Rows: React.FC<IRowsProp> = ({ children, center }) => {
-  return <FlexRows center={center}>{children}</FlexRows>;
+const Rows: React.FC<IRowsProp> = ({ children, center, margin }) => {
+  return (
+    <FlexRows center={center} margin={margin}>
+      {children}
+    </FlexRows>
+  );
 };
 
 export default Rows;
