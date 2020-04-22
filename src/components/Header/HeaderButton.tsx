@@ -10,9 +10,9 @@ const ButtonContainer = styled.div`
 const HeaderButton: React.FC = () => {
   return (
     <ButtonContainer>
-      <Rows center>
-        <div>로그인</div>
-        <RoundedButton text="회원 가입" link="/home" />
+      <Rows center margin>
+        <RoundedButton type="gray" text="로그인" link="/login" />
+        <RoundedButton type="shadow" text="회원 가입" link="/home" />
       </Rows>
     </ButtonContainer>
   );
