@@ -8,7 +8,8 @@ interface IUseDeviceWidthReturnType {
  * 변경된 width 값을 추적하는 hook
  */
 const useDeviceWidth = (): IUseDeviceWidthReturnType => {
-  const [width, setWidth] = useState(0);
+  // 초기에 innerWidth를 넣어줘서 문제가 생기지 않도록 만듬
+  const [width, setWidth] = useState(window.innerWidth);
 
   useEffect(() => {
     const handleInnerWidth = (): void => {
