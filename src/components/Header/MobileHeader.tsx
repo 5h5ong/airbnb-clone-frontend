@@ -31,6 +31,9 @@ const ItemContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  &:hover {
+    color: ${(props): string => props.theme.color.mainAirbnbColor};
+  }
 `;
 const Icon = styled.div`
   width: 24px;
