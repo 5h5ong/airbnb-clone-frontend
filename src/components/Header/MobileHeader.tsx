@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import { ReactComponent as AirbnbHeartIcon } from '../../shared/icons/AirbnbHeartIcon.svg';
 import { ReactComponent as AirbnbIcon } from '../../shared/icons/AirbnbIcon.svg';
 import { ReactComponent as AirbnbUserIcon } from '../../shared/icons/AirbnbUserIcon.svg';
+import ItemContainer from '../Wrappers/ItemContainer';
+import { useLocation } from 'react-router-dom';
 
 const Container = styled.div`
   display: flex;
@@ -24,50 +26,21 @@ const Header = styled.div`
   height: 100%;
   background-color: transparent;
 `;
-const ItemContainer = styled.div`
-  display: flex;
-  /* item 간의 간격 조정 */
-  flex: 1 1 0px;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  &:hover {
-    color: ${(props): string => props.theme.color.mainAirbnbColor};
-  }
-`;
-const Icon = styled.div`
-  width: 24px;
-  height: 24px;
-`;
-const HeaderText = styled.div`
-  margin-top: 8px;
-  font-size: 10px;
-  font-weight: 600;
-  line-height: 12px;
-  max-height: 24px;
-`;
 
 const MobileHeader: React.FC = () => {
+  const { pathname } = useLocation();
+
   return (
     <Container>
       <Header>
-        <ItemContainer>
-          <Icon>
-            <AirbnbIcon />
-          </Icon>
-          <HeaderText>둘러보기</HeaderText>
+        <ItemContainer text="둘러보기" color={pathname === '/'}>
+          <AirbnbIcon />
         </ItemContainer>
-        <ItemContainer>
-          <Icon>
-            <AirbnbHeartIcon />
-          </Icon>
-          <HeaderText>저장 목록</HeaderText>
+        <ItemContainer text="저장 목록">
+          <AirbnbHeartIcon />
         </ItemContainer>
-        <ItemContainer>
-          <Icon>
-            <AirbnbUserIcon />
-          </Icon>
-          <HeaderText>로그인</HeaderText>
+        <ItemContainer text="로그인">
+          <AirbnbUserIcon />
         </ItemContainer>
       </Header>
     </Container>
