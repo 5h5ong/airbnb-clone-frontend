@@ -1,5 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
+import { ReactComponent as AirbnbHeartIcon } from '../../shared/icons/AirbnbHeartIcon.svg';
+import { ReactComponent as AirbnbIcon } from '../../shared/icons/AirbnbIcon.svg';
+import { ReactComponent as AirbnbUserIcon } from '../../shared/icons/AirbnbUserIcon.svg';
 
 const Container = styled.div`
   display: flex;
@@ -29,7 +32,7 @@ const ItemContainer = styled.div`
   justify-content: center;
   align-items: center;
 `;
-const Icon = styled.img`
+const Icon = styled.div`
   width: 24px;
   height: 24px;
 `;
@@ -46,15 +49,21 @@ const MobileHeader: React.FC = () => {
     <Container>
       <Header>
         <ItemContainer>
-          <Icon src="/AirbnbIcon.svg" />
+          <Icon>
+            <AirbnbIcon />
+          </Icon>
           <HeaderText>둘러보기</HeaderText>
         </ItemContainer>
         <ItemContainer>
-          <Icon src="/AirbnbHeart.svg" />
+          <Icon>
+            <AirbnbHeartIcon />
+          </Icon>
           <HeaderText>저장 목록</HeaderText>
         </ItemContainer>
         <ItemContainer>
-          <Icon src="/AirbnbUser.svg" />
+          <Icon>
+            <AirbnbUserIcon />
+          </Icon>
           <HeaderText>로그인</HeaderText>
         </ItemContainer>
       </Header>

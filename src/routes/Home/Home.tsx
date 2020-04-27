@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import ImageCard from '../../components/Cards/ImageCard';
-import WithHeaderPadding from '../../components/HOCs/WithHeaderPadding/WithHeaderPadding';
 
 const FirstSection = styled.div`
   height: 100vh;
