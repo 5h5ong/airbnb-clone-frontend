@@ -53,4 +53,4 @@ const Home: React.FC = () => {
   );
 };
 
-export default WithHeaderPadding(Home);
+export default Home;

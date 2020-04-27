@@ -4,8 +4,6 @@ import { useHistory } from 'react-router-dom';
 import useScroll from '../../hooks/useScroll';
 import AirbnbLogo from '../../icons/AirbnbLogo';
 import HeaderButton from './HeaderButton';
-import useDeviceWidth from '../../hooks/useDeviceWidth';
-import checkDevice from '../../Functions/checkDevice';
 
 const HeaderBase = styled.div`
   display: flex;
