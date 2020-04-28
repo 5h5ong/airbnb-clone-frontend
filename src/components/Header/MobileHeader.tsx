@@ -5,8 +5,9 @@ import { ReactComponent as AirbnbHeartIcon } from '../../shared/icons/AirbnbHear
 import { ReactComponent as AirbnbIcon } from '../../shared/icons/AirbnbIcon.svg';
 import { ReactComponent as AirbnbUserIcon } from '../../shared/icons/AirbnbUserIcon.svg';
 import ItemContainer from '../Wrappers/ItemContainer';
+import useScroll from '../../hooks/useScroll';
 
-const Container = styled.div`
+const Container = styled.div<{ hidden?: boolean }>`
   display: flex;
   position: fixed;
   bottom: 0px;
@@ -16,6 +17,7 @@ const Container = styled.div`
   background-color: white;
   /* 헤더 상단의 border */
   border-top: 1px solid rgb(221, 221, 221);
+  visibility: ${(props): string => (props.hidden ? 'hidden' : '')};
 `;
 const Header = styled.div`
   display: flex;
@@ -29,9 +31,10 @@ const Header = styled.div`
 
 const MobileHeader: React.FC = () => {
   const { pathname } = useLocation();
+  const { isEnd } = useScroll();
 
   return (
-    <Container>
+    <Container hidden={isEnd}>
       <Header>
         <ItemContainer text="둘러보기" color={pathname === '/'}>
           <AirbnbIcon />
