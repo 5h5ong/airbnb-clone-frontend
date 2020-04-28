@@ -23,14 +23,14 @@ const HeaderContainerSecond = styled(HeaderBase)`
 `;
 
 const DesktopHeader: React.FC = () => {
-  const { verticalScroll } = useScroll();
+  const { isTop } = useScroll();
   const history = useHistory();
 
   const onClickLogo = (): void => {
     history.push('/');
   };
 
-  return verticalScroll === 0 ? (
+  return isTop ? (
     <HeaderContainerFirst>
       <div onClick={onClickLogo}>
         <AirbnbLogo />
