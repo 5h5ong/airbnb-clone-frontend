@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useLocation } from 'react-router-dom';
 import { ReactComponent as AirbnbHeartIcon } from '../../shared/icons/AirbnbHeartIcon.svg';
 import { ReactComponent as AirbnbIcon } from '../../shared/icons/AirbnbIcon.svg';
 import { ReactComponent as AirbnbUserIcon } from '../../shared/icons/AirbnbUserIcon.svg';
 import ItemContainer from '../Wrappers/ItemContainer';
-import { useLocation } from 'react-router-dom';
 
 const Container = styled.div`
   display: flex;
@@ -15,7 +15,7 @@ const Container = styled.div`
   height: 65px;
   background-color: white;
   /* 헤더 상단의 border */
-  border-top: 1px solid black;
+  border-top: 1px solid rgb(221, 221, 221);
 `;
 const Header = styled.div`
   display: flex;
