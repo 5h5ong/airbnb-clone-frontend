@@ -9,9 +9,7 @@ import useDeviceWidth from '../../hooks/useDeviceWidth';
  */
 const Header: React.FC = () => {
   const { width } = useDeviceWidth();
-  console.log(width);
   const { type: deviceType } = checkDevice(width);
-  console.log(deviceType);
 
   return (
     <div>{deviceType === 'desktop' ? <DesktopHeader /> : <MobileHeader />}</div>
