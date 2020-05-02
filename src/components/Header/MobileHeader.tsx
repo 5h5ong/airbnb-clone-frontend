@@ -7,7 +7,7 @@ import { ReactComponent as AirbnbUserIcon } from '../../shared/icons/AirbnbUserI
 import ItemContainer from '../Wrappers/ItemContainer';
 import useScroll from '../../hooks/useScroll';
 
-const Container = styled.div<{ hidden?: boolean }>`
+const Container = styled.div<{ headerHidden?: boolean }>`
   display: flex;
   position: fixed;
   bottom: 0px;
@@ -17,7 +17,8 @@ const Container = styled.div<{ hidden?: boolean }>`
   background-color: white;
   /* 헤더 상단의 border */
   border-top: 1px solid rgb(221, 221, 221);
-  visibility: ${(props): string => (props.hidden ? 'hidden' : '')};
+  opacity: ${(props): string => (props.headerHidden ? '0' : '1')};
+  transition: opacity 0.5s;
 `;
 const Header = styled.div`
   display: flex;
@@ -34,7 +35,7 @@ const MobileHeader: React.FC = () => {
   const { isEnd } = useScroll();
 
   return (
-    <Container hidden={isEnd}>
+    <Container headerHidden={isEnd}>
       <Header>
         <ItemContainer text="둘러보기" color={pathname === '/'}>
           <AirbnbIcon />
