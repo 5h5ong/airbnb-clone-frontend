@@ -10,9 +10,33 @@ interface PageLayoutWithImageProps {
 }
 type StyledProps = Pick<PageLayoutWithImageProps, 'image'>;
 
-const ImageSection = styled.div<StyledProps>`
+const ShadowCover = styled.div`
+  position: absolute;
   width: 100%;
   height: 720px;
+  top: 0px;
+  background: linear-gradient(
+    to right,
+    rgba(0, 0, 1, 0.4) 0%,
+    rgba(0, 0, 0, 0.394) 1.4%,
+    rgba(0, 0, 0, 0.378) 5.6%,
+    rgba(0, 0, 0, 0.35) 12.5%,
+    rgba(0, 0, 0, 0.311) 22.2%,
+    rgba(0, 0, 0, 0.261) 34.7%,
+    rgba(0, 0, 0, 0.2) 50%,
+    rgba(0, 0, 0, 0.139) 65.3%,
+    rgba(0, 0, 0, 0.089) 77.8%,
+    rgba(0, 0, 0, 0.05) 87.5%,
+    rgba(0, 0, 0, 0.022) 94.4%,
+    rgba(0, 0, 0, 0) 100%
+  );
+`;
+const ImageContainer = styled.div`
+  width: 100%;
+  height: 720px;
+`;
+const ImageSection = styled.div<StyledProps>`
+  height: 100%;
   background-image: ${(props): string => `url(${props.image})`};
   background-size: cover;
   background-repeat: no-repeat;
@@ -28,6 +52,7 @@ const TextSection = styled.div`
 `;
 const TextContainer = styled.div`
   display: flex;
+  z-index: 1;
   flex-direction: column;
   color: white;
 `;
@@ -60,15 +85,18 @@ const PageLayoutWithImage: React.FC<PageLayoutWithImageProps> = ({
 }) => {
   return (
     <>
-      <ImageSection image={image}>
-        <TextSection>
-          <TextContainer>
-            <SubTitle>{subTitle}</SubTitle>
-            <Title>{title}</Title>
-            <Description>{description}</Description>
-          </TextContainer>
-        </TextSection>
-      </ImageSection>
+      <ImageContainer>
+        <ImageSection image={image}>
+          <TextSection>
+            <TextContainer>
+              <SubTitle>{subTitle}</SubTitle>
+              <Title>{title}</Title>
+              <Description>{description}</Description>
+            </TextContainer>
+          </TextSection>
+        </ImageSection>
+        <ShadowCover />
+      </ImageContainer>
       <ComponentSection>{children}</ComponentSection>
     </>
   );
