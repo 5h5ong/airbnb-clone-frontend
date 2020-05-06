@@ -18,13 +18,58 @@ const ImageSection = styled.div<StyledProps>`
   background-repeat: no-repeat;
   background-position: center;
 `;
+const TextSection = styled.div`
+  display: flex;
+  height: 100%;
+  justify-content: flex-start;
+  align-items: center;
+  padding-left: 80px;
+  padding-right: 80px;
+`;
+const TextContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  color: white;
+`;
+const SubTitle = styled.div`
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 800;
+  letter-spacing: 0.04rem;
+  margin-bottom: 4px;
+`;
+const Title = styled.div`
+  font-size: 48px;
+  line-height: 52px;
+  font-weight: 800;
+`;
+const Description = styled.div`
+  font-size: 18px;
+  line-height: 26px;
+  margin-top: 16px;
+  margin-bottom: 24px;
+`;
 const ComponentSection = styled.div``;
 
-const PageLayoutWithImage: React.FC<PageLayoutWithImageProps> = ({ image }) => {
+const PageLayoutWithImage: React.FC<PageLayoutWithImageProps> = ({
+  image,
+  title,
+  subTitle,
+  description,
+  children,
+}) => {
   return (
     <>
-      <ImageSection image={image}></ImageSection>
-      <ComponentSection></ComponentSection>
+      <ImageSection image={image}>
+        <TextSection>
+          <TextContainer>
+            <SubTitle>{subTitle}</SubTitle>
+            <Title>{title}</Title>
+            <Description>{description}</Description>
+          </TextContainer>
+        </TextSection>
+      </ImageSection>
+      <ComponentSection>{children}</ComponentSection>
     </>
   );
 };
