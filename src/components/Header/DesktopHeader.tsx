@@ -7,6 +7,7 @@ import HeaderButton from './HeaderButton';
 
 const HeaderBase = styled.div`
   display: flex;
+  z-index: 100;
   background-color: #ffffff;
   color: #ff385c;
   justify-content: space-between;

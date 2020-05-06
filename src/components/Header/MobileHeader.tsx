@@ -9,6 +9,7 @@ import useScroll from '../../hooks/useScroll';
 
 const Container = styled.div<{ headerHidden?: boolean }>`
   display: flex;
+  z-index: 100;
   position: fixed;
   bottom: 0px;
   left: 0px;
