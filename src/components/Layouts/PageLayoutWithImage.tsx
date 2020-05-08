@@ -74,7 +74,11 @@ const Description = styled.div`
   margin-top: 16px;
   margin-bottom: 24px;
 `;
-const ComponentSection = styled.div``;
+const ComponentSection = styled.div`
+  margin-top: 160px;
+  padding-left: 160px;
+  padding-right: 160px;
+`;
 
 const PageLayoutWithImage: React.FC<PageLayoutWithImageProps> = ({
   image,
