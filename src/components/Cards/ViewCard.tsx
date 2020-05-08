@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-interface ViewCardProps {
+export interface ViewCardProps {
   /** 표시할 이미지의 url */
   image: string;
   country: string;
