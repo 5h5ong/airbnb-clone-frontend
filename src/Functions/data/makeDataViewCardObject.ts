@@ -7,6 +7,7 @@ import { ViewCardProps } from '../../components/Cards/ViewCard';
 const makeDataViewCardObject = (data: any) => {
   const object: ViewCardProps[] = data.map(
     (d: any): ViewCardProps => ({
+      id: d.id,
       image: d.image,
       country: d.country,
       name: d.name,

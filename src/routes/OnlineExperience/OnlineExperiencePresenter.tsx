@@ -1,5 +1,4 @@
 import React from 'react';
-import { v4 as uuid } from 'uuid';
 import PageLayoutWithImage from '../../components/Layouts/PageLayoutWithImage';
 import ViewCard, { ViewCardProps } from '../../components/Cards/ViewCard';
 import CardWrapper from '../../components/Wrappers/CardWrapper';
@@ -22,7 +21,8 @@ const OnlineExperiencePresenter: React.FC<OnlineExperiencePresenterProps> = ({
         {data &&
           data.map((d) => (
             <ViewCard
-              key={uuid()}
+              key={d.id}
+              id={d.id}
               image={d.image}
               country={d.country}
               name={d.name}
