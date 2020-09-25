@@ -12,7 +12,7 @@ const HeaderButton: React.FC = () => {
     <ButtonContainer>
       <Rows center margin>
         <RoundedButton type="gray" text="로그인" link="/login" />
-        <RoundedButton type="shadow" text="회원 가입" link="/home" />
+        <RoundedButton type="shadow" text="회원 가입" link="/register" />
       </Rows>
     </ButtonContainer>
   );

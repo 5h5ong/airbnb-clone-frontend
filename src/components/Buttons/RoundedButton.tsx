@@ -41,12 +41,12 @@ const StyledGrayA = styled(BaseA)`
   }
 `;
 
-const RoundedButton: React.FC<IRoundedButton> = ({ text, type }) => {
+const RoundedButton: React.FC<IRoundedButton> = ({ text, type, link }) => {
   return type === 'shadow' ? (
-    <StyledShadowA href="/home">{text}</StyledShadowA>
+    <StyledShadowA href={link}>{text}</StyledShadowA>
   ) : (
-    <StyledGrayA>{text}</StyledGrayA>
-  );
+      <StyledGrayA>{text}</StyledGrayA>
+    );
 };
 
 export default RoundedButton;
