@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import RedButton from '../../components/Buttons/RedButton';
 import WithHeaderPadding from '../../components/HOCs/WithHeaderPadding/WithHeaderPadding';
 import BaseInput from '../../components/inputs/BaseInput';
 import SpaceWrapper from '../../components/Wrappers/SpaceWrapper';
@@ -30,6 +31,7 @@ const Register: React.FC = () => {
           <BaseInput placeholder="성" />
           <BaseInput placeholder="password" />
         </SpaceWrapper>
+        <RedButton>회원가입</RedButton>
       </SpaceWrapper>
     </Container>
   );
