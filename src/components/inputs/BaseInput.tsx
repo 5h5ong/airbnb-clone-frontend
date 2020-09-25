@@ -6,16 +6,19 @@ interface BaseInputProps {
 }
 
 const Container = styled.div`
-  border: 1px solid #e0e0e0;
   border-radius: 4px;
 `;
 const Input = styled.input`
   outline: none;
   border: none;
+  border: 1px solid #e0e0e0;
   line-height: 24px;
   font-size: 16px;
   padding: 11px;
   border-radius: 4px;
+  &:focus {
+    border: 1px solid #484848;
+  }
 `;
 
 const BaseInput: React.FC<BaseInputProps> = ({ placeholder }) => {
