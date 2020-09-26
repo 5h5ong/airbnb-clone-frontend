@@ -9,6 +9,9 @@ interface StyledProps {
 }
 
 const Container = styled.div<StyledProps>`
+  display: flex;
+  width: 100%;
+  flex-direction: column;
   *:not(:last-child) {
     margin-bottom: ${(props) => `${props.gap}px`};
   }
