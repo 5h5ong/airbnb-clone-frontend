@@ -2,6 +2,10 @@ import React from 'react';
 import styled from 'styled-components';
 import { BaseButtonStyle } from './BaseButton';
 
+interface RedButtonProps {
+  onClick: () => {};
+}
+
 const Button = styled(BaseButtonStyle)`
   background-color: #ff5a5f;
   color: white;
@@ -15,8 +19,8 @@ const Button = styled(BaseButtonStyle)`
   }
 `;
 
-const RedButton: React.FC = ({ children }) => {
-  return <Button>{children}</Button>;
+const RedButton: React.FC<RedButtonProps> = ({ children, onClick }) => {
+  return <Button onClick={onClick}>{children}</Button>;
 };
 
 export default RedButton;

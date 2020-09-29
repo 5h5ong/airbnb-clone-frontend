@@ -10,6 +10,7 @@ interface RegisterPresenterProps {
   password: UseInputReturnPropsType;
   firstName: UseInputReturnPropsType;
   lastName: UseInputReturnPropsType;
+  register: () => Promise<void>;
 }
 
 const Container = styled.div`
@@ -36,6 +37,7 @@ const Title = styled.div`
 `;
 
 const RegisterPresenter: React.FC<RegisterPresenterProps> = ({
+  register,
   email,
   password,
   firstName,
@@ -68,7 +70,7 @@ const RegisterPresenter: React.FC<RegisterPresenterProps> = ({
               onChange={password.onChange}
             />
           </SpaceWrapper>
-          <RedButton>회원가입</RedButton>
+          <RedButton onClick={register}>회원가입</RedButton>
         </SpaceWrapper>
       </RegisterFormContainer>
     </Container>
