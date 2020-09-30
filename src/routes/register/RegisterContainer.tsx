@@ -8,6 +8,9 @@ const RegisterContainer: React.FC = () => {
   const password = useInput();
   const firstName = useInput();
   const lastName = useInput();
+  const year = useInput();
+  const month = useInput();
+  const day = useInput();
 
   const register = async (): Promise<void> => {
     await sendDataToServer('http://localhost:4000/create/user', {
@@ -15,9 +18,9 @@ const RegisterContainer: React.FC = () => {
       password: password.props.value,
       firstName: firstName.props.value,
       lastName: lastName.props.value,
-      birthYear: 2000,
-      birthMonth: 2,
-      birthDay: 17,
+      birthYear: year.props.value,
+      birthMonth: month.props.value,
+      birthDay: day.props.value,
     });
   };
 
@@ -28,6 +31,9 @@ const RegisterContainer: React.FC = () => {
       firstName={firstName.props}
       lastName={lastName.props}
       password={password.props}
+      year={year.props}
+      month={month.props}
+      day={day.props}
     />
   );
 };

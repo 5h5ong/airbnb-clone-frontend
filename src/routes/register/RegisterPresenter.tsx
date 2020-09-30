@@ -2,7 +2,10 @@ import React from 'react';
 import styled from 'styled-components';
 import RedButton from '../../components/Buttons/RedButton';
 import BaseInput from '../../components/inputs/BaseInput';
-import SpaceWrapper from '../../components/Wrappers/SpaceWrapper';
+import BaseSelect, { SelectOptions } from '../../components/inputs/BaseSelect';
+import ColumnSpaceWrapper from '../../components/Wrappers/ColumnSpaceWrapper';
+import RowSpaceWrapper from '../../components/Wrappers/RowSpaceWrapper';
+import { range, reverseRange } from '../../Functions/utils';
 import { UseInputReturnPropsType } from '../../hooks/useInput';
 
 interface RegisterPresenterProps {
@@ -10,6 +13,9 @@ interface RegisterPresenterProps {
   password: UseInputReturnPropsType;
   firstName: UseInputReturnPropsType;
   lastName: UseInputReturnPropsType;
+  year: UseInputReturnPropsType;
+  month: UseInputReturnPropsType;
+  day: UseInputReturnPropsType;
   register: () => Promise<void>;
 }
 
@@ -36,19 +42,40 @@ const Title = styled.div`
   font-weight: 600;
 `;
 
+/* 생년월일 Select를 위한 options array 생성 */
+// 해당 년도를 기준으로 뒤의 년도 생성
+const yearOptions: SelectOptions = reverseRange(
+  50,
+  new Date().getFullYear()
+).map((year) => ({
+  value: `${year}`,
+  content: `${year}`,
+}));
+const monthOptions: SelectOptions = range(12, 1).map((month) => ({
+  value: `${month}`,
+  content: `${month}`,
+}));
+const dayOptions: SelectOptions = range(31, 1).map((day) => ({
+  value: `${day}`,
+  content: `${day}`,
+}));
+
 const RegisterPresenter: React.FC<RegisterPresenterProps> = ({
   register,
   email,
   password,
   firstName,
   lastName,
+  year,
+  month,
+  day,
 }) => {
   return (
     <Container>
       <RegisterFormContainer>
-        <SpaceWrapper gap={15}>
+        <ColumnSpaceWrapper gap={15}>
           <Title>회원가입</Title>
-          <SpaceWrapper gap={20}>
+          <ColumnSpaceWrapper gap={20}>
             <BaseInput
               placeholder="이메일 주소"
               value={email.value}
@@ -69,9 +96,29 @@ const RegisterPresenter: React.FC<RegisterPresenterProps> = ({
               value={password.value}
               onChange={password.onChange}
             />
-          </SpaceWrapper>
+            <RowSpaceWrapper gap={10}>
+              <BaseSelect
+                placeholder="년"
+                options={yearOptions}
+                value={year.value}
+                onChange={year.onChange}
+              />
+              <BaseSelect
+                placeholder="월"
+                options={monthOptions}
+                value={month.value}
+                onChange={month.onChange}
+              />
+              <BaseSelect
+                placeholder="일"
+                options={dayOptions}
+                value={day.value}
+                onChange={day.onChange}
+              />
+            </RowSpaceWrapper>
+          </ColumnSpaceWrapper>
           <RedButton onClick={register}>회원가입</RedButton>
-        </SpaceWrapper>
+        </ColumnSpaceWrapper>
       </RegisterFormContainer>
     </Container>
   );
