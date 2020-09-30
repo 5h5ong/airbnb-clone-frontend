@@ -12,13 +12,13 @@ const Container = styled.div<StyledProps>`
   display: flex;
   width: 100%;
   flex-direction: column;
-  *:not(:last-child) {
+  & > *:not(:last-child) {
     margin-bottom: ${(props) => `${props.gap}px`};
   }
 `;
 
-const SpaceWrapper: React.FC<SpaceWrapper> = ({ children, gap }) => {
+const ColumnSpaceWrapper: React.FC<SpaceWrapper> = ({ children, gap }) => {
   return <Container gap={gap}>{children}</Container>;
 };
 
-export default SpaceWrapper;
+export default ColumnSpaceWrapper;
