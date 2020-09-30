@@ -2,7 +2,9 @@ import { useState } from 'react';
 
 export interface UseInputReturnPropsType {
   value: string;
-  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange: (
+    event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => void;
 }
 export interface UseInputReturnType {
   props: UseInputReturnPropsType;
@@ -14,7 +16,9 @@ export interface UseInputReturnType {
 const useInput = (initialValue = ''): UseInputReturnType => {
   const [value, setValue] = useState(initialValue);
 
-  const onChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
+  const onChange = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ): void => {
     const {
       target: { value: eventValue },
     } = event;
