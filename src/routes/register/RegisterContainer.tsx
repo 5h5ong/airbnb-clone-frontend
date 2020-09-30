@@ -18,9 +18,9 @@ const RegisterContainer: React.FC = () => {
       password: password.props.value,
       firstName: firstName.props.value,
       lastName: lastName.props.value,
-      birthYear: year.props.value,
-      birthMonth: month.props.value,
-      birthDay: day.props.value,
+      birthYear: Number(year.props.value),
+      birthMonth: Number(month.props.value),
+      birthDay: Number(day.props.value),
     });
   };
 
