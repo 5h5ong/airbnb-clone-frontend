@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { BaseButtonStyle } from './BaseButton';
 
 interface RedButtonProps {
-  onClick: () => {};
+  onClick?: () => {};
 }
 
 const Button = styled(BaseButtonStyle)`

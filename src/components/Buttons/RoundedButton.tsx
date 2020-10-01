@@ -45,8 +45,8 @@ const RoundedButton: React.FC<IRoundedButton> = ({ text, type, link }) => {
   return type === 'shadow' ? (
     <StyledShadowA href={link}>{text}</StyledShadowA>
   ) : (
-      <StyledGrayA>{text}</StyledGrayA>
-    );
+    <StyledGrayA href={link}>{text}</StyledGrayA>
+  );
 };
 
 export default RoundedButton;
