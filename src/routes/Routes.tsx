@@ -4,6 +4,7 @@ import Home from './Home/Home';
 import OnlineExperience from './OnlineExperience';
 import Register from './register';
 import Header from '../components/Header/Header';
+import Hello from './hello/Hello';
 
 const Routes: React.FC = () => {
   return (
@@ -13,6 +14,7 @@ const Routes: React.FC = () => {
       <Route path="/experiences" component={OnlineExperience} />
       <Route path="/login" component={OnlineExperience} />
       <Route path="/register" component={Register} />
+      <Route path="/hello" component={Hello} />
     </BrowserRouter>
   );
 };
