@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import RedButton from '../../components/Buttons/RedButton';
+import Title from '../../components/etc/Title';
 import BaseInput from '../../components/inputs/BaseInput';
 import BaseSelect, { SelectOptions } from '../../components/inputs/BaseSelect';
 import ColumnSpaceWrapper from '../../components/Wrappers/ColumnSpaceWrapper';
@@ -26,7 +27,6 @@ const Container = styled.div`
   width: 100%;
   height: 60vh;
   flex-direction: column;
-  flex-direction: colvmn;
   justify-content: center;
   align-items: center;
 `;
@@ -34,12 +34,6 @@ const RegisterFormContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 400px;
-`;
-const Title = styled.div`
-  display: flex;
-  justify-content: center;
-  font-size: 20px;
-  font-weight: 600;
 `;
 
 /* 생년월일 Select를 위한 options array 생성 */
