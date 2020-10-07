@@ -11,6 +11,7 @@ interface LoginPresenterProps {
   password: UseInputReturnPropsType;
   // ! 추후 ? 제거
   login?: () => Promise<void>;
+  isLoading: boolean;
 }
 
 const Container = styled.div`
@@ -30,6 +31,7 @@ const LoginPresenter: React.FC<LoginPresenterProps> = ({
   email,
   password,
   login,
+  isLoading,
 }) => {
   return (
     <Container>
@@ -48,7 +50,9 @@ const LoginPresenter: React.FC<LoginPresenterProps> = ({
               onChange={password.onChange}
             />
           </ColumnSpaceWrapper>
-          <RedButton onClick={login}>로그인</RedButton>
+          <RedButton isLoading={isLoading} onClick={login}>
+            로그인
+          </RedButton>
         </ColumnSpaceWrapper>
       </LoginFormContainer>
     </Container>
