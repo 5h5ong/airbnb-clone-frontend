@@ -1,9 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Spinner } from 'react-bootstrap';
 import { BaseButtonStyle } from './BaseButton';
 
 interface RedButtonProps {
   onClick?: () => {};
+  isLoading?: boolean;
 }
 
 const Button = styled(BaseButtonStyle)`
@@ -19,7 +21,18 @@ const Button = styled(BaseButtonStyle)`
   }
 `;
 
-const RedButton: React.FC<RedButtonProps> = ({ children, onClick }) => {
+const RedButton: React.FC<RedButtonProps> = ({
+  children,
+  onClick,
+  isLoading,
+}) => {
+  if (isLoading) {
+    return (
+      <Button onClick={onClick}>
+        <Spinner animation="border" />
+      </Button>
+    );
+  }
   return <Button onClick={onClick}>{children}</Button>;
 };
 
