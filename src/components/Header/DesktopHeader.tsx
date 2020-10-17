@@ -1,8 +1,10 @@
-import React from 'react';
-import styled from 'styled-components';
+import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
+import styled from 'styled-components';
+import { UserContext } from '../../App';
 import useScroll from '../../hooks/useScroll';
 import AirbnbLogo from '../../icons/AirbnbLogo';
+import UserButton from '../Buttons/UserButton';
 import HeaderButton from './HeaderButton';
 
 interface DesktopHeaderProps {
@@ -36,6 +38,9 @@ const HeaderContainerShadow = styled(HeaderContainerDefault)`
 const DesktopHeader: React.FC<DesktopHeaderProps> = ({ transparency }) => {
   const { isTop } = useScroll();
   const history = useHistory();
+  const userContext = useContext(UserContext);
+
+  // TODO: 로그인 시 헤더 버튼 변경 및 대시보드 접근
 
   const onClickLogo = (): void => {
     history.push('/');
@@ -47,14 +52,14 @@ const DesktopHeader: React.FC<DesktopHeaderProps> = ({ transparency }) => {
         <div onClick={onClickLogo}>
           <AirbnbLogo />
         </div>
-        <HeaderButton />
+        {userContext ? <UserButton /> : <HeaderButton />}
       </HeaderContainerTransparency>
     ) : (
       <HeaderContainerShadow>
         <div onClick={onClickLogo}>
           <AirbnbLogo />
         </div>
-        <HeaderButton />
+        {userContext ? <UserButton /> : <HeaderButton />}
       </HeaderContainerShadow>
     );
   }
@@ -63,14 +68,14 @@ const DesktopHeader: React.FC<DesktopHeaderProps> = ({ transparency }) => {
       <div onClick={onClickLogo}>
         <AirbnbLogo />
       </div>
-      <HeaderButton />
+      {userContext ? <UserButton /> : <HeaderButton />}
     </HeaderContainerDefault>
   ) : (
     <HeaderContainerShadow>
       <div onClick={onClickLogo}>
         <AirbnbLogo />
       </div>
-      <HeaderButton />
+      {userContext ? <UserButton /> : <HeaderButton />}
     </HeaderContainerShadow>
   );
 };
