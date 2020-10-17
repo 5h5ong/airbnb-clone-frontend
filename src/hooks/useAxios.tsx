@@ -3,9 +3,10 @@ import axios, { AxiosRequestConfig } from 'axios';
 import checkLocalStorage from '../Functions/checkLocalStorage';
 
 type UseAxiosOption = Pick<AxiosRequestConfig, 'method' | 'url' | 'data'>;
+
 interface UseAxiosReturnType {
   error: boolean | undefined;
-  data: {} | undefined;
+  data: { [index: string]: { [index: string]: string } } | undefined;
   loading: boolean | undefined;
 }
 
