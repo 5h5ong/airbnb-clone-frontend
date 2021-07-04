@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { sendDataToServer } from '../../Functions/data/sendDataToServer';
+import requestServer from '../../Functions/data/requestServer';
 import useInput from '../../hooks/useInput';
 import LoginPresenter from './LoginPresenter';
 
@@ -13,14 +13,15 @@ const LoginContainer: React.FC = () => {
 
   const login = async (): Promise<void> => {
     setIsLoading(true);
-    const data = await sendDataToServer('http://localhost:4000/verify/user', {
+    const data = await requestServer('users/signin', {
       email: email.props.value,
       password: password.props.value,
     });
+    console.log({ data });
     setIsLoading(false);
 
     // 가져온 token을 local storage에 저장
-    localStorage.setItem('token', data.data.token);
+    localStorage.setItem('token', data);
 
     // Home Page로 이동
     history.push('/');
