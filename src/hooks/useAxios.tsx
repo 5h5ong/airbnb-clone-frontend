@@ -6,7 +6,8 @@ type UseAxiosOption = Pick<AxiosRequestConfig, 'method' | 'url' | 'data'>;
 
 interface UseAxiosReturnType {
   error: boolean | undefined;
-  data: { [index: string]: { [index: string]: string } } | undefined;
+  // data: { [index: string]: { [index: string]: string } } | undefined;
+  data: any;
   loading: boolean | undefined;
 }
 
