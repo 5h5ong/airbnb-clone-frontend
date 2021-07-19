@@ -1,4 +1,3 @@
-import { url } from 'inspector';
 import React from 'react';
 import styled from 'styled-components';
 import ImageCard from '../../components/Cards/ImageCard';
@@ -25,15 +24,11 @@ const ImageSection = styled.div`
     margin-right: 20px;
   }
 `;
-const Img = styled.img`
-  width: 100%;
-  height: 100%;
-`;
 
 const Home: React.FC = () => {
   return (
     <div>
-      <FirstSection></FirstSection>
+      <FirstSection />
       <SecondSection>
         <ImageSection>
           <Linker link="/experiences">
@@ -45,8 +40,8 @@ const Home: React.FC = () => {
           </Linker>
           <ImageCard
             image={`${process.env.PUBLIC_URL}/56e33ab9-d581-4333-be11-69286231cee5.jpg`}
-            title="장기 숙박"
-            description="세계 각지의 호스트가 진행하고 모두 함께하는 독특한 체험을 즐겨보세요."
+            title="숙소"
+            description="타지에서의 환상적인 경험을 즐겨보세요."
           />
         </ImageSection>
       </SecondSection>
