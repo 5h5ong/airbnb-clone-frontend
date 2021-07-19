@@ -1,3 +1,4 @@
+import { url } from 'inspector';
 import React from 'react';
 import styled from 'styled-components';
 import ImageCard from '../../components/Cards/ImageCard';
@@ -5,6 +6,9 @@ import Linker from '../../components/Wrappers/Linker';
 
 const FirstSection = styled.div`
   height: 100vh;
+  /* public directory로 접근하려면 그냥 파일 이름만 써주면 됨 */
+  background-image: url('home-image.webp');
+  background-size: cover;
 `;
 const SecondSection = styled.div`
   /* height: 100rem; */
@@ -29,12 +33,7 @@ const Img = styled.img`
 const Home: React.FC = () => {
   return (
     <div>
-      <FirstSection>
-        <Img
-          src={`${process.env.PUBLIC_URL}/a76de86e-a94a-4863-adb7-e8a86be06290.jpg`}
-          alt=""
-        />
-      </FirstSection>
+      <FirstSection></FirstSection>
       <SecondSection>
         <ImageSection>
           <Linker link="/experiences">
