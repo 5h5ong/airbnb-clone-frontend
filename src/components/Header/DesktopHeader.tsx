@@ -45,39 +45,41 @@ const DesktopHeader: React.FC<DesktopHeaderProps> = ({ transparency }) => {
   const onClickLogo = (): void => {
     history.push('/');
   };
-
-  if (transparency) {
+  if (userContext) {
+    if (transparency) {
+      return isTop ? (
+        <HeaderContainerTransparency>
+          <div onClick={onClickLogo}>
+            <AirbnbLogo />
+          </div>
+          {userContext.user.isSignIn ? <UserButton /> : <HeaderButton />}
+        </HeaderContainerTransparency>
+      ) : (
+        <HeaderContainerShadow>
+          <div onClick={onClickLogo}>
+            <AirbnbLogo />
+          </div>
+          {userContext.user.isSignIn ? <UserButton /> : <HeaderButton />}
+        </HeaderContainerShadow>
+      );
+    }
     return isTop ? (
-      <HeaderContainerTransparency>
+      <HeaderContainerDefault>
         <div onClick={onClickLogo}>
           <AirbnbLogo />
         </div>
-        {userContext ? <UserButton /> : <HeaderButton />}
-      </HeaderContainerTransparency>
+        {userContext.user.isSignIn ? <UserButton /> : <HeaderButton />}
+      </HeaderContainerDefault>
     ) : (
       <HeaderContainerShadow>
         <div onClick={onClickLogo}>
           <AirbnbLogo />
         </div>
-        {userContext ? <UserButton /> : <HeaderButton />}
+        {userContext.user.isSignIn ? <UserButton /> : <HeaderButton />}
       </HeaderContainerShadow>
     );
   }
-  return isTop ? (
-    <HeaderContainerDefault>
-      <div onClick={onClickLogo}>
-        <AirbnbLogo />
-      </div>
-      {userContext ? <UserButton /> : <HeaderButton />}
-    </HeaderContainerDefault>
-  ) : (
-    <HeaderContainerShadow>
-      <div onClick={onClickLogo}>
-        <AirbnbLogo />
-      </div>
-      {userContext ? <UserButton /> : <HeaderButton />}
-    </HeaderContainerShadow>
-  );
+  return <div>'FUCKED UP.'</div>;
 };
 
 export default DesktopHeader;

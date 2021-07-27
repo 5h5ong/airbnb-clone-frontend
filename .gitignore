@@ -24,3 +24,6 @@ yarn-error.log*
 
 # Jest snapshots
 __snapshots__
+
+# Debug Profile
+launch.json

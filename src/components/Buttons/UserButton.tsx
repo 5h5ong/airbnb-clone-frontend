@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { FaUser } from 'react-icons/fa';
+import logout from '../../Functions/logout';
+import { useContext } from 'react';
+import { UserContext } from '../../App';
+import { useHistory } from 'react-router-dom';
 
 const Container = styled.div`
   display: flex;
@@ -52,10 +56,17 @@ const FaUserStyled = styled(FaUser)`
 `;
 
 const UserButton: React.FC = () => {
+  const userContext = useContext(UserContext);
+  const history = useHistory();
   const [userModalToggle, setUserModalToggle] = useState(false);
 
   const onClick = () => {
     setUserModalToggle((s) => !s);
+  };
+
+  const userLogout = () => {
+    logout();
+    userContext && userContext.setUser({ isSignIn: false });
   };
 
   return (
@@ -67,7 +78,7 @@ const UserButton: React.FC = () => {
           <UserModalContainer>
             <UserModal>
               <ModalItem>내 정보</ModalItem>
-              <ModalItem>로그아웃</ModalItem>
+              <ModalItem onClick={() => userLogout()}>로그아웃</ModalItem>
             </UserModal>
           </UserModalContainer>
         )}
