@@ -38,11 +38,13 @@ const Home: React.FC = () => {
               description="세계 각지의 호스트가 진행하고 모두 함께하는 독특한 체험을 즐겨보세요."
             />
           </Linker>
-          <ImageCard
-            image={`${process.env.PUBLIC_URL}/56e33ab9-d581-4333-be11-69286231cee5.jpg`}
-            title="숙소"
-            description="타지에서의 환상적인 경험을 즐겨보세요."
-          />
+          <Linker link="/accommodations">
+            <ImageCard
+              image={`${process.env.PUBLIC_URL}/56e33ab9-d581-4333-be11-69286231cee5.jpg`}
+              title="숙소"
+              description="타지에서의 환상적인 경험을 즐겨보세요."
+            />
+          </Linker>
         </ImageSection>
       </SecondSection>
     </div>
