@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import axios, { AxiosRequestConfig } from 'axios';
 import checkLocalStorage from '../Functions/checkLocalStorage';
-import { isReturnStatement } from 'typescript';
 
 type UseAxiosOption = Pick<AxiosRequestConfig, 'method' | 'url' | 'data'>;
 
