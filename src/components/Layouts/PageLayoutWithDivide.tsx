@@ -1,18 +1,17 @@
 import React from 'react';
 import {
-  PageLayoutProps,
+  Description,
   ImageContainer,
-  ImageSection,
-  TextSection,
-  TextContainer,
+  PageLayoutProps,
   SubTitle,
   Title,
-  Description,
-  ShadowCover,
-  ComponentSectionPadding,
+  TextContainer,
+  TextSection,
+  ImageSection,
+  ComponentSection,
 } from './pageLayoutStyles';
 
-const PageLayoutWithImage: React.FC<PageLayoutProps> = ({
+const PageLayoutWithDivide: React.FC<PageLayoutProps> = ({
   image,
   title,
   subTitle,
@@ -31,11 +30,10 @@ const PageLayoutWithImage: React.FC<PageLayoutProps> = ({
             </TextContainer>
           </TextSection>
         </ImageSection>
-        <ShadowCover />
       </ImageContainer>
-      <ComponentSectionPadding>{children}</ComponentSectionPadding>
+      <ComponentSection>{children}</ComponentSection>
     </>
   );
 };
 
-export default PageLayoutWithImage;
+export default PageLayoutWithDivide;
