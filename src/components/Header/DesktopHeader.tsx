@@ -40,8 +40,6 @@ const DesktopHeader: React.FC<DesktopHeaderProps> = ({ transparency }) => {
   const history = useHistory();
   const userContext = useContext(UserContext);
 
-  // TODO: 로그인 시 헤더 버튼 변경 및 대시보드 접근
-
   const onClickLogo = (): void => {
     history.push('/');
   };

@@ -5,6 +5,7 @@ import DesktopHeader from './DesktopHeader';
 import MobileHeader from './MobileHeader';
 import useDeviceWidth from '../../hooks/useDeviceWidth';
 
+const transparencyPathname = ['/experiences', '/accommodations'];
 /**
  * Desktop, Mobile에 적절한 Header Component를 반환함
  */
@@ -13,7 +14,7 @@ const Header: React.FC = () => {
   const { width } = useDeviceWidth();
   const { type: deviceType } = checkDevice(width);
 
-  if (pathname === '/experiences') {
+  if (transparencyPathname.includes(pathname)) {
     return (
       <div>
         {deviceType === 'desktop' ? (
