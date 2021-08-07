@@ -46,6 +46,7 @@ const AccommodationsPresenter: React.FC<AccommodationsPresenterProps> = ({
           <ColumnSpaceWrapper gap={0}>
             {accommodationsData.map((accommodations) => (
               <AccommodationsCard
+                key={`accommodation-card-${accommodations.name}`}
                 name={accommodations.name}
                 image={accommodations.image}
                 price={accommodations.price}
