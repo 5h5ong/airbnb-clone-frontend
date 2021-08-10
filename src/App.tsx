@@ -33,20 +33,25 @@ const App: React.FC = () => {
     url: 'http://localhost:4000/auth/verify',
     method: 'get',
   });
+  const memoIsSignIn = useMemo(() => userState.isSignIn, [userState.isSignIn]);
+  const memoData = useMemo(() => data, [data]);
+  const memoLoading = useMemo(() => loading, [loading]);
 
   useEffect(() => {
-    setReload(true);
-    console.log('data reload start!!');
-  }, [userState.isSignIn]);
+    memoIsSignIn && setReload(true);
+    console.log(`isSignIn: ${memoIsSignIn}`);
+  }, [memoIsSignIn]);
 
   useEffect(() => {
-    if (!loading) {
+    if (!memoLoading) {
+      console.log(`[App] useEffect Evoked`);
+      console.log(`[App] ${loading} ${memoLoading}`);
       if (!error.state) {
         setUserState({
           isSignIn: true,
-          id: data.id,
-          email: data.email,
-          role: data.role,
+          id: memoData.id,
+          email: memoData.email,
+          role: memoData.role,
         });
       } else if (error.data.status === '1') {
         setUserState({
@@ -57,7 +62,7 @@ const App: React.FC = () => {
         });
       }
     }
-  }, [data, loading]);
+  }, [memoData, memoLoading]);
 
   return (
     <div className="App">

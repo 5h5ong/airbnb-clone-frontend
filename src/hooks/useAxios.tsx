@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import axios, { AxiosRequestConfig } from 'axios';
 import checkLocalStorage from '../Functions/checkLocalStorage';
-import { isReturnStatement } from 'typescript';
+import useIsMounted from './useIsMounted';
 
 type UseAxiosOption = Pick<AxiosRequestConfig, 'method' | 'url' | 'data'>;
 
@@ -20,6 +20,7 @@ interface UseAxiosReturnType {
 }
 
 export default (opts: UseAxiosOption): UseAxiosReturnType => {
+  const isMounted = useIsMounted();
   const [reload, setReload] = useState(false);
   const [loading, setLoading] = useState<boolean>(true);
   const [data, setData] = useState<{}>();
@@ -33,7 +34,6 @@ export default (opts: UseAxiosOption): UseAxiosReturnType => {
    */
   const request = async (): Promise<void> => {
     setLoading(true);
-    // 토큰 확인
     const token = checkLocalStorage('token');
 
     // 토큰이 존재하지 않으면 에러 발생 후 끝내기
@@ -72,10 +72,10 @@ export default (opts: UseAxiosOption): UseAxiosReturnType => {
   };
 
   useEffect(() => {
-    request();
+    isMounted() && request();
   }, []);
   useEffect(() => {
-    if (reload) {
+    if (reload && isMounted()) {
       request();
     }
     setReload(false);
