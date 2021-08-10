@@ -6,6 +6,7 @@ const AccommodationsContainer: React.FC = () => {
   const { loading, error, data } = useAxios({
     url: 'http://localhost:4000/accommodations',
   });
+
   return loading ? (
     <div>'loading...'</div>
   ) : (

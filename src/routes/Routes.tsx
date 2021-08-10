@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
 import Home from './Home/Home';
 import OnlineExperience from './OnlineExperience';
-import Accommodations from './accommodations';
+import Accommodations from './accommodations/Index';
 import Login from './login';
 import Register from './register';
 import Header from '../components/Header/Header';

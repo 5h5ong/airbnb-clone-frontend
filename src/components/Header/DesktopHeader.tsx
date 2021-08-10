@@ -77,7 +77,7 @@ const DesktopHeader: React.FC<DesktopHeaderProps> = ({ transparency }) => {
       </HeaderContainerShadow>
     );
   }
-  return <div>'FUCKED UP.'</div>;
+  return <div>FUCKED UP.</div>;
 };
 
 export default DesktopHeader;
