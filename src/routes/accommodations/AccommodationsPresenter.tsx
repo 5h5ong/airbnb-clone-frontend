@@ -15,10 +15,12 @@ interface AccommodationsDataType {
 
 interface AccommodationsPresenterProps {
   accommodationsData: AccommodationsDataType[];
+  displayHeight: number;
 }
 
-const MapAndListContainer = styled.div`
+const MapAndListContainer = styled.div<{ height: number }>`
   display: flex;
+  height: ${(props) => `${props.height}px`};
   flex-direction: row;
 `;
 const Half = styled.div`
@@ -30,10 +32,12 @@ const MapSection = styled(Half)`
 `;
 const ListSection = styled(Half)`
   width: 50%;
+  overflow: scroll;
 `;
 
 const AccommodationsPresenter: React.FC<AccommodationsPresenterProps> = ({
   accommodationsData,
+  displayHeight,
 }) => {
   return (
     <PageLayoutWithDivide
@@ -42,7 +46,7 @@ const AccommodationsPresenter: React.FC<AccommodationsPresenterProps> = ({
       title="숙소"
       description="모두가 함께 즐기는 세계 각지의 멋진 숙소"
     >
-      <MapAndListContainer>
+      <MapAndListContainer height={displayHeight - 80}>
         <ListSection>
           <ColumnSpaceWrapper gap={0}>
             {accommodationsData.map((accommodations) => (
