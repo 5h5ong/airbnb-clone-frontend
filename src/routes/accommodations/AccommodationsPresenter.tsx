@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import PageLayoutWithDivide from '../../components/Layouts/PageLayoutWithDivide';
 import AccommodationsCard from '../../components/Cards/AccmmodationsCard';
 import ColumnSpaceWrapper from '../../components/Wrappers/ColumnSpaceWrapper';
+import GoogleMap from '../../components/map/GoogleMap';
 
 interface AccommodationsDataType {
   address: string;
@@ -55,7 +56,9 @@ const AccommodationsPresenter: React.FC<AccommodationsPresenterProps> = ({
             ))}
           </ColumnSpaceWrapper>
         </ListSection>
-        <MapSection>Map</MapSection>
+        <MapSection>
+          <GoogleMap />
+        </MapSection>
       </MapAndListContainer>
     </PageLayoutWithDivide>
   );
