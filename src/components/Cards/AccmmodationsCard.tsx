@@ -33,6 +33,7 @@ const Divider = styled(DividerBase)`
 `;
 const Container = styled.div`
   width: 100%;
+  height: 280px;
   padding: 40px;
 `;
 const Thumbnail = styled.div<ThumbnailStyledType>`
