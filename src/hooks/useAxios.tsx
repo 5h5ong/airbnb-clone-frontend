@@ -14,16 +14,17 @@ interface UseAxiosErrorType {
 }
 interface UseAxiosReturnType {
   error: UseAxiosErrorType;
-  data: any;
   loading: boolean | undefined;
   setReload: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export default (opts: UseAxiosOption): UseAxiosReturnType => {
+export default <T extends any>(
+  opts: UseAxiosOption
+): UseAxiosReturnType & { data: T | undefined } => {
   const isMounted = useIsMounted();
   const [reload, setReload] = useState(false);
   const [loading, setLoading] = useState<boolean>(true);
-  const [data, setData] = useState<{}>();
+  const [data, setData] = useState<T>();
   const [error, setError] = useState<UseAxiosErrorType>({
     data: { status: '', statusText: '' },
     state: false,
