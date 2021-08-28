@@ -3,15 +3,6 @@ import styled from 'styled-components';
 import PageLayoutWithDivide from '../../components/Layouts/PageLayoutWithDivide';
 import GoogleMap from '../../components/map/GoogleMap';
 import AccommodationsLists from '../../components/lists/AccommodationsLists';
-import { useRef } from 'react';
-
-interface AccommodationsDataType {
-  address: string;
-  name: string;
-  price: string;
-  image: string[];
-  user: string;
-}
 
 interface AccommodationsPresenterProps {
   accommodationsData: AccommodationsDataType[];
