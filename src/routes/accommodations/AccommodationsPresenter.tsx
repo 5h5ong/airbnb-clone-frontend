@@ -6,6 +6,7 @@ import AccommodationsLists from '../../components/lists/AccommodationsLists';
 
 interface AccommodationsPresenterProps {
   accommodationsData: AccommodationsDataType[];
+  viewportElement: AccommodationsDataType[];
   onListScroll: () => void;
   listRef: React.RefObject<HTMLDivElement>;
   displayHeight: number;
@@ -30,6 +31,7 @@ const ListSection = styled(Half)`
 
 const AccommodationsPresenter: React.FC<AccommodationsPresenterProps> = ({
   accommodationsData,
+  viewportElement,
   displayHeight,
   onListScroll,
   listRef,
@@ -46,7 +48,7 @@ const AccommodationsPresenter: React.FC<AccommodationsPresenterProps> = ({
           <AccommodationsLists accommodationsData={accommodationsData} />
         </ListSection>
         <MapSection>
-          <GoogleMap />
+          <GoogleMap inputElement={viewportElement} />
         </MapSection>
       </MapAndListContainer>
     </PageLayoutWithDivide>

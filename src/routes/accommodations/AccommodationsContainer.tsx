@@ -20,6 +20,10 @@ const AccommodationsContainer: React.FC = () => {
     AccommodationsDataType[]
   >();
 
+  // viewportElement에 초기 때 들어온 데이터의 값을 그대로 전달
+  useEffect(() => {
+    data && setViewportElement(data);
+  }, [data]);
   // 보여지는 elements를 viewportElement에 저장
   useEffect(() => {
     if (data) {
@@ -44,6 +48,7 @@ const AccommodationsContainer: React.FC = () => {
     // data의 undefined 타입을 없애구지
     <AccommodationsPresenter
       accommodationsData={data!}
+      viewportElement={viewportElement!}
       displayHeight={height}
       onListScroll={onAccommodationsListScroll}
       listRef={listRef}
