@@ -20,22 +20,25 @@ const AccommodationsContainer: React.FC = () => {
     AccommodationsDataType[]
   >();
 
-  // viewportElement에 초기 때 들어온 데이터의 값을 그대로 전달
-  useEffect(() => {
-    data && setViewportElement(data);
-  }, [data]);
   // 보여지는 elements를 viewportElement에 저장
   useEffect(() => {
-    if (data) {
-      setViewportElement(data.slice(passedElementCount));
+    if (data && listRef && listRef.current) {
+      const listElementHeight = listRef.current.offsetHeight;
+      const listElementAmount = Math.round(listElementHeight / 280);
+      setViewportElement(
+        // slice()는 start, end에서 end 마지막 부분을 포함하지 않음(end-1).
+        data.slice(passedElementCount, passedElementCount + listElementAmount)
+      );
     }
-  }, [passedElementCount]);
+  }, [data, passedElementCount]);
 
   const onAccommodationsListScroll = () => {
     // scrollTop을 list element의 높이로 나눔.
     // 나눈 값으로 몇 개의 element를 지나갔는지 알 수 있음.
     if (listRef) {
+      // 지나간 스크롤의 높이
       const scrollTop = listRef.current?.scrollTop;
+
       // 소수점은 버림. 오직 정수만
       // 소수점이 반영되면 쓸데없는 렌더링이 생김
       scrollTop && setPassedElementCount(Math.round(scrollTop / 280));
