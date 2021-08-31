@@ -8,8 +8,8 @@ interface AccommodationsPresenterProps {
   accommodationsData: AccommodationsDataType[];
   viewportElement: AccommodationsDataType[];
   onListScroll: () => void;
-  listRef: React.RefObject<HTMLDivElement>;
   displayHeight: number;
+  setListRefState: React.Dispatch<React.SetStateAction<HTMLDivElement | null>>;
 }
 
 const MapAndListContainer = styled.div<{ height: number }>`
@@ -34,7 +34,7 @@ const AccommodationsPresenter: React.FC<AccommodationsPresenterProps> = ({
   viewportElement,
   displayHeight,
   onListScroll,
-  listRef,
+  setListRefState,
 }) => {
   return (
     <PageLayoutWithDivide
@@ -44,7 +44,10 @@ const AccommodationsPresenter: React.FC<AccommodationsPresenterProps> = ({
       description="모두가 함께 즐기는 세계 각지의 멋진 숙소"
     >
       <MapAndListContainer height={displayHeight - 80}>
-        <ListSection ref={listRef} onScroll={() => onListScroll()}>
+        <ListSection
+          ref={(el) => setListRefState(el)}
+          onScroll={() => onListScroll()}
+        >
           <AccommodationsLists accommodationsData={accommodationsData} />
         </ListSection>
         <MapSection>

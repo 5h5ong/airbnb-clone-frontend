@@ -7,6 +7,7 @@ interface GoogleMapProps {
 }
 
 const GoogleMap: React.FC<GoogleMapProps> = ({ inputElement }) => {
+  // console.log(`[GoogleMap] inputElement: ${inputElement}`);
   const [loading, setLoading] = useState(true);
   // Map이 표시되는 Div의 ref
   const mapRef = useRef<HTMLDivElement>(null);
@@ -18,8 +19,8 @@ const GoogleMap: React.FC<GoogleMapProps> = ({ inputElement }) => {
   const map = () => {
     if (mapRef.current) {
       return new window.google.maps.Map(mapRef.current, {
-        center: { lat: 36.0858909, lng: 128.3548263 },
-        zoom: 15,
+        center: { lat: 36.0860039, lng: 128.35487555 },
+        zoom: 17,
       });
     }
   };
