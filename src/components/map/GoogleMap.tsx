@@ -70,7 +70,7 @@ const GoogleMap: React.FC<GoogleMapProps> = ({ inputElement }) => {
         bounds.extend(marker.getPosition()!);
       });
       // 맵에 Bounds 반영
-      mapElement.current?.fitBounds(bounds);
+      mapElement.current?.fitBounds(bounds, 350);
     }
   }, [markers]);
 
