@@ -7,7 +7,6 @@ interface GoogleMapProps {
 }
 
 const GoogleMap: React.FC<GoogleMapProps> = ({ inputElement }) => {
-  // console.log(`[GoogleMap] inputElement: ${inputElement}`);
   const [loading, setLoading] = useState(true);
   // Map이 표시되는 Div의 ref
   const mapRef = useRef<HTMLDivElement>(null);
@@ -62,6 +61,18 @@ const GoogleMap: React.FC<GoogleMapProps> = ({ inputElement }) => {
       setMarkers(markers);
     }
   }, [inputElement, window.google]);
+  // 마커들이 맵에 전부 보일 수 있게 만듬
+  useEffect(() => {
+    if (markers) {
+      // Bounds 만들기
+      const bounds = new window.google.maps.LatLngBounds();
+      markers.forEach((marker) => {
+        bounds.extend(marker.getPosition()!);
+      });
+      // 맵에 Bounds 반영
+      mapElement.current?.fitBounds(bounds);
+    }
+  }, [markers]);
 
   return !loading ? (
     <div className="map" ref={mapRef} style={{ width: '100%' }} />
