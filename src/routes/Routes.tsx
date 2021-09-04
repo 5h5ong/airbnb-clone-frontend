@@ -3,6 +3,7 @@ import { BrowserRouter, Route } from 'react-router-dom';
 import Home from './Home/Home';
 import OnlineExperience from './OnlineExperience';
 import Accommodations from './accommodations/Index';
+import Reservation from './reservation/Index';
 import Login from './login';
 import Register from './register';
 import Header from '../components/Header/Header';
@@ -15,6 +16,7 @@ const Routes: React.FC = () => {
       <Route exact path="/" component={Home} />
       <Route path="/experiences" component={OnlineExperience} />
       <Route path="/accommodations" component={Accommodations} />
+      <Route path="/reservation" component={Reservation} />
       <Route path="/login" component={Login} />
       <Route path="/register" component={Register} />
       <Route path="/hello" component={Hello} />
