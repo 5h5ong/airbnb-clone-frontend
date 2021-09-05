@@ -1,9 +1,11 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import ColumnSpaceWrapper from '../Wrappers/ColumnSpaceWrapper';
 import RowSpaceWrapper from '../Wrappers/RowSpaceWrapper';
 
 interface AccommodationsCardProps {
+  id: string;
   name: string;
   image: string[];
   price: string;
@@ -65,14 +67,17 @@ const Description = styled.div`
 `;
 
 const AccommodationsCard: React.FC<AccommodationsCardProps> = ({
+  id,
   name,
   price,
   description,
   image,
 }) => {
+  const history = useHistory();
+
   return (
     <ColumnSpaceWrapper gap={10}>
-      <Container>
+      <Container onClick={() => history.push(`/reservation/${id}`)}>
         <RowSpaceWrapper gap={10}>
           <Thumbnail imageUrl={image[0]} />
           <TextContainer>

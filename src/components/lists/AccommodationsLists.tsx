@@ -2,14 +2,6 @@ import React from 'react';
 import AccommodationsCard from '../Cards/AccmmodationsCard';
 import ColumnSpaceWrapper from '../Wrappers/ColumnSpaceWrapper';
 
-interface AccommodationsDataType {
-  address: string;
-  name: string;
-  price: string;
-  image: string[];
-  user: string;
-}
-
 interface AccommodationsListsProps {
   accommodationsData: AccommodationsDataType[];
 }
@@ -22,6 +14,7 @@ const AccommodationsLists: React.FC<AccommodationsListsProps> = ({
       {accommodationsData.map((accommodations) => (
         <AccommodationsCard
           key={`accommodation-card-${accommodations.name}`}
+          id={accommodations.id}
           name={accommodations.name}
           image={accommodations.image}
           price={accommodations.price}

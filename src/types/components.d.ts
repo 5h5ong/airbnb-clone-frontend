@@ -1,4 +1,5 @@
 interface AccommodationsDataType {
+  id: string;
   address: string;
   name: string;
   price: string;
