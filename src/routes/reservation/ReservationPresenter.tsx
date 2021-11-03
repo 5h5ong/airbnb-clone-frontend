@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import Calendar from '../../components/Calendar';
 
 interface ReservationPresenterProps {
   /** Accommodations Data */
@@ -29,6 +30,7 @@ const ImageSection = styled.div`
   width: 100%;
   height: 450px;
   border-radius: 10px;
+  margin-bottom: 40px;
 `;
 const Grid = styled.div`
   display: grid;
@@ -67,7 +69,9 @@ const ReservationPresenter: React.FC<ReservationPresenterProps> = ({
           <SmallImage imageUrl={accommodationsData.image[4]} />
         </Grid>
       </ImageSection>
-      <ReservationSection />
+      <ReservationSection>
+        <Calendar />
+      </ReservationSection>
     </LootContainer>
   );
 };
