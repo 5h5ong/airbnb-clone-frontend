@@ -17,7 +17,14 @@ interface CalendarGridProps {
 const LootContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: 50px 1fr;
+  /* Grid가 정렬되는 방식을 정해줄 수 있음 */
+  grid-auto-flow: column;
   grid-column-gap: 30px;
+`;
+const MidiumText = styled.span`
+  flex: 1;
+  justify-self: center;
 `;
 const Grid = styled.div`
   display: grid;
@@ -38,6 +45,8 @@ const CalendarGrid: React.FC<CalendarGridProps> = ({
 }) => {
   return (
     <LootContainer>
+      {/* Date 객체는 값이 0부터 시작하기 때문에 1을 더해줘야 현재의 날짜와 일치함 */}
+      <MidiumText>{leftCalendarState.month + 1}월</MidiumText>
       <Grid>
         {/* 요일 */}
         <GridChild>일</GridChild>
@@ -58,6 +67,7 @@ const CalendarGrid: React.FC<CalendarGridProps> = ({
           </GridChild>
         ))}
       </Grid>
+      <MidiumText>{rightCalendarState.month + 1}월</MidiumText>
       <Grid>
         {/* 요일 */}
         <GridChild>일</GridChild>

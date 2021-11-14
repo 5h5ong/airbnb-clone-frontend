@@ -8,6 +8,7 @@ const Calendar = () => {
   const today = new Date();
   const todaysYear = today.getFullYear();
   const todaysMonth = today.getMonth();
+  // * 추후 요일 선택에 사용될 예정
   const todaysDate = today.getDate();
 
   // 받은 year, month를 이용해 첫번째 날을 계산함
@@ -19,7 +20,7 @@ const Calendar = () => {
     return 32 - new Date(year, month, 32).getDate();
   };
 
-  // ! 캘린더는 생각보다 많은 정보를 담고 있어야 함. reducer로 로직을 분리해줄거임
+  // * 캘린더는 생각보다 많은 정보를 담고 있어야 함. reducer로 로직을 분리해줄거임
   const leftCalendarDefaultSate: CalendarDefaultStateType = {
     year: todaysYear,
     month: todaysMonth,
@@ -29,7 +30,7 @@ const Calendar = () => {
 
   const rightCalendarDefaultSate: CalendarDefaultStateType = {
     year: todaysYear,
-    month: todaysMonth,
+    month: todaysMonth + 1,
     firstDay: currentMonthFirstDay(todaysYear, todaysMonth + 1),
     lastDate: currentMonthLastDate(todaysYear, todaysMonth + 1),
   };
