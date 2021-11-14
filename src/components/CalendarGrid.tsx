@@ -2,14 +2,16 @@ import React from 'react';
 import styled from 'styled-components';
 
 interface CalendarGridProps {
-  // 해당 월의 첫번째 날의 요일
-  firstDay: number;
-  // 현재 월의 마지막 날
-  lastDate: number;
-  // 다음 월의 첫번째 날 요일
-  nextFirstDay: number;
-  // 다음 월의 마지막 날
-  nextLastDate: number;
+  // 왼쪽 달력의 state
+  leftCalendarState: CalendarDefaultStateType;
+  // 왼쪽 달력의 dispatch
+  leftCalendarDispatch: React.Dispatch<CalendarAction>;
+  // 오른쪽 달력의 state
+  rightCalendarState: CalendarDefaultStateType;
+  // 오른쪽 달력의 dispatch
+  rightCalendarDispatch: React.Dispatch<CalendarAction>;
+  // 요일 선택 처리 함수
+  dateSelectOnClick: (date: number) => void;
 }
 
 const LootContainer = styled.div`
@@ -25,10 +27,15 @@ const Grid = styled.div`
 `;
 const GridChild = styled.div`
   display: flex;
+  z-index: 100;
   justify-content: center;
 `;
 
-const CalendarGrid: React.FC<CalendarGridProps> = ({ firstDay, lastDate }) => {
+const CalendarGrid: React.FC<CalendarGridProps> = ({
+  leftCalendarState,
+  rightCalendarState,
+  dateSelectOnClick,
+}) => {
   return (
     <LootContainer>
       <Grid>
@@ -41,12 +48,14 @@ const CalendarGrid: React.FC<CalendarGridProps> = ({ firstDay, lastDate }) => {
         <GridChild>금</GridChild>
         <GridChild>토</GridChild>
         {/* 첫번째 날의 요일을 맞춰주기 위해 빈 div를 삽입 */}
-        {[...Array(firstDay).keys()].map(() => (
+        {[...Array(leftCalendarState.firstDay).keys()].map(() => (
           <div />
         ))}
         {/* 숫자 삽입 */}
-        {[...Array(lastDate).keys()].map((number) => (
-          <GridChild>{number + 1}</GridChild>
+        {[...Array(leftCalendarState.lastDate).keys()].map((number) => (
+          <GridChild onClick={() => dateSelectOnClick(number + 1)}>
+            {number + 1}
+          </GridChild>
         ))}
       </Grid>
       <Grid>
@@ -59,12 +68,14 @@ const CalendarGrid: React.FC<CalendarGridProps> = ({ firstDay, lastDate }) => {
         <GridChild>금</GridChild>
         <GridChild>토</GridChild>
         {/* 첫번째 날의 요일을 맞춰주기 위해 빈 div를 삽입 */}
-        {[...Array(firstDay).keys()].map(() => (
+        {[...Array(rightCalendarState.firstDay).keys()].map(() => (
           <div />
         ))}
         {/* 숫자 삽입 */}
-        {[...Array(lastDate).keys()].map((number) => (
-          <GridChild>{number + 1}</GridChild>
+        {[...Array(rightCalendarState.lastDate).keys()].map((number) => (
+          <GridChild onClick={() => dateSelectOnClick(number + 1)}>
+            {number + 1}
+          </GridChild>
         ))}
       </Grid>
     </LootContainer>
