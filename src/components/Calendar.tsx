@@ -75,6 +75,11 @@ const Calendar = () => {
         rightCalendarState={rightCalendarState}
         rightCalendarDispatch={rightCalendarDispatch}
         dateSelectOnClick={onClick}
+        todays={{
+          year: todaysYear,
+          month: todaysMonth,
+          date: todaysDate,
+        }}
       ></CalendarGrid>
     </LootContainer>
   );

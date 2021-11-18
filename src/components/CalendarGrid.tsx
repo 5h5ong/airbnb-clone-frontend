@@ -1,6 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
 
+type TodaysType = {
+  year: number;
+  month: number;
+  date: number;
+};
+
 interface CalendarGridProps {
   // 왼쪽 달력의 state
   leftCalendarState: CalendarDefaultStateType;
@@ -12,6 +18,8 @@ interface CalendarGridProps {
   rightCalendarDispatch: React.Dispatch<CalendarAction>;
   // 요일 선택 처리 함수
   dateSelectOnClick: (date: number) => void;
+  // 오늘 날짜의 정보
+  todays: TodaysType;
 }
 
 const LootContainer = styled.div`
@@ -37,11 +45,15 @@ const GridChild = styled.div`
   z-index: 100;
   justify-content: center;
 `;
+const GridChildGray = styled(GridChild)`
+  color: gray;
+`;
 
 const CalendarGrid: React.FC<CalendarGridProps> = ({
   leftCalendarState,
   rightCalendarState,
   dateSelectOnClick,
+  todays,
 }) => {
   return (
     <LootContainer>
@@ -61,11 +73,21 @@ const CalendarGrid: React.FC<CalendarGridProps> = ({
           <div />
         ))}
         {/* 숫자 삽입 */}
-        {[...Array(leftCalendarState.lastDate).keys()].map((number) => (
-          <GridChild onClick={() => dateSelectOnClick(number + 1)}>
-            {number + 1}
-          </GridChild>
-        ))}
+        {[...Array(leftCalendarState.lastDate).keys()].map((number) => {
+          // 오늘 날의 년과 월이 맞는다면 오늘 날 이전을 회색으로 만들고 onclick 이벤트가 발생하지 않게 만듬
+          if (todays.year === leftCalendarState.year) {
+            if (todays.month === leftCalendarState.month) {
+              if (todays.date > number) {
+                return <GridChildGray>{number + 1}</GridChildGray>;
+              }
+            }
+          }
+          return (
+            <GridChild onClick={() => dateSelectOnClick(number + 1)}>
+              {number + 1}
+            </GridChild>
+          );
+        })}
       </Grid>
       <MidiumText>{rightCalendarState.month + 1}월</MidiumText>
       <Grid>
@@ -82,11 +104,21 @@ const CalendarGrid: React.FC<CalendarGridProps> = ({
           <div />
         ))}
         {/* 숫자 삽입 */}
-        {[...Array(rightCalendarState.lastDate).keys()].map((number) => (
-          <GridChild onClick={() => dateSelectOnClick(number + 1)}>
-            {number + 1}
-          </GridChild>
-        ))}
+        {[...Array(rightCalendarState.lastDate).keys()].map((number) => {
+          // 오늘 날의 년과 월이 맞는다면 오늘 날 이전을 회색으로 만들고 onclick 이벤트가 발생하지 않게 만듬
+          if (todays.year === rightCalendarState.year) {
+            if (todays.month === rightCalendarState.month) {
+              if (todays.date > number) {
+                return <GridChildGray>{number + 1}</GridChildGray>;
+              }
+            }
+          }
+          return (
+            <GridChild onClick={() => dateSelectOnClick(number + 1)}>
+              {number + 1}
+            </GridChild>
+          );
+        })}
       </Grid>
     </LootContainer>
   );
