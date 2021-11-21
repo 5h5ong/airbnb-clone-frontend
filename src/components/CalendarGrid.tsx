@@ -73,12 +73,16 @@ const CalendarGrid: React.FC<CalendarGridProps> = ({
           <div />
         ))}
         {/* 숫자 삽입 */}
+        {/* Array 객체는 0부터 시작하기에 주의해야 함. */}
         {[...Array(leftCalendarState.lastDate).keys()].map((number) => {
           // 오늘 날의 년과 월이 맞는다면 오늘 날 이전을 회색으로 만들고 onclick 이벤트가 발생하지 않게 만듬
           if (todays.year === leftCalendarState.year) {
             if (todays.month === leftCalendarState.month) {
-              if (todays.date > number) {
-                return <GridChildGray>{number + 1}</GridChildGray>;
+              {
+                /* number+1 값이 실제 날짜임. 0부터 시작해서 발생하는 문제임. */
+                if (todays.date > number + 1) {
+                  return <GridChildGray>{number + 1}</GridChildGray>;
+                }
               }
             }
           }
@@ -108,8 +112,11 @@ const CalendarGrid: React.FC<CalendarGridProps> = ({
           // 오늘 날의 년과 월이 맞는다면 오늘 날 이전을 회색으로 만들고 onclick 이벤트가 발생하지 않게 만듬
           if (todays.year === rightCalendarState.year) {
             if (todays.month === rightCalendarState.month) {
-              if (todays.date > number) {
-                return <GridChildGray>{number + 1}</GridChildGray>;
+              {
+                /* number+1 값이 실제 날짜임. 0부터 시작해서 발생하는 문제임. */
+                if (todays.date > number + 1) {
+                  return <GridChildGray>{number + 1}</GridChildGray>;
+                }
               }
             }
           }
