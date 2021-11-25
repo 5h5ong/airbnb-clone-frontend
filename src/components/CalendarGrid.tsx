@@ -17,7 +17,7 @@ interface CalendarGridProps {
   // 오른쪽 달력의 dispatch
   rightCalendarDispatch: React.Dispatch<CalendarAction>;
   // 요일 선택 처리 함수
-  dateSelectOnClick: (date: number) => void;
+  dateSelectOnClick: (year: number, month: number, date: number) => void;
   // 오늘 날짜의 정보
   todays: TodaysType;
 }
@@ -53,7 +53,7 @@ const CalendarGrid: React.FC<CalendarGridProps> = ({
   leftCalendarState,
   rightCalendarState,
   dateSelectOnClick,
-  todays,
+  todays
 }) => {
   return (
     <LootContainer>
@@ -74,7 +74,7 @@ const CalendarGrid: React.FC<CalendarGridProps> = ({
         ))}
         {/* 숫자 삽입 */}
         {/* Array 객체는 0부터 시작하기에 주의해야 함. */}
-        {[...Array(leftCalendarState.lastDate).keys()].map((number) => {
+        {[...Array(leftCalendarState.lastDate).keys()].map(number => {
           // 오늘 날의 년과 월이 맞는다면 오늘 날 이전을 회색으로 만들고 onclick 이벤트가 발생하지 않게 만듬
           if (todays.year === leftCalendarState.year) {
             if (todays.month === leftCalendarState.month) {
@@ -87,7 +87,15 @@ const CalendarGrid: React.FC<CalendarGridProps> = ({
             }
           }
           return (
-            <GridChild onClick={() => dateSelectOnClick(number + 1)}>
+            <GridChild
+              onClick={() =>
+                dateSelectOnClick(
+                  leftCalendarState.year,
+                  leftCalendarState.month,
+                  number + 1
+                )
+              }
+            >
               {number + 1}
             </GridChild>
           );
@@ -108,7 +116,7 @@ const CalendarGrid: React.FC<CalendarGridProps> = ({
           <div />
         ))}
         {/* 숫자 삽입 */}
-        {[...Array(rightCalendarState.lastDate).keys()].map((number) => {
+        {[...Array(rightCalendarState.lastDate).keys()].map(number => {
           // 오늘 날의 년과 월이 맞는다면 오늘 날 이전을 회색으로 만들고 onclick 이벤트가 발생하지 않게 만듬
           if (todays.year === rightCalendarState.year) {
             if (todays.month === rightCalendarState.month) {
@@ -121,7 +129,15 @@ const CalendarGrid: React.FC<CalendarGridProps> = ({
             }
           }
           return (
-            <GridChild onClick={() => dateSelectOnClick(number + 1)}>
+            <GridChild
+              onClick={() =>
+                dateSelectOnClick(
+                  rightCalendarState.year,
+                  rightCalendarState.month,
+                  number + 1
+                )
+              }
+            >
               {number + 1}
             </GridChild>
           );
