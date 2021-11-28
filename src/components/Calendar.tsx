@@ -25,8 +25,8 @@ const CheckInAndOutBase = styled.div<{ toggle: boolean }>`
   grid-row-gap: 5px;
   justify-items: start;
   align-items: center;
-  background-color: ${props => (props.toggle ? `#ffffff` : `#f6f6f6`)};
-  ${props =>
+  background-color: ${(props) => (props.toggle ? `#ffffff` : `#f6f6f6`)};
+  ${(props) =>
     props.toggle &&
     `box-shadow: rgba(50, 50, 93, 0.25) 0px 10px 15px 0px,
     rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;`};
@@ -65,14 +65,14 @@ const Calendar = () => {
     year: todaysYear,
     month: todaysMonth,
     firstDay: currentMonthFirstDay(todaysYear, todaysMonth),
-    lastDate: currentMonthLastDate(todaysYear, todaysMonth)
+    lastDate: currentMonthLastDate(todaysYear, todaysMonth),
   };
 
   const rightCalendarDefaultSate: CalendarDefaultStateType = {
     year: todaysYear,
     month: todaysMonth + 1,
     firstDay: currentMonthFirstDay(todaysYear, todaysMonth + 1),
-    lastDate: currentMonthLastDate(todaysYear, todaysMonth + 1)
+    lastDate: currentMonthLastDate(todaysYear, todaysMonth + 1),
   };
 
   // true === checkout, false === checkin
@@ -91,7 +91,7 @@ const Calendar = () => {
   useEffect(() => {
     console.log({
       firstSelectedDate: firstSelectedDate,
-      secondSelectedDate: secondSelectedDate
+      secondSelectedDate: secondSelectedDate,
     });
   }, [firstSelectedDate, secondSelectedDate]);
 
@@ -124,13 +124,12 @@ const Calendar = () => {
 
   // 요일 선택을 위해서
   // 년, 월, 일을 받아 Date 객체 형식으로 변환 후 First, Second SelectedDate 둘 중 하나에 넣어줌
-  const onClick = (year: number, month: number, date: number) => {
-    const clicked = new Date(year, month, date);
-
+  // const onClick = (year: number, month: number, date: number) => {
+  const onClick = (clicked: Date) => {
     // 체크인 날짜를 처음 입력한다면 그 후 체크아웃으로 넘어감
     if (!firstSelectedDate) {
       setFirstSelectedDate(clicked);
-      setToggleCheckInAndOut(s => !s);
+      setToggleCheckInAndOut((s) => !s);
     } else if (!secondSelectedDate) {
       // 체크아웃은 체크인보다 작으면 안됨
       if (clicked > firstSelectedDate) setSecondSelectedDate(clicked);
@@ -147,7 +146,7 @@ const Calendar = () => {
 
   /** CheckIn <-> CheckOut */
   const checkInOrCheckOutOnClick = () => {
-    setToggleCheckInAndOut(s => !s);
+    setToggleCheckInAndOut((s) => !s);
   };
 
   return (
@@ -191,8 +190,10 @@ const Calendar = () => {
         todays={{
           year: todaysYear,
           month: todaysMonth,
-          date: todaysDate
+          date: todaysDate,
         }}
+        firstSelectedDate={firstSelectedDate}
+        secondSelectedDate={secondSelectedDate}
       ></CalendarGrid>
     </LootContainer>
   );
