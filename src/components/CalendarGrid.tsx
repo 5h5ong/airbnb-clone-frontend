@@ -41,19 +41,47 @@ const Grid = styled.div`
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   grid-template-rows: repeat(6, 1fr);
-  gap: 25px;
 `;
 const GridChild = styled.div`
   display: flex;
-  z-index: 100;
+  padding: 20px;
   justify-content: center;
 `;
 const GridChildGray = styled(GridChild)`
   color: gray;
 `;
-const GridChildSelected = styled(GridChild)`
-  color: white;
+// checkin === false, checkout === true
+const GridChildSelected = styled(GridChild)<{
+  checkinOrCheckout: 'checkin' | 'checkout' | 'normal';
+}>`
+  /* GridChildSelectedRound의 absolute를 제대로 된 위치에 고정시키기 위해 relative를 사용함 */
+  position: relative;
+  background-color: #e3e3e3;
+  ${(props) =>
+    props.checkinOrCheckout === 'checkin' &&
+    `
+    border-top-left-radius: 50%;
+    border-bottom-left-radius: 50%;
+    `};
+  ${(props) =>
+    props.checkinOrCheckout === 'checkout' &&
+    `
+  border-top-right-radius: 50%;
+  border-bottom-right-radius: 50%;
+  `}
+`;
+const GridChildSelectedRound = styled.div`
+  display: flex;
+  top: 0;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  // GridChildSelected의 위에 표시하기 위해 필요함
+  position: absolute;
   background-color: black;
+  color: white;
+  border-radius: 100%;
 `;
 
 // 왼쪽, 오른쪽 캘린더를 통합해 관리하기 위함
@@ -111,29 +139,47 @@ const DateViewer: React.FC<DateViewerProps> = ({
           }
           // 체크인, 체크아웃의 값과 같다면 스타일을 적용함
           if (firstSelectedDate && secondSelectedDate) {
-            if (
+            // 체크인인지, 체크아웃인지 값을 확인
+            const isCheckin =
+              currentDate.getFullYear() === firstSelectedDate.getFullYear() &&
+              currentDate.getMonth() === firstSelectedDate.getMonth() &&
+              currentDate.getDate() === firstSelectedDate.getDate();
+            const isCheckout =
+              currentDate.getFullYear() === secondSelectedDate.getFullYear() &&
+              currentDate.getMonth() === secondSelectedDate.getMonth() &&
+              currentDate.getDate() === secondSelectedDate.getDate();
+            if (isCheckin || isCheckout) {
+              return (
+                <GridChildSelected
+                  checkinOrCheckout={
+                    isCheckin ? 'checkin' : isCheckout ? 'checkout' : 'normal'
+                  }
+                  onClick={() => {
+                    dateSelectOnClick(currentDate);
+                  }}
+                >
+                  <GridChildSelectedRound>{number + 1}</GridChildSelectedRound>
+                </GridChildSelected>
+              );
+            } else if (
               currentDate >= firstSelectedDate &&
               currentDate <= secondSelectedDate
             ) {
               return (
                 <GridChildSelected
+                  checkinOrCheckout={'normal'}
                   onClick={() => {
                     dateSelectOnClick(currentDate);
                   }}
-                />
+                >
+                  {number + 1}
+                </GridChildSelected>
               );
             }
           }
           // 다 해당 없으면 기본 스타일
           return (
-            <GridChild
-              onClick={() =>
-                dateSelectOnClick(
-                currentDate
-
-                )
-              }
-            >
+            <GridChild onClick={() => dateSelectOnClick(currentDate)}>
               {number + 1}
             </GridChild>
           );
