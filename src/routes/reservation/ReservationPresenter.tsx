@@ -5,6 +5,11 @@ import Calendar from '../../components/Calendar';
 interface ReservationPresenterProps {
   /** Accommodations Data */
   accommodationsData: AccommodationsDataType;
+  // Checkin and Checkout
+  firstSelectedDate: Date | undefined;
+  secondSelectedDate: Date | undefined;
+  setFirstSelectedDate: React.Dispatch<React.SetStateAction<Date | undefined>>;
+  setSecondSelectedDate: React.Dispatch<React.SetStateAction<Date | undefined>>;
 }
 
 const LootContainer = styled.div`
@@ -53,6 +58,10 @@ const ReservationSection = styled.div``;
 
 const ReservationPresenter: React.FC<ReservationPresenterProps> = ({
   accommodationsData,
+  firstSelectedDate,
+  secondSelectedDate,
+  setFirstSelectedDate,
+  setSecondSelectedDate,
 }) => {
   return (
     <LootContainer>
@@ -70,7 +79,12 @@ const ReservationPresenter: React.FC<ReservationPresenterProps> = ({
         </Grid>
       </ImageSection>
       <ReservationSection>
-        <Calendar />
+        <Calendar
+          firstSelectedDate={firstSelectedDate}
+          secondSelectedDate={secondSelectedDate}
+          setFirstSelectedDate={setFirstSelectedDate}
+          setSecondSelectedDate={setSecondSelectedDate}
+        />
       </ReservationSection>
     </LootContainer>
   );

@@ -2,6 +2,13 @@ import React, { useReducer, useState, useEffect } from 'react';
 import styled from 'styled-components';
 import CalendarGrid from './CalendarGrid';
 
+type CalendarProps = {
+  firstSelectedDate: Date | undefined;
+  secondSelectedDate: Date | undefined;
+  setFirstSelectedDate: React.Dispatch<React.SetStateAction<Date | undefined>>;
+  setSecondSelectedDate: React.Dispatch<React.SetStateAction<Date | undefined>>;
+};
+
 const LootContainer = styled.div`
   display: grid;
   grid-auto-flow: row;
@@ -44,7 +51,12 @@ const VerticalDivider = styled.hr`
   background-color: #dbdbdb;
 `;
 
-const Calendar = () => {
+const Calendar: React.FC<CalendarProps> = ({
+  firstSelectedDate,
+  secondSelectedDate,
+  setFirstSelectedDate,
+  setSecondSelectedDate,
+}) => {
   const today = new Date();
   const todaysYear = today.getFullYear();
   const todaysMonth = today.getMonth();
@@ -79,14 +91,6 @@ const Calendar = () => {
   const [toggleCheckInAndOut, setToggleCheckInAndOut] = useState<boolean>(
     false
   );
-
-  // 체류할 기간을 저장하는 state
-  const [firstSelectedDate, setFirstSelectedDate] = useState<Date | undefined>(
-    undefined
-  );
-  const [secondSelectedDate, setSecondSelectedDate] = useState<
-    Date | undefined
-  >(undefined);
 
   useEffect(() => {
     console.log({
