@@ -16,6 +16,15 @@ const ReservationContainer: React.FC = () => {
   const [secondSelectedDate, setSecondSelectedDate] = useState<
     Date | undefined
   >(undefined);
+  // 체크인, 체크아웃 선택 상태
+  // true === checkout, false === checkin
+  const [toggleCheckInAndOut, setToggleCheckInAndOut] = useState<boolean>(
+    false
+  );
+  /** CheckIn <-> CheckOut */
+  const checkInOrCheckOutOnClick = () => {
+    setToggleCheckInAndOut((s) => !s);
+  };
 
   if (!loading && data) {
     return (
@@ -25,6 +34,9 @@ const ReservationContainer: React.FC = () => {
         secondSelectedDate={secondSelectedDate}
         setFirstSelectedDate={setFirstSelectedDate}
         setSecondSelectedDate={setSecondSelectedDate}
+        toggleCheckInAndOut={toggleCheckInAndOut}
+        setToggleCheckInAndOut={setToggleCheckInAndOut}
+        checkInOrCheckOutOnClick={checkInOrCheckOutOnClick}
       />
     );
   } else {

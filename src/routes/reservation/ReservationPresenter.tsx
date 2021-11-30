@@ -10,6 +10,10 @@ interface ReservationPresenterProps {
   secondSelectedDate: Date | undefined;
   setFirstSelectedDate: React.Dispatch<React.SetStateAction<Date | undefined>>;
   setSecondSelectedDate: React.Dispatch<React.SetStateAction<Date | undefined>>;
+  // Checkin and Checkout 선택 상태
+  toggleCheckInAndOut: boolean;
+  setToggleCheckInAndOut: React.Dispatch<React.SetStateAction<boolean>>;
+  checkInOrCheckOutOnClick: () => void;
 }
 
 const LootContainer = styled.div`
@@ -54,7 +58,47 @@ const LargeImage = styled(BaseImage)`
   flex: 1;
   margin-right: 7px;
 `;
-const ReservationSection = styled.div``;
+const ReservationSection = styled.div`
+  display: grid;
+  grid-auto-flow: row;
+  grid-gap: 40px;
+`;
+const CheckInAndOutConatiner = styled.div`
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: repeat(2, 1px 200px);
+  /*grid-column-gap: 20px;*/
+  justify-content: center;
+  background-color: #f6f6f6;
+  border-radius: 35px;
+  border: 0.5px solid #dbdbdb;
+`;
+const CheckInAndOutBase = styled.div<{ toggle: boolean }>`
+  display: grid;
+  padding: 20px;
+  grid-auto-flow: row;
+  grid-template-rows: repeat(2, 1fr);
+  grid-row-gap: 5px;
+  justify-items: start;
+  align-items: center;
+  background-color: ${(props) => (props.toggle ? `#ffffff` : `#f6f6f6`)};
+  ${(props) =>
+    props.toggle &&
+    `box-shadow: rgba(50, 50, 93, 0.25) 0px 10px 15px 0px,
+    rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;`};
+  border-radius: 35px;
+`;
+const CheckIn = styled(CheckInAndOutBase)``;
+const CheckOut = styled(CheckInAndOutBase)``;
+const SmallText = styled.div`
+  font-weight: bold;
+`;
+// CheckInAndOutBase에서 CheckIn, CheckOut을 구별해주기 위해 사용됨
+const VerticalDivider = styled.hr`
+  width: 1px;
+  height: 50px;
+  background-color: #dbdbdb;
+`;
 
 const ReservationPresenter: React.FC<ReservationPresenterProps> = ({
   accommodationsData,
@@ -62,6 +106,9 @@ const ReservationPresenter: React.FC<ReservationPresenterProps> = ({
   secondSelectedDate,
   setFirstSelectedDate,
   setSecondSelectedDate,
+  toggleCheckInAndOut,
+  setToggleCheckInAndOut,
+  checkInOrCheckOutOnClick,
 }) => {
   return (
     <LootContainer>
@@ -79,11 +126,44 @@ const ReservationPresenter: React.FC<ReservationPresenterProps> = ({
         </Grid>
       </ImageSection>
       <ReservationSection>
+        {/* Checkin & Checkout 상태바 */}
+        <CheckInAndOutConatiner>
+          <VerticalDivider />
+          <CheckIn
+            toggle={!toggleCheckInAndOut}
+            onClick={() => checkInOrCheckOutOnClick()}
+          >
+            <SmallText>체크인</SmallText>
+            {!firstSelectedDate && <SmallText>---월 ---일</SmallText>}
+            {firstSelectedDate && (
+              <SmallText>
+                {firstSelectedDate.getMonth()}월 {firstSelectedDate.getDate()}일
+              </SmallText>
+            )}
+          </CheckIn>
+          <VerticalDivider />
+          <CheckOut
+            toggle={toggleCheckInAndOut}
+            onClick={() => checkInOrCheckOutOnClick()}
+          >
+            <SmallText>체크아웃</SmallText>
+            {!secondSelectedDate && <SmallText>---월 ---일</SmallText>}
+            {secondSelectedDate && (
+              <SmallText>
+                {secondSelectedDate.getMonth()}월 {secondSelectedDate.getDate()}
+                일
+              </SmallText>
+            )}
+          </CheckOut>
+          <VerticalDivider />
+        </CheckInAndOutConatiner>
         <Calendar
           firstSelectedDate={firstSelectedDate}
           secondSelectedDate={secondSelectedDate}
           setFirstSelectedDate={setFirstSelectedDate}
           setSecondSelectedDate={setSecondSelectedDate}
+          toggleCheckInAndOut={toggleCheckInAndOut}
+          setToggleCheckInAndOut={setToggleCheckInAndOut}
         />
       </ReservationSection>
     </LootContainer>

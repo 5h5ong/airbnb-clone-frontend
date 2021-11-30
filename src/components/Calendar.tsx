@@ -7,6 +7,8 @@ type CalendarProps = {
   secondSelectedDate: Date | undefined;
   setFirstSelectedDate: React.Dispatch<React.SetStateAction<Date | undefined>>;
   setSecondSelectedDate: React.Dispatch<React.SetStateAction<Date | undefined>>;
+  toggleCheckInAndOut: boolean;
+  setToggleCheckInAndOut: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 const LootContainer = styled.div`
@@ -56,6 +58,8 @@ const Calendar: React.FC<CalendarProps> = ({
   secondSelectedDate,
   setFirstSelectedDate,
   setSecondSelectedDate,
+  setToggleCheckInAndOut,
+  toggleCheckInAndOut,
 }) => {
   const today = new Date();
   const todaysYear = today.getFullYear();
@@ -87,11 +91,6 @@ const Calendar: React.FC<CalendarProps> = ({
     lastDate: currentMonthLastDate(todaysYear, todaysMonth + 1),
   };
 
-  // true === checkout, false === checkin
-  const [toggleCheckInAndOut, setToggleCheckInAndOut] = useState<boolean>(
-    false
-  );
-
   useEffect(() => {
     console.log({
       firstSelectedDate: firstSelectedDate,
@@ -116,7 +115,6 @@ const Calendar: React.FC<CalendarProps> = ({
   };
 
   // 왼쪽, 오른쪽 캘린더가 보여주는 월을 담음
-  // 추후에 reducer로 확 바꿔버릴 예정
   const [leftCalendarState, leftCalendarDispatch] = useReducer(
     calendarReducer,
     leftCalendarDefaultSate
@@ -148,43 +146,8 @@ const Calendar: React.FC<CalendarProps> = ({
     }
   };
 
-  /** CheckIn <-> CheckOut */
-  const checkInOrCheckOutOnClick = () => {
-    setToggleCheckInAndOut((s) => !s);
-  };
-
   return (
     <LootContainer>
-      {/* CheckIn, CheckOut으로 시작날짜, 종료날짜를 입력하게 만들어줄거임 */}
-      <CheckInAndOutConatiner>
-        <VerticalDivider />
-        <CheckIn
-          toggle={!toggleCheckInAndOut}
-          onClick={() => checkInOrCheckOutOnClick()}
-        >
-          <SmallText>체크인</SmallText>
-          {!firstSelectedDate && <SmallText>---월 ---일</SmallText>}
-          {firstSelectedDate && (
-            <SmallText>
-              {firstSelectedDate.getMonth()}월 {firstSelectedDate.getDate()}일
-            </SmallText>
-          )}
-        </CheckIn>
-        <VerticalDivider />
-        <CheckOut
-          toggle={toggleCheckInAndOut}
-          onClick={() => checkInOrCheckOutOnClick()}
-        >
-          <SmallText>체크아웃</SmallText>
-          {!secondSelectedDate && <SmallText>---월 ---일</SmallText>}
-          {secondSelectedDate && (
-            <SmallText>
-              {secondSelectedDate.getMonth()}월 {secondSelectedDate.getDate()}일
-            </SmallText>
-          )}
-        </CheckOut>
-        <VerticalDivider />
-      </CheckInAndOutConatiner>
       <CalendarGrid
         leftCalendarState={leftCalendarState}
         leftCalendarDispatch={leftCalendarDispatch}
