@@ -27,25 +27,35 @@ interface CalendarGridProps {
 
 const LootContainer = styled.div`
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: 50px 1fr;
+  grid-template-columns: 1fr 1fr;
   /* Grid가 정렬되는 방식을 정해줄 수 있음 */
   grid-auto-flow: column;
   grid-column-gap: 30px;
 `;
-const MidiumText = styled.span`
-  flex: 1;
+const DateViewerContainer = styled.div`
+  display: grid;
+  grid-auto-flow: row;
+  grid-template-rows: 50px 1fr;
   justify-self: center;
+`;
+const MidiumText = styled.span`
+  /* Using Flex */
+  flex: 1;
+  /* 가로 세로 센터 정렬 */
+  justify-self: center;
+  align-self: center;
 `;
 const Grid = styled.div`
   display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  grid-template-rows: repeat(6, 1fr);
+  grid-template-columns: repeat(7, 50px);
+  grid-template-rows: repeat(6, 50px);
+  grid-row-gap: 2.5px;
 `;
 const GridChild = styled.div`
   display: flex;
-  padding: 20px;
+  padding: 10px;
   justify-content: center;
+  align-items: center;
 `;
 const GridChildGray = styled(GridChild)`
   color: gray;
@@ -101,7 +111,7 @@ const DateViewer: React.FC<DateViewerProps> = ({
   dateSelectOnClick,
 }) => {
   return (
-    <>
+    <DateViewerContainer>
       {/* Date 객체는 값이 0부터 시작하기 때문에 1을 더해줘야 현재의 날짜와 일치함 */}
       <MidiumText>{calendarState.month + 1}월</MidiumText>
       <Grid>
@@ -185,7 +195,7 @@ const DateViewer: React.FC<DateViewerProps> = ({
           );
         })}
       </Grid>
-    </>
+    </DateViewerContainer>
   );
 };
 

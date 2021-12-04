@@ -16,42 +16,6 @@ const LootContainer = styled.div`
   grid-auto-flow: row;
   grid-row-gap: 50px;
 `;
-const CheckInAndOutConatiner = styled.div`
-  display: grid;
-  grid-auto-flow: column;
-  grid-template-columns: repeat(2, 1px 200px);
-  /*grid-column-gap: 20px;*/
-  justify-content: center;
-  background-color: #f6f6f6;
-  border-radius: 35px;
-  border: 0.5px solid #dbdbdb;
-`;
-const CheckInAndOutBase = styled.div<{ toggle: boolean }>`
-  display: grid;
-  padding: 20px;
-  grid-auto-flow: row;
-  grid-template-rows: repeat(2, 1fr);
-  grid-row-gap: 5px;
-  justify-items: start;
-  align-items: center;
-  background-color: ${(props) => (props.toggle ? `#ffffff` : `#f6f6f6`)};
-  ${(props) =>
-    props.toggle &&
-    `box-shadow: rgba(50, 50, 93, 0.25) 0px 10px 15px 0px,
-    rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;`};
-  border-radius: 35px;
-`;
-const CheckIn = styled(CheckInAndOutBase)``;
-const CheckOut = styled(CheckInAndOutBase)``;
-const SmallText = styled.div`
-  font-weight: bold;
-`;
-// CheckInAndOutBase에서 CheckIn, CheckOut을 구별해주기 위해 사용됨
-const VerticalDivider = styled.hr`
-  width: 1px;
-  height: 50px;
-  background-color: #dbdbdb;
-`;
 
 const Calendar: React.FC<CalendarProps> = ({
   firstSelectedDate,
