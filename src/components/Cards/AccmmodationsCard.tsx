@@ -8,7 +8,7 @@ interface AccommodationsCardProps {
   id: string;
   name: string;
   image: string[];
-  price: string;
+  price: number;
   description: string;
 }
 interface MarginStyledType {
