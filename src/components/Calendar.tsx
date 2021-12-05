@@ -48,11 +48,14 @@ const Calendar: React.FC<CalendarProps> = ({
     lastDate: currentMonthLastDate(todaysYear, todaysMonth),
   };
 
+  // * 다음 달의 캘린더를 표시하기 위한 정보
+  // 12월 -> 다음년도 1월 같은 예외 처리를 위해 Date 객체를 사용해 다음 날 정보 얻음
+  const nextDate = new Date(todaysYear, todaysMonth + 1, todaysDate);
   const rightCalendarDefaultSate: CalendarDefaultStateType = {
-    year: todaysYear,
-    month: todaysMonth + 1,
-    firstDay: currentMonthFirstDay(todaysYear, todaysMonth + 1),
-    lastDate: currentMonthLastDate(todaysYear, todaysMonth + 1),
+    year: nextDate.getFullYear(),
+    month: nextDate.getMonth(),
+    firstDay: currentMonthFirstDay(nextDate.getFullYear(), nextDate.getMonth()),
+    lastDate: currentMonthLastDate(nextDate.getFullYear(), nextDate.getMonth()),
   };
 
   useEffect(() => {
