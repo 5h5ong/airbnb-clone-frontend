@@ -8,6 +8,7 @@ const ReservationContainer: React.FC = () => {
   const { data, error, loading } = useAxios<AccommodationsDataType>({
     url: `http://localhost:4000/accommodations/${id}`,
   });
+
   // 체류할 기간을 저장하는 state
   const [firstSelectedDate, setFirstSelectedDate] = useState<Date | undefined>(
     undefined
@@ -17,6 +18,8 @@ const ReservationContainer: React.FC = () => {
   >(undefined);
   // 총 예약 날짜
   const [totalReservationDate, setTotalReservationDate] = useState<number>(0);
+  // 모든 요소를 합산한 금액(청구될 금액)
+  const [totalReservationPrice, setTotalReservationPrice] = useState<number>(0);
   // 체크인, 체크아웃 선택 상태
   // true === checkout, false === checkin
   const [toggleCheckInAndOut, setToggleCheckInAndOut] = useState<boolean>(
@@ -47,6 +50,12 @@ const ReservationContainer: React.FC = () => {
       setTotalReservationDate(intervalOfDate);
     }
   }, [firstSelectedDate, secondSelectedDate]);
+  // 합산 금액을 계산함
+  useEffect(() => {
+    if (data) {
+      setTotalReservationPrice(totalReservationDate * data.price);
+    }
+  }, [totalReservationDate, data]);
 
   if (!loading && data) {
     return (
@@ -57,6 +66,7 @@ const ReservationContainer: React.FC = () => {
         setFirstSelectedDate={setFirstSelectedDate}
         setSecondSelectedDate={setSecondSelectedDate}
         totalReservationDate={totalReservationDate}
+        totalReservationPrice={totalReservationPrice}
         toggleCheckInAndOut={toggleCheckInAndOut}
         setToggleCheckInAndOut={setToggleCheckInAndOut}
         checkInOrCheckOutOnClick={checkInOrCheckOutOnClick}

@@ -14,6 +14,8 @@ interface ReservationPresenterProps {
   setSecondSelectedDate: React.Dispatch<React.SetStateAction<Date | undefined>>;
   // 총 예약 날짜
   totalReservationDate: number;
+  // 요소를 합산한 금액(청구될 금액)
+  totalReservationPrice: number;
   // Checkin and Checkout 선택 상태
   toggleCheckInAndOut: boolean;
   setToggleCheckInAndOut: React.Dispatch<React.SetStateAction<boolean>>;
@@ -130,6 +132,7 @@ const ReservationPresenter: React.FC<ReservationPresenterProps> = ({
   setFirstSelectedDate,
   setSecondSelectedDate,
   totalReservationDate,
+  totalReservationPrice,
   toggleCheckInAndOut,
   setToggleCheckInAndOut,
   checkInOrCheckOutOnClick,
@@ -202,7 +205,7 @@ const ReservationPresenter: React.FC<ReservationPresenterProps> = ({
               <LightColorText>
                 ￦{priceAsString}x{totalReservationDate}박
               </LightColorText>
-              <>총 합계 ￦</>
+              <>총 합계 ￦{totalReservationPrice.toLocaleString()}</>
             </ReservationCard>
           </BasicCard>
         </ReservationCardContainer>
