@@ -134,6 +134,9 @@ const ReservationPresenter: React.FC<ReservationPresenterProps> = ({
   setToggleCheckInAndOut,
   checkInOrCheckOutOnClick,
 }) => {
+  // 반복 사용되는 Variable
+  const [priceAsString] = [accommodationsData.price.toLocaleString()];
+
   return (
     <LootContainer>
       <TopTitleSection>
@@ -194,10 +197,10 @@ const ReservationPresenter: React.FC<ReservationPresenterProps> = ({
         <ReservationCardContainer>
           <BasicCard>
             <ReservationCard>
-              <>￦{accommodationsData.price}/1박</>
+              <>￦{priceAsString}/1박</>
               <RedButton>예약하기</RedButton>
               <LightColorText>
-                ￦{accommodationsData.price}x{totalReservationDate}박
+                ￦{priceAsString}x{totalReservationDate}박
               </LightColorText>
               <>총 합계 ￦</>
             </ReservationCard>
