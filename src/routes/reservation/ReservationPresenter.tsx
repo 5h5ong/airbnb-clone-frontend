@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
+import RedButton from '../../components/Buttons/RedButton';
 import Calendar from '../../components/Calendar';
+import BasicCard from '../../components/Cards/BasicCard';
 
 interface ReservationPresenterProps {
   /** Accommodations Data */
@@ -10,6 +12,8 @@ interface ReservationPresenterProps {
   secondSelectedDate: Date | undefined;
   setFirstSelectedDate: React.Dispatch<React.SetStateAction<Date | undefined>>;
   setSecondSelectedDate: React.Dispatch<React.SetStateAction<Date | undefined>>;
+  // 총 예약 날짜
+  totalReservationDate: number;
   // Checkin and Checkout 선택 상태
   toggleCheckInAndOut: boolean;
   setToggleCheckInAndOut: React.Dispatch<React.SetStateAction<boolean>>;
@@ -61,10 +65,14 @@ const LargeImage = styled(BaseImage)`
 const ReservationSection = styled.div`
   display: grid;
   grid-auto-flow: row;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 90px 1fr;
+  grid-template-areas: 'bar bar card card' 'calendar calendar card card';
   grid-gap: 40px;
 `;
 const CheckInAndOutConatiner = styled.div`
   display: grid;
+  grid-area: bar;
   grid-auto-flow: column;
   grid-template-columns: repeat(2, 1px 200px);
   /*grid-column-gap: 20px;*/
@@ -99,6 +107,21 @@ const VerticalDivider = styled.hr`
   height: 50px;
   background-color: #dbdbdb;
 `;
+const CalendarContainer = styled.div`
+  grid-area: calendar;
+`;
+const ReservationCardContainer = styled.div`
+  grid-area: card;
+`;
+const ReservationCard = styled.div`
+  display: grid;
+  grid-auto-flow: row;
+  row-gap: 20px;
+  padding: 20px;
+`;
+const LightColorText = styled.span`
+  color: gray;
+`;
 
 const ReservationPresenter: React.FC<ReservationPresenterProps> = ({
   accommodationsData,
@@ -106,6 +129,7 @@ const ReservationPresenter: React.FC<ReservationPresenterProps> = ({
   secondSelectedDate,
   setFirstSelectedDate,
   setSecondSelectedDate,
+  totalReservationDate,
   toggleCheckInAndOut,
   setToggleCheckInAndOut,
   checkInOrCheckOutOnClick,
@@ -157,14 +181,28 @@ const ReservationPresenter: React.FC<ReservationPresenterProps> = ({
           </CheckOut>
           <VerticalDivider />
         </CheckInAndOutConatiner>
-        <Calendar
-          firstSelectedDate={firstSelectedDate}
-          secondSelectedDate={secondSelectedDate}
-          setFirstSelectedDate={setFirstSelectedDate}
-          setSecondSelectedDate={setSecondSelectedDate}
-          toggleCheckInAndOut={toggleCheckInAndOut}
-          setToggleCheckInAndOut={setToggleCheckInAndOut}
-        />
+        <CalendarContainer>
+          <Calendar
+            firstSelectedDate={firstSelectedDate}
+            secondSelectedDate={secondSelectedDate}
+            setFirstSelectedDate={setFirstSelectedDate}
+            setSecondSelectedDate={setSecondSelectedDate}
+            toggleCheckInAndOut={toggleCheckInAndOut}
+            setToggleCheckInAndOut={setToggleCheckInAndOut}
+          />
+        </CalendarContainer>
+        <ReservationCardContainer>
+          <BasicCard>
+            <ReservationCard>
+              <>￦{accommodationsData.price}/1박</>
+              <RedButton>예약하기</RedButton>
+              <LightColorText>
+                ￦{accommodationsData.price}x{totalReservationDate}박
+              </LightColorText>
+              <>총 합계 ￦</>
+            </ReservationCard>
+          </BasicCard>
+        </ReservationCardContainer>
       </ReservationSection>
     </LootContainer>
   );

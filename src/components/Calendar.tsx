@@ -58,6 +58,7 @@ const Calendar: React.FC<CalendarProps> = ({
     lastDate: currentMonthLastDate(nextDate.getFullYear(), nextDate.getMonth()),
   };
 
+  // ! 디버깅, 추후 삭제
   useEffect(() => {
     console.log({
       firstSelectedDate: firstSelectedDate,

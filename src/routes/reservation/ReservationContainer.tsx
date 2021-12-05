@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import useAxios from '../../hooks/useAxios';
 import ReservationPresenter from './ReservationPresenter';
@@ -8,7 +8,6 @@ const ReservationContainer: React.FC = () => {
   const { data, error, loading } = useAxios<AccommodationsDataType>({
     url: `http://localhost:4000/accommodations/${id}`,
   });
-  //
   // 체류할 기간을 저장하는 state
   const [firstSelectedDate, setFirstSelectedDate] = useState<Date | undefined>(
     undefined
@@ -16,6 +15,8 @@ const ReservationContainer: React.FC = () => {
   const [secondSelectedDate, setSecondSelectedDate] = useState<
     Date | undefined
   >(undefined);
+  // 총 예약 날짜
+  const [totalReservationDate, setTotalReservationDate] = useState<number>(0);
   // 체크인, 체크아웃 선택 상태
   // true === checkout, false === checkin
   const [toggleCheckInAndOut, setToggleCheckInAndOut] = useState<boolean>(
@@ -26,6 +27,27 @@ const ReservationContainer: React.FC = () => {
     setToggleCheckInAndOut((s) => !s);
   };
 
+  // 체크인과 체크아웃 사이의 날짜 간격을 계산함
+  useEffect(() => {
+    if (firstSelectedDate && secondSelectedDate) {
+      // 체크인, 체크아웃을 밀리초로
+      const [firstDateMilliseconds, secondDateMilliseconds] = [
+        firstSelectedDate.getTime(),
+        secondSelectedDate.getTime(),
+      ];
+      // 밀리초 간격 계산
+      const intervalOfMilliseconds =
+        secondDateMilliseconds - firstDateMilliseconds;
+      // 날짜로 변환
+      const oneDayMilliseconds = 1000 * 60 * 60 * 24;
+      const intervalOfDate = Math.round(
+        intervalOfMilliseconds / oneDayMilliseconds
+      );
+      // 저장
+      setTotalReservationDate(intervalOfDate);
+    }
+  }, [firstSelectedDate, secondSelectedDate]);
+
   if (!loading && data) {
     return (
       <ReservationPresenter
@@ -34,6 +56,7 @@ const ReservationContainer: React.FC = () => {
         secondSelectedDate={secondSelectedDate}
         setFirstSelectedDate={setFirstSelectedDate}
         setSecondSelectedDate={setSecondSelectedDate}
+        totalReservationDate={totalReservationDate}
         toggleCheckInAndOut={toggleCheckInAndOut}
         setToggleCheckInAndOut={setToggleCheckInAndOut}
         checkInOrCheckOutOnClick={checkInOrCheckOutOnClick}
