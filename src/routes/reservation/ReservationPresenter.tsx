@@ -167,7 +167,8 @@ const ReservationPresenter: React.FC<ReservationPresenterProps> = ({
             {!firstSelectedDate && <SmallText>---월 ---일</SmallText>}
             {firstSelectedDate && (
               <SmallText>
-                {firstSelectedDate.getMonth()}월 {firstSelectedDate.getDate()}일
+                {firstSelectedDate.getMonth() + 1}월{' '}
+                {firstSelectedDate.getDate()}일
               </SmallText>
             )}
           </CheckIn>
@@ -180,8 +181,8 @@ const ReservationPresenter: React.FC<ReservationPresenterProps> = ({
             {!secondSelectedDate && <SmallText>---월 ---일</SmallText>}
             {secondSelectedDate && (
               <SmallText>
-                {secondSelectedDate.getMonth()}월 {secondSelectedDate.getDate()}
-                일
+                {secondSelectedDate.getMonth() + 1}월{' '}
+                {secondSelectedDate.getDate()}일
               </SmallText>
             )}
           </CheckOut>
