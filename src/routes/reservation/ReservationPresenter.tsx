@@ -118,11 +118,28 @@ const ReservationCardContainer = styled.div`
 const ReservationCard = styled.div`
   display: grid;
   grid-auto-flow: row;
+  grid-template-columns: 150px 150px;
   row-gap: 20px;
   padding: 20px;
+
+  /* 세부적 스타일을 조정해주기 위해, 한 번 classname으로 제어해봤음 */
+  .bold-text {
+    font-weight: bold;
+  }
+  .large-text {
+    font-size: 20pt;
+  }
+  .full {
+    grid-column-start: 1;
+    grid-column-end: span 2;
+  }
+  .right {
+    justify-self: end;
+  }
 `;
-const LightColorText = styled.span`
+const LightColorText = styled.span<{ underline?: boolean }>`
   color: gray;
+  ${(props) => props.underline && `text-decoration: underline;`};
 `;
 
 const ReservationPresenter: React.FC<ReservationPresenterProps> = ({
@@ -201,12 +218,27 @@ const ReservationPresenter: React.FC<ReservationPresenterProps> = ({
         <ReservationCardContainer>
           <BasicCard>
             <ReservationCard>
-              <>￦{priceAsString}/1박</>
-              <RedButton>예약하기</RedButton>
-              <LightColorText>
+              <div className="full">
+                <span className="large-text bold-text">￦{priceAsString}</span>
+                <span> / 박</span>
+              </div>
+              <div className="full">
+                <RedButton>예약하기</RedButton>
+              </div>
+              <LightColorText underline={true}>
                 ￦{priceAsString}x{totalReservationDate}박
               </LightColorText>
-              <>총 합계 ￦{totalReservationPrice.toLocaleString()}</>
+              <div className="right">
+                <LightColorText>
+                  ￦
+                  {(
+                    accommodationsData.price * totalReservationDate
+                  ).toLocaleString()}
+                </LightColorText>
+              </div>
+              <div className="full bold-text">
+                총 합계 ￦{totalReservationPrice.toLocaleString()}
+              </div>
             </ReservationCard>
           </BasicCard>
         </ReservationCardContainer>
