@@ -4,7 +4,7 @@ import { Spinner } from 'react-bootstrap';
 import { BaseButtonStyle } from './BaseButton';
 
 interface RedButtonProps {
-  onClick?: () => {};
+  onClick?: () => void;
   isLoading?: boolean;
 }
 

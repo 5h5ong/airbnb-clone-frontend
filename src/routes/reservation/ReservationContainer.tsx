@@ -1,5 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { UserContext } from '../../App';
+import { sendDataToServer } from '../../Functions/data/sendDataToServer';
 import useAxios from '../../hooks/useAxios';
 import ReservationPresenter from './ReservationPresenter';
 
@@ -8,6 +10,7 @@ const ReservationContainer: React.FC = () => {
   const { data, error, loading } = useAxios<AccommodationsDataType>({
     url: `http://localhost:4000/accommodations/${id}`,
   });
+  const userContextData = useContext(UserContext);
 
   // 체류할 기간을 저장하는 state
   const [firstSelectedDate, setFirstSelectedDate] = useState<Date | undefined>(
@@ -25,9 +28,35 @@ const ReservationContainer: React.FC = () => {
   const [toggleCheckInAndOut, setToggleCheckInAndOut] = useState<boolean>(
     false
   );
+  const [
+    createReservationRequestIsLoading,
+    setCreateReservationRequestIsLoading,
+  ] = useState<boolean>(false);
+
   /** CheckIn <-> CheckOut */
   const checkInOrCheckOutOnClick = () => {
     setToggleCheckInAndOut((s) => !s);
+  };
+  /** Create new reservation */
+  const createNewReservationOnClick = async () => {
+    // 필요한 데이터 null 검증 및 분리하기
+    if (userContextData && data && firstSelectedDate && secondSelectedDate) {
+      const { id: userId } = userContextData.user;
+      const { id: accommodationsId } = data;
+      console.log(`Create Reservation ${userId} ${accommodationsId}`);
+      try {
+        setCreateReservationRequestIsLoading(true);
+        await sendDataToServer('http://localhost:4000/reservation', {
+          accommodationsId: accommodationsId,
+          reservationDate: {
+            start: firstSelectedDate.toISOString(),
+            end: secondSelectedDate.toISOString(),
+          },
+          issuedDate: new Date().toISOString(),
+        });
+        setCreateReservationRequestIsLoading(false);
+      } catch (e) {}
+    }
   };
 
   // 체크인과 체크아웃 사이의 날짜 간격을 계산함
@@ -70,6 +99,8 @@ const ReservationContainer: React.FC = () => {
         toggleCheckInAndOut={toggleCheckInAndOut}
         setToggleCheckInAndOut={setToggleCheckInAndOut}
         checkInOrCheckOutOnClick={checkInOrCheckOutOnClick}
+        createNewReservationOnClick={createNewReservationOnClick}
+        createReservationButtonIsLoading={createReservationRequestIsLoading}
       />
     );
   } else {
