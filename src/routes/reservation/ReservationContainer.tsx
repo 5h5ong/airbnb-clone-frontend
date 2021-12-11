@@ -1,15 +1,17 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
 import { UserContext } from '../../App';
 import { sendDataToServer } from '../../Functions/data/sendDataToServer';
-import useAxios from '../../hooks/useAxios';
 import ReservationPresenter from './ReservationPresenter';
 
-const ReservationContainer: React.FC = () => {
-  const { id } = useParams<{ id: string }>();
-  const { data, error, loading } = useAxios<AccommodationsDataType>({
-    url: `http://localhost:4000/accommodations/${id}`,
-  });
+interface ReservationContainerType {
+  accommodationData: Omit<AccommodationsDataType, 'requestUserReservation'>;
+  requestUserReservationData: ReservationDataType | undefined;
+}
+
+const ReservationContainer: React.FC<ReservationContainerType> = ({
+  accommodationData,
+  requestUserReservationData,
+}) => {
   const userContextData = useContext(UserContext);
 
   // 체류할 기간을 저장하는 state
@@ -40,9 +42,9 @@ const ReservationContainer: React.FC = () => {
   /** Create new reservation */
   const createNewReservationOnClick = async () => {
     // 필요한 데이터 null 검증 및 분리하기
-    if (userContextData && data && firstSelectedDate && secondSelectedDate) {
+    if (userContextData && firstSelectedDate && secondSelectedDate) {
       const { id: userId } = userContextData.user;
-      const { id: accommodationsId } = data;
+      const { id: accommodationsId } = accommodationData;
       console.log(`Create Reservation ${userId} ${accommodationsId}`);
       try {
         setCreateReservationRequestIsLoading(true);
@@ -81,31 +83,26 @@ const ReservationContainer: React.FC = () => {
   }, [firstSelectedDate, secondSelectedDate]);
   // 합산 금액을 계산함
   useEffect(() => {
-    if (data) {
-      setTotalReservationPrice(totalReservationDate * data.price);
-    }
-  }, [totalReservationDate, data]);
+    setTotalReservationPrice(totalReservationDate * accommodationData.price);
+  }, [totalReservationDate, accommodationData]);
 
-  if (!loading && data) {
-    return (
-      <ReservationPresenter
-        accommodationsData={data}
-        firstSelectedDate={firstSelectedDate}
-        secondSelectedDate={secondSelectedDate}
-        setFirstSelectedDate={setFirstSelectedDate}
-        setSecondSelectedDate={setSecondSelectedDate}
-        totalReservationDate={totalReservationDate}
-        totalReservationPrice={totalReservationPrice}
-        toggleCheckInAndOut={toggleCheckInAndOut}
-        setToggleCheckInAndOut={setToggleCheckInAndOut}
-        checkInOrCheckOutOnClick={checkInOrCheckOutOnClick}
-        createNewReservationOnClick={createNewReservationOnClick}
-        createReservationButtonIsLoading={createReservationRequestIsLoading}
-      />
-    );
-  } else {
-    return <div>loading...</div>;
-  }
+  return (
+    <ReservationPresenter
+      accommodationsData={accommodationData}
+      requestUserReservationData={requestUserReservationData}
+      firstSelectedDate={firstSelectedDate}
+      secondSelectedDate={secondSelectedDate}
+      setFirstSelectedDate={setFirstSelectedDate}
+      setSecondSelectedDate={setSecondSelectedDate}
+      totalReservationDate={totalReservationDate}
+      totalReservationPrice={totalReservationPrice}
+      toggleCheckInAndOut={toggleCheckInAndOut}
+      setToggleCheckInAndOut={setToggleCheckInAndOut}
+      checkInOrCheckOutOnClick={checkInOrCheckOutOnClick}
+      createNewReservationOnClick={createNewReservationOnClick}
+      createReservationButtonIsLoading={createReservationRequestIsLoading}
+    />
+  );
 };
 
 export default ReservationContainer;

@@ -1,12 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
+import GrayButton from '../../components/Buttons/GrayButton';
 import RedButton from '../../components/Buttons/RedButton';
 import Calendar from '../../components/Calendar';
 import BasicCard from '../../components/Cards/BasicCard';
 
 interface ReservationPresenterProps {
   /** Accommodations Data */
-  accommodationsData: AccommodationsDataType;
+  accommodationsData: Omit<AccommodationsDataType, 'requestUserReservation'>;
+  requestUserReservationData: ReservationDataType | undefined;
   // Checkin and Checkout
   firstSelectedDate: Date | undefined;
   secondSelectedDate: Date | undefined;
@@ -146,6 +148,7 @@ const LightColorText = styled.span<{ underline?: boolean }>`
 
 const ReservationPresenter: React.FC<ReservationPresenterProps> = ({
   accommodationsData,
+  requestUserReservationData,
   firstSelectedDate,
   secondSelectedDate,
   setFirstSelectedDate,
@@ -227,12 +230,17 @@ const ReservationPresenter: React.FC<ReservationPresenterProps> = ({
                 <span> / 박</span>
               </div>
               <div className="full">
-                <RedButton
-                  onClick={() => createNewReservationOnClick()}
-                  isLoading={createReservationButtonIsLoading}
-                >
-                  예약하기
-                </RedButton>
+                {!requestUserReservationData && (
+                  <RedButton
+                    onClick={() => createNewReservationOnClick()}
+                    isLoading={createReservationButtonIsLoading}
+                  >
+                    예약하기
+                  </RedButton>
+                )}
+                {requestUserReservationData && (
+                  <GrayButton>예약완료!</GrayButton>
+                )}
               </div>
               <LightColorText underline={true}>
                 ￦{priceAsString}x{totalReservationDate}박

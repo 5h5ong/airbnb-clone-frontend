@@ -1,9 +1,36 @@
 import React from 'react';
+import { useParams } from 'react-router-dom';
 import WithHeaderPadding from '../../components/HOCs/WithHeaderPadding/WithHeaderPadding';
+import useAxios from '../../hooks/useAxios';
 import ReservationContainer from './ReservationContainer';
 
 const Index: React.FC = () => {
-  return <ReservationContainer />;
+  const { id } = useParams<{ id: string }>();
+  const { data, error, loading } = useAxios<AccommodationsDataType>({
+    url: `http://localhost:4000/accommodations/computed/${id}`,
+  });
+
+  if (!loading && data) {
+    // `requestUserReservationData`는 `data`에 들어있지만 둘을 나눠 파악하기 쉽게 만듬
+    const accommodationData: Omit<
+      AccommodationsDataType,
+      'requestUserReservation'
+    > = {
+      ...data,
+    };
+    const requestUserReservationData: ReservationDataType = {
+      ...data.requestUserReservation,
+    };
+
+    return (
+      <ReservationContainer
+        accommodationData={accommodationData}
+        requestUserReservationData={requestUserReservationData}
+      />
+    );
+  } else {
+    return <div>loading...</div>;
+  }
 };
 
 export default WithHeaderPadding(Index);
