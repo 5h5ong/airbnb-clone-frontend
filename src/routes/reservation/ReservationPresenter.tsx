@@ -8,7 +8,7 @@ import BasicCard from '../../components/Cards/BasicCard';
 interface ReservationPresenterProps {
   /** Accommodations Data */
   accommodationsData: Omit<AccommodationsDataType, 'requestUserReservation'>;
-  requestUserReservationData: ReservationDataType | undefined;
+  isReserve: boolean;
   // Checkin and Checkout
   firstSelectedDate: Date | undefined;
   secondSelectedDate: Date | undefined;
@@ -148,7 +148,7 @@ const LightColorText = styled.span<{ underline?: boolean }>`
 
 const ReservationPresenter: React.FC<ReservationPresenterProps> = ({
   accommodationsData,
-  requestUserReservationData,
+  isReserve,
   firstSelectedDate,
   secondSelectedDate,
   setFirstSelectedDate,
@@ -185,12 +185,8 @@ const ReservationPresenter: React.FC<ReservationPresenterProps> = ({
           <VerticalDivider />
           {/* 예약이 존재할 때 비활성화 */}
           <CheckIn
-            toggle={!!requestUserReservationData ? false : !toggleCheckInAndOut}
-            onClick={
-              !!requestUserReservationData
-                ? undefined
-                : () => checkInOrCheckOutOnClick()
-            }
+            toggle={isReserve ? false : !toggleCheckInAndOut}
+            onClick={isReserve ? undefined : () => checkInOrCheckOutOnClick()}
           >
             <SmallText>체크인</SmallText>
             {!firstSelectedDate && <SmallText>---월 ---일</SmallText>}
@@ -204,12 +200,8 @@ const ReservationPresenter: React.FC<ReservationPresenterProps> = ({
           <VerticalDivider />
           {/* 예약이 존재할 때 비활성화 */}
           <CheckOut
-            toggle={!!requestUserReservationData ? false : !toggleCheckInAndOut}
-            onClick={
-              !!requestUserReservationData
-                ? undefined
-                : () => checkInOrCheckOutOnClick()
-            }
+            toggle={isReserve ? false : toggleCheckInAndOut}
+            onClick={isReserve ? undefined : () => checkInOrCheckOutOnClick()}
           >
             <SmallText>체크아웃</SmallText>
             {!secondSelectedDate && <SmallText>---월 ---일</SmallText>}
@@ -224,7 +216,7 @@ const ReservationPresenter: React.FC<ReservationPresenterProps> = ({
         </CheckInAndOutConatiner>
         <CalendarContainer>
           <Calendar
-            disableCalendar={!!requestUserReservationData}
+            disableCalendar={isReserve}
             firstSelectedDate={firstSelectedDate}
             secondSelectedDate={secondSelectedDate}
             setFirstSelectedDate={setFirstSelectedDate}
@@ -241,7 +233,7 @@ const ReservationPresenter: React.FC<ReservationPresenterProps> = ({
                 <span> / 박</span>
               </div>
               <div className="full">
-                {!requestUserReservationData && (
+                {!isReserve && (
                   <RedButton
                     onClick={() => createNewReservationOnClick()}
                     isLoading={createReservationButtonIsLoading}
@@ -249,9 +241,7 @@ const ReservationPresenter: React.FC<ReservationPresenterProps> = ({
                     예약하기
                   </RedButton>
                 )}
-                {requestUserReservationData && (
-                  <GrayButton>예약완료!</GrayButton>
-                )}
+                {isReserve && <GrayButton>예약완료!</GrayButton>}
               </div>
               <LightColorText underline={true}>
                 ￦{priceAsString}x{totalReservationDate}박

@@ -52,6 +52,10 @@ const ReservationContainer: React.FC<ReservationContainerType> = ({
     createReservationRequestIsLoading,
     setCreateReservationRequestIsLoading,
   ] = useState<boolean>(false);
+  // 예약 상태
+  const [isReserve, setIsReserve] = useState<boolean>(
+    !!requestUserReservationData
+  );
 
   /** CheckIn <-> CheckOut */
   const checkInOrCheckOutOnClick = () => {
@@ -75,6 +79,7 @@ const ReservationContainer: React.FC<ReservationContainerType> = ({
           issuedDate: new Date().toISOString(),
         });
         setCreateReservationRequestIsLoading(false);
+        setIsReserve(true);
       } catch (e) {}
     }
   };
@@ -107,7 +112,7 @@ const ReservationContainer: React.FC<ReservationContainerType> = ({
   return (
     <ReservationPresenter
       accommodationsData={accommodationData}
-      requestUserReservationData={requestUserReservationData}
+      isReserve={isReserve}
       firstSelectedDate={firstSelectedDate}
       secondSelectedDate={secondSelectedDate}
       setFirstSelectedDate={setFirstSelectedDate}
