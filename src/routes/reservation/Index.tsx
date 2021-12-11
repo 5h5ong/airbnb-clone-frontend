@@ -18,14 +18,20 @@ const Index: React.FC = () => {
     > = {
       ...data,
     };
-    const requestUserReservationData: ReservationDataType = {
-      ...data.requestUserReservation,
-    };
+
+    // data.requestUserReservation이 빈 오브젝트인지 확인
+    // 빈 오브젝트라면 requestUserReservationData에 undefined
+    const isRequestUserReservationDataIsEmpty =
+      JSON.stringify(data.requestUserReservation) === '{}';
 
     return (
       <ReservationContainer
         accommodationData={accommodationData}
-        requestUserReservationData={requestUserReservationData}
+        requestUserReservationData={
+          isRequestUserReservationDataIsEmpty
+            ? undefined
+            : data.requestUserReservation
+        }
       />
     );
   } else {

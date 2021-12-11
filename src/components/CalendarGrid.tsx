@@ -8,6 +8,7 @@ type TodaysType = {
 };
 
 interface CalendarGridProps {
+  disableCalendar?: boolean;
   // 왼쪽 달력의 state
   leftCalendarState: CalendarDefaultStateType;
   // 왼쪽 달력의 dispatch
@@ -96,6 +97,7 @@ const GridChildSelectedRound = styled.div`
 
 // 왼쪽, 오른쪽 캘린더를 통합해 관리하기 위함
 type DateViewerProps = {
+  disableCalendar?: boolean;
   calendarState: CalendarDefaultStateType;
   todays: TodaysType;
   firstSelectedDate: Date | undefined;
@@ -104,6 +106,7 @@ type DateViewerProps = {
 };
 
 const DateViewer: React.FC<DateViewerProps> = ({
+  disableCalendar,
   calendarState,
   todays,
   firstSelectedDate,
@@ -164,9 +167,6 @@ const DateViewer: React.FC<DateViewerProps> = ({
                   checkinOrCheckout={
                     isCheckin ? 'checkin' : isCheckout ? 'checkout' : 'normal'
                   }
-                  onClick={() => {
-                    dateSelectOnClick(currentDate);
-                  }}
                 >
                   <GridChildSelectedRound>{number + 1}</GridChildSelectedRound>
                 </GridChildSelected>
@@ -176,11 +176,16 @@ const DateViewer: React.FC<DateViewerProps> = ({
               currentDate <= secondSelectedDate
             ) {
               return (
+                // 캘린더 비활성화 시 onclick 넣지 않음
                 <GridChildSelected
                   checkinOrCheckout={'normal'}
-                  onClick={() => {
-                    dateSelectOnClick(currentDate);
-                  }}
+                  onClick={
+                    disableCalendar
+                      ? undefined
+                      : () => {
+                          dateSelectOnClick(currentDate);
+                        }
+                  }
                 >
                   {number + 1}
                 </GridChildSelected>
@@ -188,8 +193,17 @@ const DateViewer: React.FC<DateViewerProps> = ({
             }
           }
           // 다 해당 없으면 기본 스타일
+          // 캘린더 비활성화 시 onclick 넣지 않음
           return (
-            <GridChild onClick={() => dateSelectOnClick(currentDate)}>
+            <GridChild
+              onClick={
+                disableCalendar
+                  ? undefined
+                  : () => {
+                      dateSelectOnClick(currentDate);
+                    }
+              }
+            >
               {number + 1}
             </GridChild>
           );
@@ -200,6 +214,7 @@ const DateViewer: React.FC<DateViewerProps> = ({
 };
 
 const CalendarGrid: React.FC<CalendarGridProps> = ({
+  disableCalendar,
   leftCalendarState,
   rightCalendarState,
   dateSelectOnClick,
@@ -210,6 +225,7 @@ const CalendarGrid: React.FC<CalendarGridProps> = ({
   return (
     <LootContainer>
       <DateViewer
+        disableCalendar={disableCalendar}
         calendarState={leftCalendarState}
         firstSelectedDate={firstSelectedDate}
         secondSelectedDate={secondSelectedDate}
@@ -217,6 +233,7 @@ const CalendarGrid: React.FC<CalendarGridProps> = ({
         dateSelectOnClick={dateSelectOnClick}
       />
       <DateViewer
+        disableCalendar={disableCalendar}
         calendarState={rightCalendarState}
         firstSelectedDate={firstSelectedDate}
         secondSelectedDate={secondSelectedDate}

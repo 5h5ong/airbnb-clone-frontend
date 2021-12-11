@@ -5,6 +5,11 @@ import ReservationPresenter from './ReservationPresenter';
 
 interface ReservationContainerType {
   accommodationData: Omit<AccommodationsDataType, 'requestUserReservation'>;
+  /**
+   * 로그인 한 유저의 해당 숙소 예약 데이터
+   *
+   * 유저가 예약 생성을 했는지 안 했는지 플래그로 사용 중임.
+   */
   requestUserReservationData: ReservationDataType | undefined;
 }
 
@@ -12,15 +17,28 @@ const ReservationContainer: React.FC<ReservationContainerType> = ({
   accommodationData,
   requestUserReservationData,
 }) => {
+  console.log({ requestUserReservationData: requestUserReservationData });
   const userContextData = useContext(UserContext);
 
   // 체류할 기간을 저장하는 state
   const [firstSelectedDate, setFirstSelectedDate] = useState<Date | undefined>(
-    undefined
+    requestUserReservationData
+      ? new Date(requestUserReservationData.reservationDate.start)
+      : undefined
   );
   const [secondSelectedDate, setSecondSelectedDate] = useState<
     Date | undefined
-  >(undefined);
+  >(
+    requestUserReservationData
+      ? new Date(requestUserReservationData.reservationDate.end)
+      : undefined
+  );
+  // const [firstSelectedDate, setFirstSelectedDate] = useState<Date | undefined>(
+  //   undefined
+  // );
+  // const [secondSelectedDate, setSecondSelectedDate] = useState<
+  //   Date | undefined
+  // >(undefined);
   // 총 예약 날짜
   const [totalReservationDate, setTotalReservationDate] = useState<number>(0);
   // 모든 요소를 합산한 금액(청구될 금액)

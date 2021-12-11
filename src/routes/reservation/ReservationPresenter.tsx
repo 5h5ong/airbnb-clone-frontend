@@ -183,9 +183,14 @@ const ReservationPresenter: React.FC<ReservationPresenterProps> = ({
         {/* Checkin & Checkout 상태바 */}
         <CheckInAndOutConatiner>
           <VerticalDivider />
+          {/* 예약이 존재할 때 비활성화 */}
           <CheckIn
-            toggle={!toggleCheckInAndOut}
-            onClick={() => checkInOrCheckOutOnClick()}
+            toggle={!!requestUserReservationData ? false : !toggleCheckInAndOut}
+            onClick={
+              !!requestUserReservationData
+                ? undefined
+                : () => checkInOrCheckOutOnClick()
+            }
           >
             <SmallText>체크인</SmallText>
             {!firstSelectedDate && <SmallText>---월 ---일</SmallText>}
@@ -197,9 +202,14 @@ const ReservationPresenter: React.FC<ReservationPresenterProps> = ({
             )}
           </CheckIn>
           <VerticalDivider />
+          {/* 예약이 존재할 때 비활성화 */}
           <CheckOut
-            toggle={toggleCheckInAndOut}
-            onClick={() => checkInOrCheckOutOnClick()}
+            toggle={!!requestUserReservationData ? false : !toggleCheckInAndOut}
+            onClick={
+              !!requestUserReservationData
+                ? undefined
+                : () => checkInOrCheckOutOnClick()
+            }
           >
             <SmallText>체크아웃</SmallText>
             {!secondSelectedDate && <SmallText>---월 ---일</SmallText>}
@@ -214,6 +224,7 @@ const ReservationPresenter: React.FC<ReservationPresenterProps> = ({
         </CheckInAndOutConatiner>
         <CalendarContainer>
           <Calendar
+            disableCalendar={!!requestUserReservationData}
             firstSelectedDate={firstSelectedDate}
             secondSelectedDate={secondSelectedDate}
             setFirstSelectedDate={setFirstSelectedDate}

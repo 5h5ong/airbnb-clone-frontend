@@ -1,8 +1,14 @@
-import React, { useReducer, useState, useEffect } from 'react';
+import React, { useReducer, useEffect } from 'react';
 import styled from 'styled-components';
 import CalendarGrid from './CalendarGrid';
 
 type CalendarProps = {
+  /**
+   * 캘린더를 비활성화 함
+   *
+   * true -> 비활성화, false -> 활성화.
+   */
+  disableCalendar?: boolean;
   firstSelectedDate: Date | undefined;
   secondSelectedDate: Date | undefined;
   setFirstSelectedDate: React.Dispatch<React.SetStateAction<Date | undefined>>;
@@ -18,6 +24,7 @@ const LootContainer = styled.div`
 `;
 
 const Calendar: React.FC<CalendarProps> = ({
+  disableCalendar,
   firstSelectedDate,
   secondSelectedDate,
   setFirstSelectedDate,
@@ -117,6 +124,7 @@ const Calendar: React.FC<CalendarProps> = ({
   return (
     <LootContainer>
       <CalendarGrid
+        disableCalendar={disableCalendar}
         leftCalendarState={leftCalendarState}
         leftCalendarDispatch={leftCalendarDispatch}
         rightCalendarState={rightCalendarState}
