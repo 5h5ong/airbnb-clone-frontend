@@ -139,17 +139,6 @@ const DateViewer: React.FC<DateViewerProps> = ({
             number + 1
           );
 
-          // 오늘 날의 년과 월이 맞는다면 오늘 날 이전을 회색으로 만들고 onclick 이벤트가 발생하지 않게 만듬
-          if (todays.year === calendarState.year) {
-            if (todays.month === calendarState.month) {
-              {
-                /* number+1 값이 실제 날짜임. 0부터 시작해서 발생하는 문제임. */
-                if (todays.date > number + 1) {
-                  return <GridChildGray>{number + 1}</GridChildGray>;
-                }
-              }
-            }
-          }
           // 체크인, 체크아웃의 값과 같다면 스타일을 적용함
           if (firstSelectedDate && secondSelectedDate) {
             // 체크인인지, 체크아웃인지 값을 확인
@@ -192,6 +181,19 @@ const DateViewer: React.FC<DateViewerProps> = ({
               );
             }
           }
+
+          // 오늘 날의 년과 월이 맞는다면 오늘 날 이전을 회색으로 만들고 onclick 이벤트가 발생하지 않게 만듬
+          if (todays.year === calendarState.year) {
+            if (todays.month === calendarState.month) {
+              {
+                /* number+1 값이 실제 날짜임. 0부터 시작해서 발생하는 문제임. */
+                if (todays.date > number + 1) {
+                  return <GridChildGray>{number + 1}</GridChildGray>;
+                }
+              }
+            }
+          }
+
           // 다 해당 없으면 기본 스타일
           // 캘린더 비활성화 시 onclick 넣지 않음
           return (
