@@ -3,7 +3,18 @@ import axios, { AxiosRequestConfig } from 'axios';
 import checkLocalStorage from '../Functions/checkLocalStorage';
 import useIsMounted from './useIsMounted';
 
-type UseAxiosOption = Pick<AxiosRequestConfig, 'method' | 'url' | 'data'>;
+type PickedAxiosConfigType = Pick<
+  AxiosRequestConfig,
+  'method' | 'url' | 'data'
+>;
+
+interface UseAxiosOption extends PickedAxiosConfigType {
+  /**
+   * 요청할 서버의 url
+   * @example abcd/efg
+   */
+  url: string;
+}
 
 interface UseAxiosErrorType {
   data: {
@@ -18,6 +29,10 @@ interface UseAxiosReturnType {
   setReload: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
+/**
+ * axios를 사용하게 해주는 훅
+ * @param opts useAxiosOption을 기반으로 값들을 받음. url은 일부만 받고 요청 때 환경변수와 합쳐 실제 주소를 만듬.
+ */
 export default <T extends any>(
   opts: UseAxiosOption
 ): UseAxiosReturnType & { data: T | undefined } => {
@@ -50,6 +65,7 @@ export default <T extends any>(
     try {
       const response = await axios({
         ...opts,
+        url: process.env.REACT_APP_BACKEND_URL?.concat(opts.url),
         // token이 존재한다면 인증 헤더에 token을 추가
         headers: {
           Authorization: token ? `Bearer ${token}` : null,

@@ -28,7 +28,7 @@ const App: React.FC = () => {
     role: '',
   });
   const { error, data, loading, setReload } = useAxios({
-    url: 'http://localhost:4000/auth/verify',
+    url: 'auth/verify',
     method: 'get',
   });
   const memoIsSignIn = useMemo(() => userState.isSignIn, [userState.isSignIn]);

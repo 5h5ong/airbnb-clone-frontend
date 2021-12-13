@@ -27,3 +27,9 @@ __snapshots__
 
 # Debug Profile
 launch.json
+
+# Google App Engine Config
+app.yaml
+
+# env
+.env.development
