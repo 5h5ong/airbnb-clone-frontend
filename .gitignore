@@ -33,3 +33,4 @@ app.yaml
 
 # env
 .env.development
+.env.production
