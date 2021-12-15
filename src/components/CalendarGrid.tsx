@@ -59,7 +59,7 @@ const GridChild = styled.div`
   align-items: center;
 `;
 const GridChildGray = styled(GridChild)`
-  color: gray;
+  color: ${(props) => props.theme.color.lightGrayColor};
 `;
 // checkin === false, checkout === true
 const GridChildSelected = styled(GridChild)<{
