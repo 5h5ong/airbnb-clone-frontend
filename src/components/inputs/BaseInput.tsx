@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 interface BaseInputProps {
   placeholder?: string;
+  type?: string;
   value?: string;
   onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
 }
@@ -30,11 +31,17 @@ const Input = styled.input`
 const BaseInput: React.FC<BaseInputProps> = ({
   placeholder,
   value,
+  type,
   onChange,
 }) => {
   return (
     <Container>
-      <Input placeholder={placeholder} value={value} onChange={onChange} />
+      <Input
+        placeholder={placeholder}
+        value={value}
+        onChange={onChange}
+        type={type}
+      />
     </Container>
   );
 };
