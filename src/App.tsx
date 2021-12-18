@@ -30,6 +30,7 @@ const App: React.FC = () => {
   const { error, data, loading, setReload } = useAxios({
     url: 'auth/verify',
     method: 'get',
+    start: 'wait',
   });
   const memoIsSignIn = useMemo(() => userState.isSignIn, [userState.isSignIn]);
   const memoData = useMemo(() => data, [data]);
@@ -41,28 +42,24 @@ const App: React.FC = () => {
   }, [memoIsSignIn]);
 
   useEffect(() => {
-    if (!memoLoading) {
+    if (!memoLoading && !error.state && memoData) {
       console.log(`[App] useEffect Evoked`);
       console.log(`[App] ${loading} ${memoLoading}`);
-      if (!error.state) {
-        setUserState({
-          isSignIn: true,
-          id: memoData.id,
-          email: memoData.email,
-          role: memoData.role,
-        });
-      } else if (error.data.status === '1') {
-        setUserState({
-          isSignIn: false,
-          id: '',
-          email: '',
-          role: '',
-        });
-      }
+      setUserState({
+        isSignIn: true,
+        id: memoData.id,
+        email: memoData.email,
+        role: memoData.role,
+      });
+    } else {
+      setUserState({
+        isSignIn: false,
+        id: '',
+        email: '',
+        role: '',
+      });
     }
   }, [memoData, memoLoading]);
-
-  console.log(memoLoading);
 
   return (
     <div className="App">

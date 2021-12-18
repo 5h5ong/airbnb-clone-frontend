@@ -8,6 +8,7 @@ const Index: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const { data, error, loading } = useAxios<AccommodationsDataType>({
     url: `accommodations/computed/${id}`,
+    start: 'wait',
   });
 
   if (!loading && data) {
