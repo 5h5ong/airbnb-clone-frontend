@@ -52,23 +52,13 @@ export default <T extends any>(
     setLoading(true);
     const token = checkLocalStorage('token');
 
-    // 토큰이 존재하지 않으면 에러 발생 후 끝내기
-    if (!token) {
-      setError({
-        data: { status: '1', statusText: 'Token Not Exists' },
-        state: true,
-      });
-      setLoading(false);
-      return;
-    }
-
     try {
       const response = await axios({
         ...opts,
         url: process.env.REACT_APP_BACKEND_URL?.concat(opts.url),
         // token이 존재한다면 인증 헤더에 token을 추가
         headers: {
-          Authorization: token ? `Bearer ${token}` : null,
+          Authorization: token ? `Bearer ${token}` : undefined,
         },
       });
 
@@ -84,6 +74,7 @@ export default <T extends any>(
         statusText: e.response.statusText,
       };
       setError({ data: { ...returnObject }, state: true });
+      setLoading(false);
       return;
     }
   };

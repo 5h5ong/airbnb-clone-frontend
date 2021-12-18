@@ -62,11 +62,13 @@ const App: React.FC = () => {
     }
   }, [memoData, memoLoading]);
 
+  console.log(memoLoading);
+
   return (
     <div className="App">
       <UserContext.Provider value={{ setUser: setUserState, user: userState }}>
-        {loading && 'loading...'}
-        {!loading && <Routes />}
+        {memoLoading && 'loading...'}
+        {!memoLoading && <Routes />}
       </UserContext.Provider>
     </div>
   );

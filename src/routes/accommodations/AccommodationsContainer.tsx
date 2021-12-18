@@ -7,6 +7,7 @@ const AccommodationsContainer: React.FC = () => {
   const { loading, error, data } = useAxios<AccommodationsDataType[]>({
     url: 'accommodations',
   });
+
   // 전체 화면의 높이를 구해 맵-리스트 컴포넌트로 화면을 꽉 채우기 위함
   const { height } = useDeviceHeight();
   // 스크롤로 지나치게 된 element의 수
