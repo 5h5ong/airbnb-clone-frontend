@@ -1,6 +1,7 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import WithHeaderPadding from '../../components/HOCs/WithHeaderPadding/WithHeaderPadding';
+import Loading from '../../components/Loading';
 import useAxios from '../../hooks/useAxios';
 import ReservationContainer from './ReservationContainer';
 
@@ -36,7 +37,7 @@ const Index: React.FC = () => {
       />
     );
   } else {
-    return <div>loading...</div>;
+    return <Loading />;
   }
 };
 

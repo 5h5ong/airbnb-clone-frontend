@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import Loading from '../../components/Loading';
 import useAxios from '../../hooks/useAxios';
 import useDeviceHeight from '../../hooks/useDeviceHeight';
 import AccommodationsPresenter from './AccommodationsPresenter';
@@ -45,7 +46,7 @@ const AccommodationsContainer: React.FC = () => {
   };
 
   return loading ? (
-    <div>'loading...'</div>
+    <Loading />
   ) : (
     // data의 undefined 타입을 없애구지
     <AccommodationsPresenter

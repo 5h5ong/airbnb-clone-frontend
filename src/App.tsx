@@ -1,6 +1,9 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React, { createContext, useMemo, useState } from 'react';
 import { useEffect } from 'react';
+import { Spinner } from 'react-bootstrap';
+import CustomSpinner from './components/CustomSpinner';
+import Loading from './components/Loading';
 import useAxios from './hooks/useAxios';
 import Routes from './routes/Routes';
 
@@ -34,13 +37,13 @@ const App: React.FC = () => {
    * 요청이 성공했다면 유저 정보를 얻을 수 있음. 이 정보를 다시 유저 상태에 넣어 리프레시가 생겨도
    * 로그인을 유지하는거임.
    */
-  const { error, data, loading, setReload } = useAxios({
+  const { error, data, loading, setReload } = useAxios<UserStateType>({
     url: 'auth/verify',
     method: 'get',
     start: 'now',
   });
   const memoIsSignIn = useMemo(() => userState.isSignIn, [userState.isSignIn]);
-  const memoData = useMemo(() => data, [data]);
+  const memoData = useMemo<UserStateType | undefined>(() => data, [data]);
   const memoLoading = useMemo(() => loading, [loading]);
 
   useEffect(() => {
@@ -64,7 +67,7 @@ const App: React.FC = () => {
   return (
     <div className="App">
       <UserContext.Provider value={{ setUser: setUserState, user: userState }}>
-        {memoLoading && 'loading...'}
+        {memoLoading && <Loading />}
         {!memoLoading && <Routes />}
       </UserContext.Provider>
     </div>
