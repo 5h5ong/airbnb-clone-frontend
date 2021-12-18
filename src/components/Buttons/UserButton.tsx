@@ -66,7 +66,8 @@ const UserButton: React.FC = () => {
 
   const userLogout = () => {
     logout();
-    userContext && userContext.setUser({ isSignIn: false });
+    userContext &&
+      userContext.setUser({ isSignIn: false, id: '', email: '', role: '' });
     // Home으로 이동
     history.push('/');
   };
