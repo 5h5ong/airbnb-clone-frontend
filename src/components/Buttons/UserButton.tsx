@@ -80,7 +80,9 @@ const UserButton: React.FC = () => {
           // UserModal을 잡아주기 위함
           <UserModalContainer>
             <UserModal>
-              <ModalItem>내 정보</ModalItem>
+              <ModalItem onClick={() => history.push('/dashboard')}>
+                내 정보
+              </ModalItem>
               <ModalItem onClick={() => userLogout()}>로그아웃</ModalItem>
             </UserModal>
           </UserModalContainer>
