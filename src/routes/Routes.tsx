@@ -8,12 +8,14 @@ import Login from './login';
 import Register from './register';
 import Header from '../components/Header/Header';
 import Hello from './hello/Hello';
+import Dashboard from './dashboard/Dashboard';
 
 const Routes: React.FC = () => {
   return (
     <BrowserRouter>
       <Header />
       <Route exact path="/" component={Home} />
+      <Route path="/dashboard" component={Dashboard} />
       <Route path="/experiences" component={OnlineExperience} />
       <Route path="/accommodations" component={Accommodations} />
       <Route path="/reservation/:id" component={Reservation} />
