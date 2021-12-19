@@ -16,12 +16,12 @@ interface UseAxiosOption extends PickedAxiosConfigType {
   url: string;
   /**
    * 마운트되고 요청을 어떻게 할 것인가
-   * @remarks
-   * 'now' === 바로 실행
    *
-   * 'wait' === reload가 바뀔 때까지 기다림
+   * @param now 바로 실행
+   * @param wait reload가 바뀔 때까지 기다림
+   * @param wait-with-reload 'wait'와 같지만 loading이 true인 상태에서 기다림
    */
-  start: 'now' | 'wait';
+  start: 'now' | 'wait' | 'wait-with-loading';
 }
 
 interface UseAxiosErrorType {
@@ -52,7 +52,12 @@ export default <T extends any>(
    * useAxios는 start가 'now'일 때만 바로 데이터를 요청하니 그 때는 로딩을 true로 만들어 줌.
    */
   const [loading, setLoading] = useState<boolean>(
-    opts.start === 'now' ? true : false
+    (() => {
+      if (opts.start === 'now') return true;
+      else if (opts.start === 'wait') return false;
+      else if (opts.start === 'wait-with-loading') return true;
+      return false;
+    })()
   );
   const [data, setData] = useState<T>();
   const [error, setError] = useState<UseAxiosErrorType>({
