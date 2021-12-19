@@ -1,8 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React, { createContext, useMemo, useState } from 'react';
 import { useEffect } from 'react';
-import { Spinner } from 'react-bootstrap';
-import CustomSpinner from './components/CustomSpinner';
 import Loading from './components/Loading';
 import useAxios from './hooks/useAxios';
 import Routes from './routes/Routes';

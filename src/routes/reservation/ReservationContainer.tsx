@@ -7,7 +7,7 @@ interface ReservationContainerType {
   accommodationData: Omit<AccommodationsDataType, 'requestUserReservation'>;
   /**
    * 로그인 한 유저의 해당 숙소 예약 데이터
-   *
+   * @remarks
    * 유저가 예약 생성을 했는지 안 했는지 플래그로 사용 중임.
    */
   requestUserReservationData: ReservationDataType | undefined;
