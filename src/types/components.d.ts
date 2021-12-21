@@ -15,9 +15,11 @@ interface ReservationType {
   end: string;
 }
 interface ReservationDataType {
+  id: string;
   userId: string;
   /** 예약한 숙소의 아이디 */
   accommodationsId: string;
+  accommodationData: AccommodationsDataType;
   /** 예약한 날짜 */
   reservationDate: ReservationType;
   /** 발행 날짜 */

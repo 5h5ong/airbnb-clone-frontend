@@ -16,6 +16,6 @@ interface UserDataType {
   password: string;
   // 'guest'와 'host' 둘 중 하나만 넣어지게 만듬
   role: USER_ROLE;
-  accommodations?: string[];
-  reservations?: string[];
+  accommodations?: AccommodationsDataType[];
+  reservations?: ReservationDataType[];
 }

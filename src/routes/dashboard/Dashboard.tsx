@@ -16,7 +16,7 @@ const Dashboard = () => {
    */
   const userContextData = useContext(UserContext);
   const { data, loading, error, setReload } = useAxios<UserDataType>({
-    url: `users/id/${userContextData?.user.id}`,
+    url: `users/id/full/${userContextData?.user.id}`,
     start: 'wait-with-loading',
   });
 
