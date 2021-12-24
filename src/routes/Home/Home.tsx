@@ -5,8 +5,10 @@ import Linker from '../../components/Wrappers/Linker';
 
 const FirstSection = styled.div`
   height: 100vh;
-  /* public directory로 접근하려면 그냥 파일 이름만 써주면 됨 */
-  background-image: url('home-image.webp');
+  /* 파일 이름 앞에 '/'를 붙여줘야 함. 아니면 전에 있던 페이지를 기준으로 경로가
+     책정되서 '/reservations/file-name.webp'처럼 경로가 바뀌는 대참사가 벌어질
+     수도 있음. 주의하시오!! */
+  background-image: url('/home-image.webp');
   background-size: cover;
 `;
 const SecondSection = styled.div`
