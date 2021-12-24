@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import BasicCard from '../../components/Cards/BasicCard';
+import { isoStringToRealDateString } from '../../libs/date';
 
 const LootContainer = styled.div`
   /* 최대 width를 고정함 */
@@ -137,19 +138,25 @@ const DashboardPresenter: React.FC<DashboardProps> = ({
                   <div className="text">
                     <TextWithDescription>
                       <div className="description">예약한 날짜</div>
-                      <div className="text">{issuedDate}</div>
+                      <div className="text">
+                        {isoStringToRealDateString(issuedDate)}
+                      </div>
                     </TextWithDescription>
                   </div>
                   <div className="text">
                     <TextWithDescription>
                       <div className="description">시작일</div>
-                      <div className="text">{reservationDate.start}</div>
+                      <div className="text">
+                        {isoStringToRealDateString(reservationDate.start)}
+                      </div>
                     </TextWithDescription>
                   </div>
                   <div className="text">
                     <TextWithDescription>
                       <div className="description">종료일</div>
-                      <div className="text">{reservationDate.end}</div>
+                      <div className="text">
+                        {isoStringToRealDateString(reservationDate.end)}
+                      </div>
                     </TextWithDescription>
                   </div>
                 </TileCardSecondary>
