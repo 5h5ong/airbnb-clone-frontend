@@ -39,6 +39,7 @@ const App: React.FC = () => {
     url: 'auth/verify',
     method: 'get',
     start: 'now',
+    blocking: !localStorage.getItem('token'),
   });
   const memoIsSignIn = useMemo(() => userState.isSignIn, [userState.isSignIn]);
   const memoData = useMemo<UserStateType | undefined>(() => data, [data]);

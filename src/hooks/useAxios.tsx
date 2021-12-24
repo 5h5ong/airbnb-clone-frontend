@@ -22,6 +22,14 @@ interface UseAxiosOption extends PickedAxiosConfigType {
    * @param wait-with-reload 'wait'와 같지만 loading이 true인 상태에서 기다림
    */
   start: 'now' | 'wait' | 'wait-with-loading';
+  /**
+   * Request blocking
+   *
+   * @remarks
+   * 요청 자체를 막고 싶을 때 사용함.
+   * `true`라면 요청을 막고, `false`라면 요청을 막지 않음.
+   */
+  blocking?: boolean;
 }
 
 interface UseAxiosErrorType {
@@ -53,6 +61,9 @@ export default <T extends any>(
    */
   const [loading, setLoading] = useState<boolean>(
     (() => {
+      if (opts.blocking) {
+        return false;
+      }
       if (opts.start === 'now') return true;
       else if (opts.start === 'wait') return false;
       else if (opts.start === 'wait-with-loading') return true;
@@ -101,7 +112,7 @@ export default <T extends any>(
   };
 
   useEffect(() => {
-    isMounted() && opts.start === 'now' && request();
+    !opts.blocking && isMounted() && opts.start === 'now' && request();
   }, []);
   useEffect(() => {
     if (reload && isMounted()) {
