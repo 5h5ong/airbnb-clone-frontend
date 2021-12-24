@@ -60,16 +60,19 @@ const TileCard = styled.div<{ url: string }>`
 `;
 const TileCardSecondary = styled.div<{ url: string }>`
   display: grid;
-  grid-template-rows: repeat(5, auto);
+  grid-template-rows: repeat(3, auto);
+  grid-template-columns: repeat(2, auto);
   grid-row-gap: 10px;
   .image {
     min-height: 200px;
     background-image: ${(props) => `url(${props.url})`};
     background-size: cover;
     border-radius: 8px;
+    grid-column: 1 / span 2;
   }
   .text {
     align-self: center;
+    justify-self: center;
   }
 `;
 /**
