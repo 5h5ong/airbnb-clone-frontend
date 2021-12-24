@@ -35,20 +35,14 @@ const App: React.FC = () => {
    * 요청이 성공했다면 유저 정보를 얻을 수 있음. 이 정보를 다시 유저 상태에 넣어 리프레시가 생겨도
    * 로그인을 유지하는거임.
    */
-  const { error, data, loading, setReload } = useAxios<UserStateType>({
+  const { error, data, loading } = useAxios<UserStateType>({
     url: 'auth/verify',
     method: 'get',
     start: 'now',
     blocking: !localStorage.getItem('token'),
   });
-  const memoIsSignIn = useMemo(() => userState.isSignIn, [userState.isSignIn]);
   const memoData = useMemo<UserStateType | undefined>(() => data, [data]);
   const memoLoading = useMemo(() => loading, [loading]);
-
-  useEffect(() => {
-    memoIsSignIn && setReload(true);
-    console.log(`isSignIn: ${memoIsSignIn}`);
-  }, [memoIsSignIn]);
 
   useEffect(() => {
     if (!memoLoading && !error.state && memoData) {
