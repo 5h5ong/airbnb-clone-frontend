@@ -3,6 +3,10 @@ import styled from 'styled-components';
 import BasicCard from '../../components/Cards/BasicCard';
 import { isoStringToRealDateString } from '../../libs/date';
 
+interface DashboardPresenterProps extends DashboardProps {
+  changeHistory: (root: 'accommodations' | 'reservation', goto: string) => void;
+}
+
 const LootContainer = styled.div`
   /* 최대 width를 고정함 */
   max-width: 1120px;
@@ -99,10 +103,11 @@ const Title = styled.div`
   font-weight: bold;
 `;
 
-const DashboardPresenter: React.FC<DashboardProps> = ({
+const DashboardPresenter: React.FC<DashboardPresenterProps> = ({
   email,
   accommodations,
   reservations,
+  changeHistory,
 }) => {
   return (
     <LootContainer>
@@ -130,7 +135,12 @@ const DashboardPresenter: React.FC<DashboardProps> = ({
           <TileGrid>
             {reservations?.map(
               ({ issuedDate, reservationDate, accommodationData }) => (
-                <TileCardSecondary url={accommodationData.image[0]}>
+                <TileCardSecondary
+                  url={accommodationData.image[0]}
+                  onClick={() =>
+                    changeHistory('reservation', accommodationData.id)
+                  }
+                >
                   <div className="image" />
                   <div className="text">
                     <TextWithDescription>
