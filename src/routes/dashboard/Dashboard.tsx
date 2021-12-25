@@ -11,7 +11,7 @@ const Dashboard = () => {
    *
    * start를 now로 두면 context에서 데이터를 가져오기 전에 요청이 들어감.
    *
-   * wait를 사용해 loading이 false인 순간이 존재함. 그 때문에 가장 아래의 비정상 요청
+   * wait를 사용하면 loading이 false인 순간이 존재함. 그 때문에 가장 아래의 비정상 요청
    * 예외처리가 잠깐 보임. 이를 해결하기 위해 start를 'wait-with-loading'을 사용함.
    */
   const userContextData = useContext(UserContext);

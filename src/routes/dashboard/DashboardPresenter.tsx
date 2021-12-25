@@ -9,7 +9,7 @@ interface DashboardPresenterProps extends DashboardProps {
 
 const LootContainer = styled.div`
   /* 최대 width를 고정함 */
-  max-width: 1120px;
+  max-width: ${(props) => props.theme.size.maxWidth};
   /* LootContainer 중앙정렬 */
   margin-left: auto;
   margin-right: auto;

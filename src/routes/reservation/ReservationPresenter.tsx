@@ -27,8 +27,8 @@ interface ReservationPresenterProps {
 }
 
 const LootContainer = styled.div`
-  padding-left: 150px;
-  padding-right: 150px;
+  margin: auto;
+  max-width: ${(props) => props.theme.size.maxWidth};
 `;
 const TopTitleSection = styled.div`
   padding-top: 20px;

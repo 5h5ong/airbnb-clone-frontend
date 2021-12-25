@@ -9,6 +9,7 @@ const DashboardContainer: React.FC<DashboardProps> = ({
 }) => {
   const history = useHistory();
 
+  // ! 너는 나중에 따로 파일 만들어서 분가하자
   /**
    * 페이지의 링크를 변경함.
    * @param root 가고자 할 페이지의 루트 경로(accommodation, reservation)
