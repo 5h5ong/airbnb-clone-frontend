@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import BasicCard from '../../components/Cards/BasicCard';
 import { isoStringToRealDateString } from '../../libs/date';
+import { Title, TextWithDescription } from '../../styles/sharedStyled';
 
 interface DashboardPresenterProps extends DashboardProps {
   changeHistory: (root: 'accommodations' | 'reservation', goto: string) => void;
@@ -78,29 +79,6 @@ const TileCardSecondary = styled.div<{ url: string }>`
     align-self: center;
     justify-self: center;
   }
-`;
-/**
- * 텍스트 위에 설명이 적혀있는 스타일 컴포넌트
- */
-const TextWithDescription = styled.div`
-  display: grid;
-  grid-auto-flow: row;
-  grid-template-rows: auto auto;
-  grid-row-gap: 2px;
-  .text {
-    grid-row: 2/3;
-    grid-column: 1/1;
-  }
-  .description {
-    grid-row: 1/2;
-    grid-column: 1/1;
-    color: gray;
-    font-size: 5px;
-  }
-`;
-const Title = styled.div`
-  font-size: 30px;
-  font-weight: bold;
 `;
 
 const DashboardPresenter: React.FC<DashboardPresenterProps> = ({
