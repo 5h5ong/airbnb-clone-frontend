@@ -96,6 +96,7 @@ const CreateAccommodationsPresenter: React.FC<CreateAccommodationsPresenterProps
                 <BaseInput
                   value={`${input.price.props.value}`}
                   onChange={input.price.props.onChange}
+                  prefix="￦"
                 />
               </div>
             </TextWithInput>
