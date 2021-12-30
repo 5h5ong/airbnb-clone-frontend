@@ -9,6 +9,7 @@ import Register from './register';
 import Header from '../components/Header/Header';
 import Hello from './hello/Hello';
 import Dashboard from './dashboard/Dashboard';
+import CreateAccommodations from './createAccommodations/CreateAccommodations';
 
 const Routes: React.FC = () => {
   return (
@@ -17,7 +18,8 @@ const Routes: React.FC = () => {
       <Route exact path="/" component={Home} />
       <Route path="/dashboard" component={Dashboard} />
       <Route path="/experiences" component={OnlineExperience} />
-      <Route path="/accommodations" component={Accommodations} />
+      <Route exact path="/accommodations" component={Accommodations} />
+      <Route path="/accommodations/create" component={CreateAccommodations} />
       <Route path="/reservation/:id" component={Reservation} />
       <Route path="/login" component={Login} />
       <Route path="/register" component={Register} />
