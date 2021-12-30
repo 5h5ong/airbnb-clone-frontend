@@ -16,6 +16,7 @@ const CreateAccommodationsContainer = () => {
    * 주소는 유저가 input에 직접 입력하지 않음.
    */
   const [address, setAddress] = useState('주소를 검색해주세요.');
+  const nameInput = useInput();
   const priceInput = useInput('0');
   const descriptionInput = useInput();
 
@@ -37,6 +38,11 @@ const CreateAccommodationsContainer = () => {
       modalToggle={changeModalToggle}
       postcodeOnComplete={handleCompletePostcode}
       address={address}
+      input={{
+        price: priceInput,
+        description: descriptionInput,
+        name: nameInput,
+      }}
     />
   );
 };

@@ -2,6 +2,7 @@ import React from 'react';
 import DaumPostcode, { Address } from 'react-daum-postcode';
 import styled from 'styled-components';
 import BaseInput from '../../components/inputs/BaseInput';
+import { UseInputReturnType } from '../../hooks/useInput';
 import {
   Title,
   TextWithDescription,
@@ -15,6 +16,11 @@ interface CreateAccommodationsPresenterProps {
   modalToggle: () => void;
   postcodeOnComplete?: (address: Address) => void;
   address: string;
+  input: {
+    price: UseInputReturnType;
+    description: UseInputReturnType;
+    name: UseInputReturnType;
+  };
 }
 
 const LootContainer = styled.div`
@@ -62,6 +68,7 @@ const CreateAccommodationsPresenter: React.FC<CreateAccommodationsPresenterProps
   modalToggle,
   postcodeOnComplete,
   address,
+  input,
 }) => {
   return (
     <LootContainer>
@@ -77,13 +84,19 @@ const CreateAccommodationsPresenter: React.FC<CreateAccommodationsPresenterProps
             <TextWithInput>
               <div className="description">숙소 이름</div>
               <div className="input-all">
-                <BaseInput />
+                <BaseInput
+                  value={input.name.props.value}
+                  onChange={input.name.props.onChange}
+                />
               </div>
             </TextWithInput>
             <TextWithInput>
               <div className="description">요금</div>
               <div className="input-all">
-                <BaseInput />
+                <BaseInput
+                  value={`${input.price.props.value}`}
+                  onChange={input.price.props.onChange}
+                />
               </div>
             </TextWithInput>
             <TextWithInput>
@@ -96,7 +109,10 @@ const CreateAccommodationsPresenter: React.FC<CreateAccommodationsPresenterProps
             <TextWithInput>
               <div className="description">설명</div>
               <div className="input-all">
-                <BaseInput />
+                <BaseInput
+                  value={input.description.props.value}
+                  onChange={input.description.props.onChange}
+                />
               </div>
             </TextWithInput>
           </Form>
