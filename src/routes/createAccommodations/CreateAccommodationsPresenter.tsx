@@ -17,6 +17,7 @@ interface CreateAccommodationsPresenterProps {
   modalToggle: () => void;
   postcodeOnComplete?: (address: Address) => void;
   fileInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  formSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
   files: ImageFile[];
   address: string;
   input: {
@@ -60,6 +61,10 @@ const TextWithInput = styled(TextWithDescription)`
     grid-row: 2/3;
     grid-column: 1 / span 3;
   }
+  .input-4-4 {
+    grid-row: 1/3;
+    grid-column: 4 / span 1;
+  }
 `;
 const Form = styled.form`
   display: grid;
@@ -80,6 +85,7 @@ const CreateAccommodationsPresenter: React.FC<CreateAccommodationsPresenterProps
   modalToggle,
   postcodeOnComplete,
   fileInputChange,
+  formSubmit,
   files,
   address,
   input,
@@ -94,7 +100,7 @@ const CreateAccommodationsPresenter: React.FC<CreateAccommodationsPresenterProps
       <WhiteBoxWithShadow>
         <div className="title-and-content">
           <Title>숙소 생성</Title>
-          <Form>
+          <Form onSubmit={formSubmit}>
             <TextWithInput>
               <div className="description">숙소 이름</div>
               <div className="input-all">
@@ -137,6 +143,11 @@ const CreateAccommodationsPresenter: React.FC<CreateAccommodationsPresenterProps
                 multiple
                 onChange={fileInputChange}
               />
+            </TextWithInput>
+            <TextWithInput>
+              <RedButton type="submit" className="input-4-4">
+                생성
+              </RedButton>
             </TextWithInput>
           </Form>
         </div>

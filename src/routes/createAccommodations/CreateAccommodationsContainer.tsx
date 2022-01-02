@@ -1,5 +1,8 @@
+import axios from 'axios';
 import React, { useState } from 'react';
 import { Address } from 'react-daum-postcode';
+import { useHistory } from 'react-router-dom';
+import requestServer from '../../Functions/data/requestServer';
 import useInput from '../../hooks/useInput';
 import { fileToDataUri } from '../../libs/file';
 import CreateAccommodationsPresenter from './CreateAccommodationsPresenter';
@@ -14,7 +17,8 @@ export interface ImageFile {
   uri: string;
 }
 
-const CreateAccommodationsContainer = () => {
+const CreateAccommodationsContainer: React.FC = ({}) => {
+  const history = useHistory();
   /**
    * 주소 입력 모달
    * @remarks
@@ -79,12 +83,57 @@ const CreateAccommodationsContainer = () => {
     }
   };
 
+  /**
+   * Form callback
+   * @remarks
+   * 먼저 백엔드에 이미지를 업로드한 후 리턴된 url(string[])을 사용하여
+   * 숙소 생성을 진행함.
+   *
+   * 파일은 multipart를 통해 전해져야 함.
+   */
+  const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    // 이미지를 Form Data에 넣음
+    const imageFormData = new FormData();
+    image.forEach((image) => imageFormData.append('files', image.file));
+
+    // multipart/form-data를 통한 이미지 전송
+    try {
+      const response = await axios({
+        method: 'post',
+        url: 'http://localhost:4000/upload',
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+        data: imageFormData,
+      });
+
+      // ! 숙소 생성 전 데이터 확인
+      try {
+        const result = await requestServer('accommodations', {
+          name: nameInput.props.value,
+          price: parseInt(priceInput.props.value),
+          image: response.data,
+          address: address,
+          description: descriptionInput.props.value,
+        });
+        history.push(`/reservation/${result.accommodationId}`);
+      } catch (error) {
+        console.log(`숙소 생성 과정에서 에러가 발생했습니다.`);
+      }
+    } catch (error) {
+      console.log(`이미지 업로드 과정에서 에러가 발생했습니다.`);
+    }
+  };
+
   return (
     <CreateAccommodationsPresenter
       toggle={modalToggle}
       modalToggle={changeModalToggle}
       postcodeOnComplete={handleCompletePostcode}
       fileInputChange={handleFileInputChange}
+      formSubmit={handleFormSubmit}
       files={image}
       address={address}
       input={{
