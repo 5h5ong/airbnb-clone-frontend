@@ -10,11 +10,14 @@ import {
   BaseModal,
   RedButton,
 } from '../../styles/sharedStyled';
+import { ImageFile } from './CreateAccommodationsContainer';
 
 interface CreateAccommodationsPresenterProps {
   toggle: boolean;
   modalToggle: () => void;
   postcodeOnComplete?: (address: Address) => void;
+  fileInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  files: ImageFile[];
   address: string;
   input: {
     price: UseInputReturnType;
@@ -62,11 +65,22 @@ const Form = styled.form`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
 `;
+const TileGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+`;
+const Img = styled.img`
+  width: 100%;
+  height: 100%;
+`;
 
 const CreateAccommodationsPresenter: React.FC<CreateAccommodationsPresenterProps> = ({
   toggle,
   modalToggle,
   postcodeOnComplete,
+  fileInputChange,
+  files,
   address,
   input,
 }) => {
@@ -116,7 +130,27 @@ const CreateAccommodationsPresenter: React.FC<CreateAccommodationsPresenterProps
                 />
               </div>
             </TextWithInput>
+            <TextWithInput>
+              <input
+                className="input-all"
+                type="file"
+                multiple
+                onChange={fileInputChange}
+              />
+            </TextWithInput>
           </Form>
+        </div>
+      </WhiteBoxWithShadow>
+      <WhiteBoxWithShadow>
+        <div className="title-and-content">
+          <Title>이미지</Title>
+          {
+            <TileGrid>
+              {files.map((file) => (
+                <Img src={file.uri} />
+              ))}
+            </TileGrid>
+          }
         </div>
       </WhiteBoxWithShadow>
     </LootContainer>
