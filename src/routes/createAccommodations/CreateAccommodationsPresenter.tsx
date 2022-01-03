@@ -35,8 +35,23 @@ const LootContainer = styled.div`
     width: 100%;
     margin: 50px;
     display: grid;
-    grid-template-rows: auto auto 1fr;
+    grid-template-rows: auto auto;
     grid-row-gap: 30px;
+  }
+`;
+const Form = styled.form`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 60px);
+  grid-column-gap: 15px;
+  grid-row-gap: 15px;
+  .form-span-col-2 {
+    grid-column: span 2;
+  }
+  /* 그리드 오른쪽 하단 */
+  .form-end-end {
+    grid-column: 3 / span 1;
+    grid-row: 3 / span 1;
   }
 `;
 const TextWithInput = styled(TextWithDescription)`
@@ -44,6 +59,7 @@ const TextWithInput = styled(TextWithDescription)`
   grid-template-rows: auto auto;
   grid-template-columns: repeat(4, 1fr);
   grid-row-gap: 2px;
+  grid-column-gap: 5px;
   .text {
     align-self: center;
   }
@@ -51,7 +67,7 @@ const TextWithInput = styled(TextWithDescription)`
     grid-row: 1/2;
     grid-column: 1 / span 4;
     color: gray;
-    font-size: 5px;
+    font-size: 12px;
   }
   .input-all {
     grid-row: 2/3;
@@ -61,23 +77,29 @@ const TextWithInput = styled(TextWithDescription)`
     grid-row: 2/3;
     grid-column: 1 / span 3;
   }
+  .input-c-4-span1 {
+    grid-row: 2/3;
+    grid-column: 4 / span 1;
+  }
   .input-4-4 {
     grid-row: 1/3;
     grid-column: 4 / span 1;
   }
 `;
-const Form = styled.form`
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+const Divider = styled.div`
+  width: 100%;
+  border-bottom: 1px solid #ebebeb;
 `;
 const TileGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(4, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  grid-gap: 20px;
 `;
 const Img = styled.img`
   width: 100%;
   height: 100%;
+  border-radius: 8px;
 `;
 
 const CreateAccommodationsPresenter: React.FC<CreateAccommodationsPresenterProps> = ({
@@ -114,7 +136,7 @@ const CreateAccommodationsPresenter: React.FC<CreateAccommodationsPresenterProps
               <div className="description">요금</div>
               <div className="input-all">
                 <BaseInput
-                  value={`${input.price.props.value}`}
+                  value={input.price.props.value}
                   onChange={input.price.props.onChange}
                   prefix="￦"
                 />
@@ -122,12 +144,18 @@ const CreateAccommodationsPresenter: React.FC<CreateAccommodationsPresenterProps
             </TextWithInput>
             <TextWithInput>
               <div className="description">주소</div>
-              <div className="input-1-3 text">{address}</div>
-              <RedButton type="button" onClick={modalToggle}>
+              <div className="input-1-3">
+                <BaseInput value={address} />
+              </div>
+              <RedButton
+                className="input-c-4-span1"
+                type="button"
+                onClick={modalToggle}
+              >
                 검색
               </RedButton>
             </TextWithInput>
-            <TextWithInput>
+            <TextWithInput className="form-span-col-2">
               <div className="description">설명</div>
               <div className="input-all">
                 <BaseInput
@@ -137,6 +165,7 @@ const CreateAccommodationsPresenter: React.FC<CreateAccommodationsPresenterProps
               </div>
             </TextWithInput>
             <TextWithInput>
+              <div className="description">이미지</div>
               <input
                 className="input-all"
                 type="file"
@@ -144,24 +173,20 @@ const CreateAccommodationsPresenter: React.FC<CreateAccommodationsPresenterProps
                 onChange={fileInputChange}
               />
             </TextWithInput>
-            <TextWithInput>
+            <TextWithInput className="form-end-end">
               <RedButton type="submit" className="input-4-4">
                 생성
               </RedButton>
             </TextWithInput>
           </Form>
-        </div>
-      </WhiteBoxWithShadow>
-      <WhiteBoxWithShadow>
-        <div className="title-and-content">
-          <Title>이미지</Title>
-          {
+          <Divider />
+          {!!files.length && (
             <TileGrid>
               {files.map((file) => (
                 <Img src={file.uri} />
               ))}
             </TileGrid>
-          }
+          )}
         </div>
       </WhiteBoxWithShadow>
     </LootContainer>
