@@ -198,6 +198,7 @@ const CreateAccommodationsPresenter: React.FC<CreateAccommodationsPresenterProps
             </TextWithInput>
           </Form>
           <Divider />
+          {/* 이미지가 없을 때 component를 감춤 */}
           {!!files.length && (
             <TileGrid>
               {files.map((file) => (

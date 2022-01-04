@@ -59,6 +59,8 @@ const CreateAccommodationsContainer: React.FC = ({}) => {
    * map으로는 조회할 수 없음. 이걸 state에 바로 넣으면 사용하는데 좋지 않다고 생각함.
    * 그래서 FileList 안의 데이터를 추출해 저장함.
    *
+   * 이미지는 5개 이하만 업로드가 가능함. 5개를 초과할 시 5개 이후의 이미지는 무시함.
+   *
    * 이미지를 표시해주기 위해 uri가 필요함. 파일을 받는 동시에 uri를 추출해 state에 넣어줌.
    *
    * !파일의 사이즈가 크다보니 약간의 보틀넥이 있음. 나중에 개선할 방법을 고민해봐야 함.
@@ -70,12 +72,13 @@ const CreateAccommodationsContainer: React.FC = ({}) => {
     let result: ImageFile[] = [];
 
     if (files) {
-      for (const file of files) {
+      if (files.length >= 5) alert('이미지는 5개 이하만 업로드가 가능합니다.');
+      for (let i = 0; i <= 4; i++) {
         result = [
           ...result,
           {
-            file: file,
-            uri: await fileToDataUri(file),
+            file: files[i],
+            uri: await fileToDataUri(files[i]),
           },
         ];
       }
@@ -93,6 +96,7 @@ const CreateAccommodationsContainer: React.FC = ({}) => {
    */
   const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
     setLoading(true);
 
     // 이미지를 Form Data에 넣음
