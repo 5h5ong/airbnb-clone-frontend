@@ -1,7 +1,17 @@
 import axios from 'axios';
 import checkLocalStorage from '../checkLocalStorage';
 
-const requestServer = async (url: string, data: {}) => {
+type ContentType = 'multipart/form-data';
+
+interface RequestServerOpts {
+  contentType: ContentType;
+}
+
+const requestServer = async (
+  url: string,
+  data: {},
+  opts?: RequestServerOpts
+) => {
   // 개발환경과 실제환경의 주소 변경을 쉽게 만들기 위해서
   const baseUrl = process.env.REACT_APP_BACKEND_URL as string;
   // 실제 사용될 api url
@@ -13,6 +23,8 @@ const requestServer = async (url: string, data: {}) => {
       method: 'post',
       headers: {
         Authorization: token ? `Bearer ${token}` : undefined,
+        // content-type이 존재한다면 넣기
+        ContentType: opts?.contentType,
       },
       url: realUrl,
       data,

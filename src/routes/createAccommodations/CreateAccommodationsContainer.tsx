@@ -100,13 +100,8 @@ const CreateAccommodationsContainer: React.FC = ({}) => {
 
     // multipart/form-data를 통한 이미지 전송
     try {
-      const response = await axios({
-        method: 'post',
-        url: 'http://localhost:4000/upload',
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-        data: imageFormData,
+      const data = await requestServer('upload', imageFormData, {
+        contentType: 'multipart/form-data',
       });
 
       // ! 숙소 생성 전 데이터 확인
@@ -114,7 +109,7 @@ const CreateAccommodationsContainer: React.FC = ({}) => {
         const result = await requestServer('accommodations', {
           name: nameInput.props.value,
           price: parseInt(priceInput.props.value),
-          image: response.data,
+          image: data,
           address: address,
           description: descriptionInput.props.value,
         });
