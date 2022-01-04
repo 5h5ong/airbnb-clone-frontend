@@ -7,6 +7,7 @@ interface BaseInputProps {
   value?: string;
   onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
   prefix?: string;
+  required?: boolean;
 }
 
 const Container = styled.div`
@@ -43,6 +44,7 @@ const BaseInput: React.FC<BaseInputProps> = ({
   type,
   onChange,
   prefix,
+  required,
 }) => {
   return (
     <Container>
@@ -50,6 +52,7 @@ const BaseInput: React.FC<BaseInputProps> = ({
       {prefix && <Prefix>{prefix}</Prefix>}
       <Input
         placeholder={placeholder}
+        required={required}
         value={value}
         onChange={onChange}
         type={type}

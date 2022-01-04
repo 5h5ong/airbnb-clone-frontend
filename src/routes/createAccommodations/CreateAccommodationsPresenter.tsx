@@ -127,6 +127,7 @@ const CreateAccommodationsPresenter: React.FC<CreateAccommodationsPresenterProps
               <div className="description">숙소 이름</div>
               <div className="input-all">
                 <BaseInput
+                  required
                   value={input.name.props.value}
                   onChange={input.name.props.onChange}
                 />
@@ -136,6 +137,8 @@ const CreateAccommodationsPresenter: React.FC<CreateAccommodationsPresenterProps
               <div className="description">요금</div>
               <div className="input-all">
                 <BaseInput
+                  required
+                  placeholder="0"
                   value={input.price.props.value}
                   onChange={input.price.props.onChange}
                   prefix="￦"
@@ -145,7 +148,11 @@ const CreateAccommodationsPresenter: React.FC<CreateAccommodationsPresenterProps
             <TextWithInput>
               <div className="description">주소</div>
               <div className="input-1-3">
-                <BaseInput value={address} />
+                <BaseInput
+                  required
+                  placeholder="주소를 검색해주세요"
+                  value={address}
+                />
               </div>
               <RedButton
                 className="input-c-4-span1"
@@ -167,6 +174,7 @@ const CreateAccommodationsPresenter: React.FC<CreateAccommodationsPresenterProps
             <TextWithInput>
               <div className="description">이미지</div>
               <input
+                required
                 className="input-all"
                 type="file"
                 multiple

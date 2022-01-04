@@ -30,13 +30,13 @@ const CreateAccommodationsContainer: React.FC = ({}) => {
    * @remarks
    * 주소는 유저가 input에 직접 입력하지 않음.
    */
-  const [address, setAddress] = useState('주소를 검색해주세요.');
+  const [address, setAddress] = useState('');
   /**
    * 유저가 집어넣은 이미지의 집합
    */
   const [image, setImage] = useState<ImageFile[]>([]);
   const nameInput = useInput();
-  const priceInput = useInput('0');
+  const priceInput = useInput();
   const descriptionInput = useInput();
 
   const changeModalToggle = () => {
