@@ -60,3 +60,10 @@ export const RedButton = styled(BaseButtonStyle)`
     transition: box-shadow 0.2s ease 0s;
   }
 `;
+
+export const GrayButton = styled(BaseButtonStyle)`
+  background-color: gray;
+  color: white;
+  font-size: 12pt;
+  font-weight: 600;
+`;

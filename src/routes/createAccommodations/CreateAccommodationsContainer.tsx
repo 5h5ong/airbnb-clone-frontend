@@ -1,4 +1,3 @@
-import axios from 'axios';
 import React, { useState } from 'react';
 import { Address } from 'react-daum-postcode';
 import { useHistory } from 'react-router-dom';
@@ -35,6 +34,7 @@ const CreateAccommodationsContainer: React.FC = ({}) => {
    * 유저가 집어넣은 이미지의 집합
    */
   const [image, setImage] = useState<ImageFile[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
   const nameInput = useInput();
   const priceInput = useInput();
   const descriptionInput = useInput();
@@ -52,7 +52,7 @@ const CreateAccommodationsContainer: React.FC = ({}) => {
   };
 
   /**
-   * 파일 업로드 callback
+   * 파일 input callback
    *
    * @remarks
    * input에서 전해지는 파일들은 FileList라는 타입을 가짐. 인덱스로 값을 조회할 수 있지만
@@ -93,6 +93,7 @@ const CreateAccommodationsContainer: React.FC = ({}) => {
    */
   const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setLoading(true);
 
     // 이미지를 Form Data에 넣음
     const imageFormData = new FormData();
@@ -120,6 +121,8 @@ const CreateAccommodationsContainer: React.FC = ({}) => {
     } catch (error) {
       console.log(`이미지 업로드 과정에서 에러가 발생했습니다.`);
     }
+
+    setLoading(false);
   };
 
   return (
@@ -136,6 +139,7 @@ const CreateAccommodationsContainer: React.FC = ({}) => {
         description: descriptionInput,
         name: nameInput,
       }}
+      loading={loading}
     />
   );
 };

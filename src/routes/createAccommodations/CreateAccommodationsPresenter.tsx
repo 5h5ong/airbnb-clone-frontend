@@ -1,4 +1,5 @@
 import React from 'react';
+import { Spinner } from 'react-bootstrap';
 import DaumPostcode, { Address } from 'react-daum-postcode';
 import styled from 'styled-components';
 import BaseInput from '../../components/inputs/BaseInput';
@@ -9,6 +10,7 @@ import {
   WhiteBoxWithShadow,
   BaseModal,
   RedButton,
+  GrayButton,
 } from '../../styles/sharedStyled';
 import { ImageFile } from './CreateAccommodationsContainer';
 
@@ -18,6 +20,7 @@ interface CreateAccommodationsPresenterProps {
   postcodeOnComplete?: (address: Address) => void;
   fileInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   formSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
+  loading: boolean;
   files: ImageFile[];
   address: string;
   input: {
@@ -111,6 +114,7 @@ const CreateAccommodationsPresenter: React.FC<CreateAccommodationsPresenterProps
   files,
   address,
   input,
+  loading,
 }) => {
   return (
     <LootContainer>
@@ -182,9 +186,15 @@ const CreateAccommodationsPresenter: React.FC<CreateAccommodationsPresenterProps
               />
             </TextWithInput>
             <TextWithInput className="form-end-end">
-              <RedButton type="submit" className="input-4-4">
-                생성
-              </RedButton>
+              {loading ? (
+                <GrayButton className="input-4-4" disabled>
+                  <Spinner animation="border" size="sm" />
+                </GrayButton>
+              ) : (
+                <RedButton type="submit" className="input-4-4">
+                  생성
+                </RedButton>
+              )}
             </TextWithInput>
           </Form>
           <Divider />
