@@ -13,7 +13,7 @@ const AccommodationsLists: React.FC<AccommodationsListsProps> = ({
     <ColumnSpaceWrapper gap={0}>
       {accommodationsData.map((accommodations) => (
         <AccommodationsCard
-          key={`accommodation-card-${accommodations.name}`}
+          key={`accommodation-card-${accommodations.id}`}
           id={accommodations.id}
           name={accommodations.name}
           image={accommodations.image}

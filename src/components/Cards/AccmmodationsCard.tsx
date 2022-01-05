@@ -1,6 +1,7 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
+import { filenameToGcsUrl } from '../../libs/string';
 import ColumnSpaceWrapper from '../Wrappers/ColumnSpaceWrapper';
 import RowSpaceWrapper from '../Wrappers/RowSpaceWrapper';
 
@@ -18,9 +19,6 @@ interface ThumbnailStyledType {
   imageUrl: string;
 }
 
-const Margin = styled.div<MarginStyledType>`
-  margin-bottom: ${(props) => `${props.gap}px`};
-`;
 const DividerBase = styled.div`
   width: 70px;
   border-bottom: 1px solid #ebebeb;
@@ -79,7 +77,7 @@ const AccommodationsCard: React.FC<AccommodationsCardProps> = ({
     <ColumnSpaceWrapper gap={10}>
       <Container onClick={() => history.push(`/reservation/${id}`)}>
         <RowSpaceWrapper gap={10}>
-          <Thumbnail imageUrl={image[0]} />
+          <Thumbnail imageUrl={filenameToGcsUrl(image[0])} />
           <TextContainer>
             <Name>{name}</Name>
             <DividerWithMargin />

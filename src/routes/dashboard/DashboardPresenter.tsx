@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import BasicCard from '../../components/Cards/BasicCard';
 import { isoStringToRealDateString } from '../../libs/date';
+import { filenameToGcsUrl } from '../../libs/string';
 import { Title, TextWithDescription } from '../../styles/sharedStyled';
 
 interface DashboardPresenterProps extends DashboardProps {
@@ -32,18 +33,18 @@ const LootContainer = styled.div`
 const TileGrid = styled.div`
   display: grid;
   min-height: 350px;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   grid-row-gap: 20px;
   grid-column-gap: 20px;
 `;
 const TileCard = styled.div<{ url: string }>`
   display: grid;
-  grid-template-columns: 150px 1fr;
+  grid-template-columns: 250px 1fr;
   grid-template-rows: repeat(2, 50px);
   grid-template-rows: auto;
   grid-column-gap: 10px;
   .image {
-    background-image: ${(props) => `url(${props.url})`};
+    background-image: ${(props) => `url('${props.url}')`};
     background-size: cover;
     border-radius: 8px;
     grid-column: 1 / 2;
@@ -98,7 +99,7 @@ const DashboardPresenter: React.FC<DashboardPresenterProps> = ({
           <Title>숙소</Title>
           <TileGrid>
             {accommodations?.map(({ id, image, address, name }) => (
-              <TileCard url={image[0]}>
+              <TileCard url={filenameToGcsUrl(image[0])}>
                 <div className="image" />
                 <div className="text large bold">{name}</div>
                 <div className="text small">{address}</div>

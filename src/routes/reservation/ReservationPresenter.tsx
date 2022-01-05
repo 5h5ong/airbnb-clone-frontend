@@ -4,6 +4,7 @@ import GrayButton from '../../components/Buttons/GrayButton';
 import RedButton from '../../components/Buttons/RedButton';
 import Calendar from '../../components/Calendar';
 import BasicCard from '../../components/Cards/BasicCard';
+import { filenameToGcsUrl } from '../../libs/string';
 
 interface ReservationPresenterProps {
   /** Accommodations Data */
@@ -59,7 +60,7 @@ const Grid = styled.div`
   gap: 7px;
 `;
 const BaseImage = styled.div<{ imageUrl: string }>`
-  background-image: ${(props): string => `url(${props.imageUrl})`};
+  background-image: ${(props): string => `url('${props.imageUrl}')`};
   background-size: cover;
   background-position: center;
 `;
@@ -171,12 +172,20 @@ const ReservationPresenter: React.FC<ReservationPresenterProps> = ({
         <SubTitle>{accommodationsData.address}</SubTitle>
       </TopTitleSection>
       <ImageSection>
-        <LargeImage imageUrl={accommodationsData.image[0]} />
+        <LargeImage imageUrl={filenameToGcsUrl(accommodationsData.image[0])} />
         <Grid className="image-grid">
-          <SmallImage imageUrl={accommodationsData.image[1]} />
-          <SmallImage imageUrl={accommodationsData.image[2]} />
-          <SmallImage imageUrl={accommodationsData.image[3]} />
-          <SmallImage imageUrl={accommodationsData.image[4]} />
+          <SmallImage
+            imageUrl={filenameToGcsUrl(accommodationsData.image[1])}
+          />
+          <SmallImage
+            imageUrl={filenameToGcsUrl(accommodationsData.image[2])}
+          />
+          <SmallImage
+            imageUrl={filenameToGcsUrl(accommodationsData.image[3])}
+          />
+          <SmallImage
+            imageUrl={filenameToGcsUrl(accommodationsData.image[4])}
+          />
         </Grid>
       </ImageSection>
       <ReservationSection>
