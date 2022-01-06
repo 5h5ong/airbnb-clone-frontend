@@ -20,7 +20,7 @@ const LoginContainer: React.FC = () => {
     // data === jwt token
     try {
       setIsLoading(true);
-      const data = await requestServer('users/signin', {
+      const data = await requestServer('post', 'users/signin', {
         email: email.props.value,
         password: password.props.value,
       });

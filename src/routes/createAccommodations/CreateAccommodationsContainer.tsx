@@ -105,13 +105,13 @@ const CreateAccommodationsContainer: React.FC = ({}) => {
 
     // multipart/form-data를 통한 이미지 전송
     try {
-      const data = await requestServer('upload', imageFormData, {
+      const data = await requestServer('post', 'upload', imageFormData, {
         contentType: 'multipart/form-data',
       });
 
       // ! 숙소 생성 전 데이터 확인
       try {
-        const result = await requestServer('accommodations', {
+        const result = await requestServer('post', 'accommodations', {
           name: nameInput.props.value,
           price: parseInt(priceInput.props.value),
           image: data,
