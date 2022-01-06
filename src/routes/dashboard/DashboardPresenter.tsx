@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import BasicCard from '../../components/Cards/BasicCard';
 import { isoStringToRealDateString } from '../../libs/date';
 import { filenameToGcsUrl } from '../../libs/string';
+import RedButtonComponent from '../../components/Buttons/RedButton';
 import { Title, TextWithDescription } from '../../styles/sharedStyled';
 
 interface DashboardPresenterProps extends DashboardProps {
@@ -25,6 +26,11 @@ const LootContainer = styled.div`
     display: grid;
     grid-template-rows: auto auto 1fr;
     grid-row-gap: 30px;
+  }
+  .space-between {
+    display: grid;
+    grid-auto-flow: column;
+    justify-content: space-between;
   }
 `;
 /**
@@ -96,7 +102,14 @@ const DashboardPresenter: React.FC<DashboardPresenterProps> = ({
       </div>
       <BasicCard>
         <div className="title-and-content">
-          <Title>숙소</Title>
+          <div className="space-between">
+            <Title>숙소</Title>
+            <RedButtonComponent
+              onClick={() => changeHistory('accommodations', 'create')}
+            >
+              숙소 만들기
+            </RedButtonComponent>
+          </div>
           <TileGrid>
             {accommodations?.map(({ id, image, address, name }) => (
               <TileCard url={filenameToGcsUrl(image[0])}>
