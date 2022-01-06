@@ -5,6 +5,8 @@ import { isoStringToRealDateString } from '../../libs/date';
 import { filenameToGcsUrl } from '../../libs/string';
 import RedButtonComponent from '../../components/Buttons/RedButton';
 import { Title, TextWithDescription } from '../../styles/sharedStyled';
+import { FaTrash } from 'react-icons/fa';
+import { BaseButtonStyle } from '../../components/Buttons/BaseButton';
 
 interface DashboardPresenterProps extends DashboardProps {
   changeHistory: (root: 'accommodations' | 'reservation', goto: string) => void;
@@ -45,7 +47,7 @@ const TileGrid = styled.div`
 `;
 const TileCard = styled.div<{ url: string }>`
   display: grid;
-  grid-template-columns: 250px 1fr;
+  grid-template-columns: 250px 1fr 40px;
   grid-template-rows: repeat(2, 90px);
   grid-column-gap: 10px;
   .image {
@@ -69,6 +71,17 @@ const TileCard = styled.div<{ url: string }>`
   }
   .large {
     font-size: 18px;
+  }
+  .delete {
+    grid-column: 3 / 4;
+    grid-row: 1 / 2;
+  }
+`;
+const DeleteButton = styled(BaseButtonStyle)`
+  width: 40px;
+  height: 40px;
+  &:hover {
+    background-color: ${(props) => props.theme.color.basicButtonHoverColor};
   }
 `;
 const TileCardSecondary = styled.div<{ url: string }>`
@@ -115,6 +128,9 @@ const DashboardPresenter: React.FC<DashboardPresenterProps> = ({
             {accommodations?.map(({ id, image, address, name }) => (
               <TileCard url={filenameToGcsUrl(image[0])}>
                 <div className="image" />
+                <DeleteButton className="delete">
+                  <FaTrash />
+                </DeleteButton>
                 <div className="text large bold">{name}</div>
                 <div className="text small">{address}</div>
               </TileCard>

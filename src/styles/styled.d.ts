@@ -6,6 +6,7 @@ declare module 'styled-components' {
       mainAirbnbColor: string;
       darkGrayColor: string;
       lightGrayColor: string;
+      basicButtonHoverColor: string;
     };
     /**
      * 공통적으로 사용되는 수치

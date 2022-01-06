@@ -5,6 +5,7 @@ const styles: DefaultTheme = {
     mainAirbnbColor: '#ff385c',
     darkGrayColor: '#717171',
     lightGrayColor: '#aaaaaa',
+    basicButtonHoverColor: '#d5dbd9',
   },
   size: {
     maxWidth: '1120px',
