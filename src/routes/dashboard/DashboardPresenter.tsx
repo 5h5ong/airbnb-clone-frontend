@@ -92,7 +92,7 @@ const TileCardSecondary = styled.div<{ url: string }>`
   grid-row-gap: 10px;
   .image {
     min-height: 200px;
-    background-image: ${(props) => `url(${props.url})`};
+    background-image: ${(props) => `url('${props.url}')`};
     background-size: cover;
     border-radius: 8px;
     grid-column: 1 / span 2;
