@@ -46,12 +46,13 @@ const TileGrid = styled.div`
 const TileCard = styled.div<{ url: string }>`
   display: grid;
   grid-template-columns: 250px 1fr;
-  grid-template-rows: repeat(2, 50px);
-  grid-template-rows: auto;
+  grid-template-rows: repeat(2, 90px);
   grid-column-gap: 10px;
   .image {
     background-image: ${(props) => `url('${props.url}')`};
     background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
     border-radius: 8px;
     grid-column: 1 / 2;
     grid-row: 1 / 3;
