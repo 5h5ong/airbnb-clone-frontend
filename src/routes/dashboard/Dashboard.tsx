@@ -34,7 +34,7 @@ const Dashboard = () => {
     return <Loading />;
   } else if (error.state) {
     return <div>접근이 거부 되었습니다.</div>;
-  } else if (data) {
+  } else if (data?.email && data?.accommodations && data?.reservations) {
     const { email, accommodations, reservations } = data;
     return (
       <DashboardContainer

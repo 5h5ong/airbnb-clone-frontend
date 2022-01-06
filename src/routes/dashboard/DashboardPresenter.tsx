@@ -10,6 +10,7 @@ import { BaseButtonStyle } from '../../components/Buttons/BaseButton';
 
 interface DashboardPresenterProps extends DashboardProps {
   changeHistory: (root: 'accommodations' | 'reservation', goto: string) => void;
+  deleteAccommodation: (accommodationId: string) => void;
 }
 
 const LootContainer = styled.div`
@@ -107,6 +108,7 @@ const DashboardPresenter: React.FC<DashboardPresenterProps> = ({
   accommodations,
   reservations,
   changeHistory,
+  deleteAccommodation,
 }) => {
   return (
     <LootContainer>
@@ -128,7 +130,10 @@ const DashboardPresenter: React.FC<DashboardPresenterProps> = ({
             {accommodations?.map(({ id, image, address, name }) => (
               <TileCard url={filenameToGcsUrl(image[0])}>
                 <div className="image" />
-                <DeleteButton className="delete">
+                <DeleteButton
+                  className="delete"
+                  onClick={() => deleteAccommodation(id)}
+                >
                   <FaTrash />
                 </DeleteButton>
                 <div className="text large bold">{name}</div>
