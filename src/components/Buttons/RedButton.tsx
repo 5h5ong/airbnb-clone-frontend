@@ -28,7 +28,7 @@ const RedButton: React.FC<RedButtonProps> = ({
 }) => {
   if (isLoading) {
     return (
-      <Button onClick={onClick}>
+      <Button>
         <Spinner animation="border" />
       </Button>
     );

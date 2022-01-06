@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { UserContext } from '../../App';
+import requestServer from '../../Functions/data/requestServer';
 import { sendDataToServer } from '../../Functions/data/sendDataToServer';
 import ReservationPresenter from './ReservationPresenter';
 
@@ -33,12 +34,6 @@ const ReservationContainer: React.FC<ReservationContainerType> = ({
       ? new Date(requestUserReservationData.reservationDate.end)
       : undefined
   );
-  // const [firstSelectedDate, setFirstSelectedDate] = useState<Date | undefined>(
-  //   undefined
-  // );
-  // const [secondSelectedDate, setSecondSelectedDate] = useState<
-  //   Date | undefined
-  // >(undefined);
   // 총 예약 날짜
   const [totalReservationDate, setTotalReservationDate] = useState<number>(0);
   // 모든 요소를 합산한 금액(청구될 금액)
@@ -83,6 +78,24 @@ const ReservationContainer: React.FC<ReservationContainerType> = ({
       } catch (e) {}
     }
   };
+  /**
+   * 예약 취소 fn
+   */
+  const cancelReservation = async () => {
+    if (requestUserReservationData) {
+      const { id } = requestUserReservationData;
+
+      try {
+        setCreateReservationRequestIsLoading(true);
+        await requestServer('get', `reservation/delete/${id}`);
+        setIsReserve(false);
+        setCreateReservationRequestIsLoading(false);
+      } catch {
+        setCreateReservationRequestIsLoading(false);
+        return;
+      }
+    }
+  };
 
   // 체크인과 체크아웃 사이의 날짜 간격을 계산함
   useEffect(() => {
@@ -124,6 +137,7 @@ const ReservationContainer: React.FC<ReservationContainerType> = ({
       checkInOrCheckOutOnClick={checkInOrCheckOutOnClick}
       createNewReservationOnClick={createNewReservationOnClick}
       createReservationButtonIsLoading={createReservationRequestIsLoading}
+      cancelReservation={cancelReservation}
     />
   );
 };

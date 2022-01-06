@@ -24,6 +24,7 @@ interface ReservationPresenterProps {
   setToggleCheckInAndOut: React.Dispatch<React.SetStateAction<boolean>>;
   checkInOrCheckOutOnClick: () => void;
   createNewReservationOnClick: () => void;
+  cancelReservation: () => void;
   createReservationButtonIsLoading: boolean;
 }
 
@@ -161,6 +162,7 @@ const ReservationPresenter: React.FC<ReservationPresenterProps> = ({
   checkInOrCheckOutOnClick,
   createNewReservationOnClick,
   createReservationButtonIsLoading,
+  cancelReservation,
 }) => {
   // 반복 사용되는 Variable
   const [priceAsString] = [accommodationsData.price.toLocaleString()];
@@ -250,7 +252,14 @@ const ReservationPresenter: React.FC<ReservationPresenterProps> = ({
                     예약하기
                   </RedButton>
                 )}
-                {isReserve && <GrayButton>예약완료!</GrayButton>}
+                {isReserve && (
+                  <GrayButton
+                    onClick={() => cancelReservation()}
+                    isLoading={createReservationButtonIsLoading}
+                  >
+                    예약취소
+                  </GrayButton>
+                )}
               </div>
               <LightColorText underline={true}>
                 ￦{priceAsString}x{totalReservationDate}박
