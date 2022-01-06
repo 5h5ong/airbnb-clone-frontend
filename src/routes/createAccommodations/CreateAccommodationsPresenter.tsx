@@ -34,6 +34,7 @@ const LootContainer = styled.div`
   max-width: ${(props) => props.theme.size.maxWidth};
   margin-left: auto;
   margin-right: auto;
+  margin-top: 60px;
   .title-and-content {
     width: 100%;
     margin: 50px;
