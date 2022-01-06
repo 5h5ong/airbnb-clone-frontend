@@ -150,7 +150,7 @@ const DashboardPresenter: React.FC<DashboardPresenterProps> = ({
             {reservations?.map(
               ({ issuedDate, reservationDate, accommodationData }) => (
                 <TileCardSecondary
-                  url={accommodationData.image[0]}
+                  url={filenameToGcsUrl(accommodationData.image[0])}
                   onClick={() =>
                     changeHistory('reservation', accommodationData.id)
                   }
