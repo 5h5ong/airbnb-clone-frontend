@@ -12,11 +12,13 @@ interface ReservationContainerType {
    * 유저가 예약 생성을 했는지 안 했는지 플래그로 사용 중임.
    */
   requestUserReservationData: ReservationDataType | undefined;
+  setReload: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const ReservationContainer: React.FC<ReservationContainerType> = ({
   accommodationData,
   requestUserReservationData,
+  setReload,
 }) => {
   console.log({ requestUserReservationData: requestUserReservationData });
   const userContextData = useContext(UserContext);
@@ -75,6 +77,7 @@ const ReservationContainer: React.FC<ReservationContainerType> = ({
         });
         setCreateReservationRequestIsLoading(false);
         setIsReserve(true);
+        setReload(true);
       } catch (e) {}
     }
   };
