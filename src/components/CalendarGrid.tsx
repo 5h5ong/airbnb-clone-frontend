@@ -132,84 +132,103 @@ const DateViewer: React.FC<DateViewerProps> = ({
         ))}
         {/* 숫자 삽입 */}
         {/* Array 객체는 0부터 시작하기에 주의해야 함. */}
-        {[...Array(calendarState.lastDate).keys()].map((number) => {
-          const currentDate = new Date(
-            calendarState.year,
-            calendarState.month,
-            number + 1
-          );
+        {/* map에서 for로 수정함. 
+            map은 체크인, 체크아웃 사이의 날짜들의 스타일을 적용하는 과정에 Production에서 undefined를 리턴하는 문제가 있음. */}
+        {(() => {
+          let elements = [];
+          for (const number of [...Array(calendarState.lastDate).keys()]) {
+            const currentDate = new Date(
+              calendarState.year,
+              calendarState.month,
+              number + 1
+            );
 
-          // 체크인, 체크아웃의 값과 같다면 스타일을 적용함
-          if (firstSelectedDate && secondSelectedDate) {
-            // 체크인인지, 체크아웃인지 값을 확인
-            const isCheckin =
-              currentDate.getFullYear() === firstSelectedDate.getFullYear() &&
-              currentDate.getMonth() === firstSelectedDate.getMonth() &&
-              currentDate.getDate() === firstSelectedDate.getDate();
-            const isCheckout =
-              currentDate.getFullYear() === secondSelectedDate.getFullYear() &&
-              currentDate.getMonth() === secondSelectedDate.getMonth() &&
-              currentDate.getDate() === secondSelectedDate.getDate();
-            if (isCheckin || isCheckout) {
-              return (
-                <GridChildSelected
-                  checkinOrCheckout={
-                    isCheckin ? 'checkin' : isCheckout ? 'checkout' : 'normal'
+            /**
+             * 오늘 날의 년과 월이 맞는다면 오늘 날 이전을 회색으로 만들고 onclick 이벤트가 발생하지 않게 만듬.
+             */
+            if (todays.year === calendarState.year) {
+              if (todays.month === calendarState.month) {
+                {
+                  /* number+1 값이 실제 날짜임. 0부터 시작해서 발생하는 문제임. */
+                  if (todays.date > number + 1) {
+                    elements.push(<GridChildGray>{number + 1}</GridChildGray>);
+                    continue;
                   }
-                >
-                  <GridChildSelectedRound>{number + 1}</GridChildSelectedRound>
-                </GridChildSelected>
-              );
-            } else if (
-              currentDate >= firstSelectedDate &&
-              currentDate <= secondSelectedDate
-            ) {
-              return (
-                // 캘린더 비활성화 시 onclick 넣지 않음
-                <GridChildSelected
-                  checkinOrCheckout={'normal'}
-                  onClick={
-                    disableCalendar
-                      ? undefined
-                      : () => {
-                          dateSelectOnClick(currentDate);
-                        }
-                  }
-                >
-                  {number + 1}
-                </GridChildSelected>
-              );
-            }
-          }
-
-          // 오늘 날의 년과 월이 맞는다면 오늘 날 이전을 회색으로 만들고 onclick 이벤트가 발생하지 않게 만듬
-          if (todays.year === calendarState.year) {
-            if (todays.month === calendarState.month) {
-              {
-                /* number+1 값이 실제 날짜임. 0부터 시작해서 발생하는 문제임. */
-                if (todays.date > number + 1) {
-                  return <GridChildGray>{number + 1}</GridChildGray>;
                 }
               }
             }
-          }
 
-          // 다 해당 없으면 기본 스타일
-          // 캘린더 비활성화 시 onclick 넣지 않음
-          return (
-            <GridChild
-              onClick={
-                disableCalendar
-                  ? undefined
-                  : () => {
-                      dateSelectOnClick(currentDate);
+            /**
+             * 체크인, 체크아웃과 날짜가 같다면 그 것들 전용의 스타일을 적용함.
+             * 같지 않다면, 체크인과 체크아웃 사이의 간격에 들어있는 날짜인지 확인하여
+             * 회색 바탕의 스타일을 적용함.
+             */
+            if (firstSelectedDate && secondSelectedDate) {
+              // 체크인인지, 체크아웃인지 값을 확인
+              const isCheckin =
+                currentDate.getFullYear() === firstSelectedDate.getFullYear() &&
+                currentDate.getMonth() === firstSelectedDate.getMonth() &&
+                currentDate.getDate() === firstSelectedDate.getDate();
+              const isCheckout =
+                currentDate.getFullYear() ===
+                  secondSelectedDate.getFullYear() &&
+                currentDate.getMonth() === secondSelectedDate.getMonth() &&
+                currentDate.getDate() === secondSelectedDate.getDate();
+              if (isCheckin || isCheckout) {
+                elements.push(
+                  <GridChildSelected
+                    checkinOrCheckout={
+                      isCheckin ? 'checkin' : isCheckout ? 'checkout' : 'normal'
                     }
+                  >
+                    <GridChildSelectedRound>
+                      {number + 1}
+                    </GridChildSelectedRound>
+                  </GridChildSelected>
+                );
+                continue;
+              } else if (
+                currentDate >= firstSelectedDate &&
+                currentDate <= secondSelectedDate
+              ) {
+                elements.push(
+                  <GridChildSelected
+                    checkinOrCheckout="normal"
+                    onClick={
+                      disableCalendar
+                        ? undefined
+                        : () => {
+                            dateSelectOnClick(currentDate);
+                          }
+                    }
+                  >
+                    <div>{number + 1}</div>
+                  </GridChildSelected>
+                );
+                continue;
               }
-            >
-              {number + 1}
-            </GridChild>
-          );
-        })}
+            }
+
+            /**
+             * 날짜 기본 스타일.
+             * 캘린더를 비활성화 시 onclick 이벤트가 발생되지 않게 만듬.
+             */
+            elements.push(
+              <GridChild
+                onClick={
+                  disableCalendar
+                    ? undefined
+                    : () => {
+                        dateSelectOnClick(currentDate);
+                      }
+                }
+              >
+                {number + 1}
+              </GridChild>
+            );
+          }
+          return elements;
+        })()}
       </Grid>
     </DateViewerContainer>
   );
