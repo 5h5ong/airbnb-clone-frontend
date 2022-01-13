@@ -33,13 +33,6 @@ const Home: React.FC = () => {
       <FirstSection />
       <SecondSection>
         <ImageSection>
-          <Linker link="/experiences">
-            <ImageCard
-              image={`${process.env.PUBLIC_URL}/9882b52e-769b-4af6-84fe-58aabaf4b290.jpg`}
-              title="온라인 체험"
-              description="세계 각지의 호스트가 진행하고 모두 함께하는 독특한 체험을 즐겨보세요."
-            />
-          </Linker>
           <Linker link="/accommodations">
             <ImageCard
               image={`${process.env.PUBLIC_URL}/56e33ab9-d581-4333-be11-69286231cee5.jpg`}
