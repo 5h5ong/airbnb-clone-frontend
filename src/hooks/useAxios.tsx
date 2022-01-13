@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import axios, { AxiosRequestConfig } from 'axios';
 import checkLocalStorage from '../Functions/checkLocalStorage';
 import useIsMounted from './useIsMounted';
@@ -110,16 +110,17 @@ export default <T extends any>(
       return;
     }
   };
+  const requestCallback = useCallback(request, [opts]);
 
   useEffect(() => {
-    !opts.blocking && isMounted() && opts.start === 'now' && request();
+    !opts.blocking && isMounted() && opts.start === 'now' && requestCallback();
   }, []);
   useEffect(() => {
     if (reload && isMounted()) {
-      request();
+      requestCallback();
     }
     setReload(false);
-  }, [reload]);
+  }, [reload, isMounted, requestCallback, setReload]);
 
   return { data, error, loading, setReload };
 };

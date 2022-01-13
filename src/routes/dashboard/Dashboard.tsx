@@ -22,10 +22,18 @@ const Dashboard = () => {
 
   /**
    * context에서 데이터를 다 불러온 후 백엔드에 요청을 함.
+   * @remark
+   * userContext의 user는 object이기 때문에 비어있어도 true로 뜸.
+   * 근데 사실은 user는 비어있는 상태임. 나중에 user가 값을 얻으면
+   * 다시 한 번 useEffect에 걸려서 쓸데 없이 2번이나 요청이 보내짐.
+   * 이를 확실하게 막으려면 isSignIn을 통해 유저 정보를 얻어왔는지
+   * 확인해야 함.
    */
   useEffect(() => {
-    setReload(true);
-  }, [userContextData]);
+    if (userContextData?.user.isSignIn) {
+      setReload(true);
+    }
+  }, [userContextData, setReload]);
 
   /**
    * error가 발생하거나 데이터가 없다면 비정상 요청임. 페이지를 로드하지 말아야 함.
