@@ -33,14 +33,14 @@ const Divider = styled(DividerBase)`
 `;
 const Container = styled.div`
   width: 100%;
-  height: 280px;
+  height: 200px;
   padding: 40px;
 `;
 const Thumbnail = styled.div<ThumbnailStyledType>`
   background-color: gray;
   border-radius: 4px;
   width: 300px;
-  height: 200px;
+  height: 150px;
   background: ${(props) => `url('${props.imageUrl}')`};
   background-size: cover;
   background-repeat: no-repeat;
@@ -52,16 +52,16 @@ const TextContainer = styled.div`
 `;
 // 숙소 이름
 const Name = styled.div`
-  font-size: 25pt;
+  font-size: 20pt;
 `;
 // 숙소 가격
 const Price = styled.div`
-  font-size: 20pt;
+  font-size: 17pt;
   margin-bottom: 20px;
 `;
 // 숙소 설명
 const Description = styled.div`
-  font-size: 12pt;
+  font-size: 10pt;
 `;
 
 const AccommodationsCard: React.FC<AccommodationsCardProps> = ({
@@ -81,7 +81,7 @@ const AccommodationsCard: React.FC<AccommodationsCardProps> = ({
           <TextContainer>
             <Name>{name}</Name>
             <DividerWithMargin />
-            <Price>{price}원</Price>
+            <Price>￦ {price}</Price>
             <Description>{description}</Description>
           </TextContainer>
         </RowSpaceWrapper>

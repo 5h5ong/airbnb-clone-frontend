@@ -24,7 +24,7 @@ const AccommodationsContainer: React.FC = () => {
   useEffect(() => {
     if (data && listRefState) {
       const listElementHeight = listRefState.offsetHeight;
-      const listElementAmount = Math.round(listElementHeight / 280);
+      const listElementAmount = Math.round(listElementHeight / 200);
       setViewportElement(
         // slice()는 start, end에서 end 마지막 부분을 포함하지 않음(end-1).
         data.slice(passedElementCount, passedElementCount + listElementAmount)
