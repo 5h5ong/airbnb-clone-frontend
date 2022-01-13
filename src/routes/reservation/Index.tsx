@@ -7,7 +7,7 @@ import ReservationContainer from './ReservationContainer';
 
 const Index: React.FC = () => {
   const { id } = useParams<{ id: string }>();
-  const { data, error, loading, setReload } = useAxios<AccommodationsDataType>({
+  const { data, loading, setReload } = useAxios<AccommodationsDataType>({
     url: `accommodations/computed/${id}`,
     start: 'now',
   });

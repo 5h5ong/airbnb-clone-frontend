@@ -16,7 +16,7 @@ export interface ImageFile {
   uri: string;
 }
 
-const CreateAccommodationsContainer: React.FC = ({}) => {
+const CreateAccommodationsContainer: React.FC = () => {
   const history = useHistory();
   /**
    * 주소 입력 모달

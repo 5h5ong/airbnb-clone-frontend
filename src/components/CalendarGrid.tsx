@@ -148,12 +148,10 @@ const DateViewer: React.FC<DateViewerProps> = ({
              */
             if (todays.year === calendarState.year) {
               if (todays.month === calendarState.month) {
-                {
-                  /* number+1 값이 실제 날짜임. 0부터 시작해서 발생하는 문제임. */
-                  if (todays.date > number + 1) {
-                    elements.push(<GridChildGray>{number + 1}</GridChildGray>);
-                    continue;
-                  }
+                /* number+1 값이 실제 날짜임. 0부터 시작해서 발생하는 문제임. */
+                if (todays.date > number + 1) {
+                  elements.push(<GridChildGray>{number + 1}</GridChildGray>);
+                  continue;
                 }
               }
             }

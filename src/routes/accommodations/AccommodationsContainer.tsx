@@ -5,7 +5,7 @@ import useDeviceHeight from '../../hooks/useDeviceHeight';
 import AccommodationsPresenter from './AccommodationsPresenter';
 
 const AccommodationsContainer: React.FC = () => {
-  const { loading, error, data } = useAxios<AccommodationsDataType[]>({
+  const { loading, data } = useAxios<AccommodationsDataType[]>({
     url: 'accommodations',
     start: 'now',
   });
