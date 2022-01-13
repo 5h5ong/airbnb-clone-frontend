@@ -53,7 +53,18 @@ export default <T extends any>(
   opts: UseAxiosOption
 ): UseAxiosReturnType & { data: T | undefined } => {
   const isMounted = useIsMounted();
-  const [reload, setReload] = useState(false);
+  /**
+   * 요청 제어
+   * @remarks
+   * 언제 요청을 해야 하는지 opts.start를 참고해 상태를 정함.
+   * true는 요청 진행, false는 요청을 진행하지 않음.
+   */
+  const [reload, setReload] = useState(() => {
+    if (opts.start === 'now') return true;
+    else if (opts.start === 'wait') return false;
+    else if (opts.start === 'wait-with-loading') return false;
+    else return false;
+  });
   /**
    * @remarks
    * 마운트되고 바로 데이터가 필요한 컴포넌트는 useAxios에서 데이터를 얻을 때까지 기다려야 함.
@@ -112,15 +123,17 @@ export default <T extends any>(
   };
   const requestCallback = useCallback(request, [opts]);
 
+  /**
+   * 리퀘스트 조건 확인 & 실행
+   * @remarks
+   * reload의 상태에 따라 요청을 진행할지 말지 결정함.
+   */
   useEffect(() => {
-    !opts.blocking && isMounted() && opts.start === 'now' && requestCallback();
-  }, []);
-  useEffect(() => {
-    if (reload && isMounted()) {
+    if (reload && !opts.blocking && isMounted()) {
       requestCallback();
     }
     setReload(false);
-  }, [reload, isMounted, requestCallback, setReload]);
+  }, [reload, isMounted, requestCallback, setReload, opts.blocking]);
 
   return { data, error, loading, setReload };
 };
