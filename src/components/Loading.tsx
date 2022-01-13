@@ -40,12 +40,12 @@ const AirbnbLogo = styled.div`
  * 커다란 airbnb 로고가 계속 점등함. 항상 전체 페이지에서 중앙에 위치함.
  */
 const Loading = () => {
-  // return (
-  //   <Container>
-  //     <AirbnbLogo />
-  //   </Container>
-  // );
-  return <div></div>;
+  return (
+    <Container>
+      <AirbnbLogo />
+    </Container>
+  );
+  // return <div></div>;
 };
 
 export default Loading;
