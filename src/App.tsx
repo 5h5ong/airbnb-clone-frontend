@@ -55,7 +55,7 @@ const App: React.FC = () => {
         role: memoData.role,
       });
     }
-  }, [memoData, memoLoading]);
+  }, [memoData, memoLoading, error.state, loading]);
 
   return (
     <div className="App">
