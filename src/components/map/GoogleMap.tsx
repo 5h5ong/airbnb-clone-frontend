@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import scriptMaker from '../../Functions/scriptMaker';
 
 interface GoogleMapProps {
@@ -15,17 +15,17 @@ const GoogleMap: React.FC<GoogleMapProps> = ({ inputElement }) => {
   // 현재 표시된 마커들의 집합 -> 마커 삭제에 사용됨
   const [markers, setMarkers] = useState<google.maps.Marker[]>();
 
-  const map = () => {
+  const map = useCallback(() => {
     if (mapRef.current) {
       return new window.google.maps.Map(mapRef.current, {
         center: { lat: 36.0860039, lng: 128.35487555 },
         zoom: 17,
       });
     }
-  };
-  const initMap = () => {
+  }, []);
+  const initMap = useCallback(() => {
     mapElement.current = map();
-  };
+  }, [map]);
 
   useEffect(() => {
     const fetchScript = async () => {
@@ -42,14 +42,10 @@ const GoogleMap: React.FC<GoogleMapProps> = ({ inputElement }) => {
   }, []);
   useEffect(() => {
     !loading && initMap();
-  }, [loading]);
+  }, [loading, initMap]);
 
   // inputElement의 lat, lng에 따라 마커 표시
   useEffect(() => {
-    // 이미 있던 마커들을 제거
-    if (markers) {
-      markers.map((marker) => marker.setMap(null));
-    }
     // 바뀐 inputElement를 토대로 마커 생성
     if (mapElement && inputElement && window.google) {
       const markers = inputElement.map(({ lat, lng }) => {
@@ -58,9 +54,15 @@ const GoogleMap: React.FC<GoogleMapProps> = ({ inputElement }) => {
           map: mapElement.current,
         });
       });
-      setMarkers(markers);
+      setMarkers((prev) => {
+        // 이전의 마커를 맵에서 제거
+        if (prev) {
+          prev.map((marker) => marker.setMap(null));
+        }
+        return markers;
+      });
     }
-  }, [inputElement, window.google]);
+  }, [inputElement]);
   // 마커들이 맵에 전부 보일 수 있게 만듬
   useEffect(() => {
     if (markers) {
