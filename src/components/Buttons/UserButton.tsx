@@ -11,8 +11,8 @@ const Container = styled.div`
   position: relative;
   align-items: center;
   justify-content: center;
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
   background-color: #8c8c8c;
   border-radius: 50%;
 `;
@@ -48,10 +48,10 @@ const ModalItem = styled.div`
 
 const FaUserStyled = styled(FaUser)`
   /* user icon을 검은색으로 */
-  color: #333333;
-  width: 20px;
-  height: 20px;
-  background-color: white;
+  color: white;
+  width: 25px;
+  height: 25px;
+  background-color: #8c8c8c;
   border-radius: 16px;
 `;
 
