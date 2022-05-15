@@ -8,6 +8,7 @@ interface AccommodationsPresenterProps {
   accommodationsData: AccommodationsDataType[];
   viewportElement: AccommodationsDataType[];
   onListScroll: () => void;
+  onClickRoundButton: () => void;
   displayHeight: number;
   setListRefState: React.Dispatch<React.SetStateAction<HTMLDivElement | null>>;
 }
@@ -29,11 +30,23 @@ const ListSection = styled(Half)`
   overflow: scroll;
 `;
 
+const RoundButton = styled.div`
+  position: absolute;
+  background-color: red;
+  z-index: 1;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  left: 50%;
+  transform: translateX(-50%);
+`;
+
 const AccommodationsPresenter: React.FC<AccommodationsPresenterProps> = ({
   accommodationsData,
   viewportElement,
   displayHeight,
   onListScroll,
+  onClickRoundButton,
   setListRefState,
 }) => {
   return (
@@ -44,6 +57,11 @@ const AccommodationsPresenter: React.FC<AccommodationsPresenterProps> = ({
       description="모두가 함께 즐기는 세계 각지의 멋진 숙소"
     >
       <MapAndListContainer height={displayHeight - 80}>
+        <RoundButton
+          onClick={() => {
+            onClickRoundButton();
+          }}
+        />
         <ListSection
           ref={(el) => setListRefState(el)}
           onScroll={() => onListScroll()}

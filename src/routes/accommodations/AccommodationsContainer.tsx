@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Loading from '../../components/Loading';
+import moveScroll from '../../Functions/moveScroll';
 import useAxios from '../../hooks/useAxios';
 import useDeviceHeight from '../../hooks/useDeviceHeight';
 import AccommodationsPresenter from './AccommodationsPresenter';
@@ -45,6 +46,10 @@ const AccommodationsContainer: React.FC = () => {
     }
   };
 
+  const onClickRoundButton = () => {
+    moveScroll(0);
+  };
+
   return loading ? (
     <Loading />
   ) : (
@@ -54,6 +59,7 @@ const AccommodationsContainer: React.FC = () => {
       viewportElement={viewportElement!}
       displayHeight={height}
       onListScroll={onAccommodationsListScroll}
+      onClickRoundButton={onClickRoundButton}
       setListRefState={setListRefState}
     />
   );
