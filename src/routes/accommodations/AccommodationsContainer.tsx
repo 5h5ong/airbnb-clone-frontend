@@ -3,6 +3,7 @@ import Loading from '../../components/Loading';
 import moveScroll from '../../Functions/moveScroll';
 import useAxios from '../../hooks/useAxios';
 import useDeviceHeight from '../../hooks/useDeviceHeight';
+import useScroll from '../../hooks/useScroll';
 import AccommodationsPresenter from './AccommodationsPresenter';
 
 const AccommodationsContainer: React.FC = () => {
@@ -20,6 +21,7 @@ const AccommodationsContainer: React.FC = () => {
     AccommodationsDataType[]
   >();
   const [listRefState, setListRefState] = useState<HTMLDivElement | null>(null);
+  const { isEnd } = useScroll();
 
   // 보여지는 elements를 viewportElement에 저장
   useEffect(() => {
@@ -32,6 +34,18 @@ const AccommodationsContainer: React.FC = () => {
       );
     }
   }, [data, listRefState, passedElementCount]);
+
+  useEffect(() => {
+    if (isEnd) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isEnd]);
 
   const onAccommodationsListScroll = () => {
     // scrollTop을 list element의 높이로 나눔.
