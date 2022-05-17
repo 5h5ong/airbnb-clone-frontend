@@ -1,8 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
+import { BiArrowToTop } from 'react-icons/bi';
 import PageLayoutWithDivide from '../../components/Layouts/PageLayoutWithDivide';
 import GoogleMap from '../../components/map/GoogleMap';
 import AccommodationsLists from '../../components/lists/AccommodationsLists';
+import { Shadow } from '../../styles/sharedStyled';
 
 interface AccommodationsPresenterProps {
   accommodationsData: AccommodationsDataType[];
@@ -30,15 +32,23 @@ const ListSection = styled(Half)`
   overflow: scroll;
 `;
 
-const RoundButton = styled.div`
+const RoundButton = styled(Shadow)`
+  display: flex;
   position: absolute;
-  background-color: red;
+  background-color: white;
   z-index: 1;
   width: 45px;
   height: 45px;
-  border-radius: 50%;
+  border-bottom-left-radius: 50%;
+  border-bottom-right-radius: 50%;
   left: 50%;
   transform: translateX(-50%);
+`;
+
+const BiArrowStyled = styled(BiArrowToTop)`
+  width: 30px;
+  height: 30px;
+  margin: auto;
 `;
 
 const AccommodationsPresenter: React.FC<AccommodationsPresenterProps> = ({
@@ -61,7 +71,9 @@ const AccommodationsPresenter: React.FC<AccommodationsPresenterProps> = ({
           onClick={() => {
             onClickRoundButton();
           }}
-        />
+        >
+          <BiArrowStyled />
+        </RoundButton>
         <ListSection
           ref={(el) => setListRefState(el)}
           onScroll={() => onListScroll()}
