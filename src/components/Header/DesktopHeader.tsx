@@ -14,7 +14,7 @@ interface DesktopHeaderProps {
 
 const HeaderBase = styled.div`
   display: flex;
-  z-index: 100;
+  z-index: 1;
   justify-content: space-between;
   align-items: center;
   position: fixed;
