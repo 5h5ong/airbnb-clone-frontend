@@ -30,6 +30,7 @@ interface ReservationPresenterProps {
 
 const LootContainer = styled.div`
   margin: auto;
+  margin-bottom: 100px;
   max-width: ${(props) => props.theme.size.maxWidth};
 `;
 const TopTitleSection = styled.div`
