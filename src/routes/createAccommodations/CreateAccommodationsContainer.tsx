@@ -72,18 +72,19 @@ const CreateAccommodationsContainer: React.FC = () => {
     let result: ImageFile[] = [];
 
     if (files) {
-      if (files.length > 5) alert('이미지는 5개 이하만 업로드가 가능합니다.');
-      for (let i = 0; i <= 4; i++) {
-        result = [
-          ...result,
-          {
-            file: files[i],
-            uri: await fileToDataUri(files[i]),
-          },
-        ];
+      if (files.length > 5) {
+        // Reset File Input
+        e.target.value = '';
+        alert('이미지는 5개 이하만 업로드가 가능합니다.');
+        return;
+      }
+      for (const file of files) {
+        result = [...result, { file: file, uri: await fileToDataUri(file) }];
       }
       setImage(result);
     }
+
+    return;
   };
 
   /**
