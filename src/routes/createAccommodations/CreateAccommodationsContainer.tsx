@@ -49,6 +49,7 @@ const CreateAccommodationsContainer: React.FC = () => {
   const handleCompletePostcode = (data: Address) => {
     const fullAddress = data.address;
     setAddress(fullAddress);
+    changeModalToggle();
   };
 
   /**
