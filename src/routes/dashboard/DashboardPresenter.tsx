@@ -77,6 +77,11 @@ const TileCard = styled.div<{ url: string }>`
     grid-column: 3 / 4;
     grid-row: 1 / 2;
   }
+  .overflow {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
 `;
 const DeleteButton = styled(BaseButtonStyle)`
   width: 40px;
@@ -136,8 +141,8 @@ const DashboardPresenter: React.FC<DashboardPresenterProps> = ({
                 >
                   <FaTrash />
                 </DeleteButton>
-                <div className="text large bold">{name}</div>
-                <div className="text small">{address}</div>
+                <div className="text large bold overflow">{name}</div>
+                <div className="text small overflow">{address}</div>
               </TileCard>
             ))}
           </TileGrid>
